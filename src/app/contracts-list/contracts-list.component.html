@@ -1,0 +1,15 @@
+<div>
+<div *ngFor="let contract of contracts$ | async" class="grid-container">
+  <div class="grid-item">{{contract.idcontract}}</div>
+  <div class="grid-item">{{contract.title}}</div>
+  <div class="grid-item">{{contract.exchange}}</div>
+  <div class="grid-item">{{contract.currency}}</div>
+  <div class="grid-item">{{contract.symbol}}</div>
+  <div class="grid-item">{{contract.tickSize}}</div>
+  <div class="grid-item">{{contract.multiplier}}</div>
+  <div class="grid-item">{{contract.expiration}}</div>
+  <div class="grid-item">{{contract.firstNotice}}</div>
+  <div class="grid-item">{{contract.active}}</div>
+  <div class="grid-item">{{contract.flowType}}</div>
+  <div class="grid-item">{{contract.fusion}}</div>
+</div>
