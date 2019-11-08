@@ -1,15 +1,23 @@
-<div>
 <div *ngFor="let contract of contracts$ | async" class="grid-container">
-  <div class="grid-item">{{contract.idcontract}}</div>
-  <div class="grid-item">{{contract.title}}</div>
-  <div class="grid-item">{{contract.exchange}}</div>
-  <div class="grid-item">{{contract.currency}}</div>
-  <div class="grid-item">{{contract.symbol}}</div>
-  <div class="grid-item">{{contract.tickSize}}</div>
-  <div class="grid-item">{{contract.multiplier}}</div>
-  <div class="grid-item">{{contract.expiration}}</div>
-  <div class="grid-item">{{contract.firstNotice}}</div>
-  <div class="grid-item">{{contract.active}}</div>
-  <div class="grid-item">{{contract.flowType}}</div>
-  <div class="grid-item">{{contract.fusion}}</div>
+  <div class="grid-item short-size">{{contract.idcontract}}</div>
+  <div [tooltip]="HtmlContent" content-type="template" [show-delay]="1000"
+       class="grid-item"  *ngIf="contract.fusion ==0; else falsyTemplate">{{contract.symbol}}<span>.{{contract.currency}} {{contract.expiration | date:'MMMyy'}} @{{contract.exchange}}</span></div>
+
+  <ng-template #falsyTemplate>
+    <div [tooltip]="HtmlContent" content-type="template" [show-delay]="1000"
+         class="grid-item">{{contract.symbol}}<span>.{{contract.currency}}{{contract.fusion}} {{contract.expiration | date:'MMMyy'}} @{{contract.exchange}}</span></div>
+  </ng-template>
+  <div class="price">2075.25</div>
+
+  <ng-template #HtmlContent  class="tool-tip">
+    <div class="tool-tip">
+      <div>{{contract.title}}</div>
+      <div>Expiration: {{contract.expiration | date: 'dd MMM yyyy'}}</div>
+      <div>First Notice: {{contract.firstNotice | date: 'dd MMM yyyy'}}</div>
+      <div>Tick Size: {{contract.tickSize}}</div>
+      <div>Multiplier: {{contract.multiplier}}</div>
+    </div>
+  </ng-template>
 </div>
+
+

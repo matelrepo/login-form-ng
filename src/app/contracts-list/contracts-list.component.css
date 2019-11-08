@@ -1,6 +1,31 @@
+
 .grid-container {
+  width:60%;
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: 7% 20% 100px;
+}
+
+.tool-tip{
+text-align: left;
+}
+
+.tool-tip div:first-child, .tool-tip div:last-child{
+  margin-bottom: 10px;
+}
+
+.grid-container div{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-bottom:2px;
+}
+
+span{
+  font-size: 10px;
+}
+
+.price{
+  text-align: right;
 }
 
 

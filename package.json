@@ -21,6 +21,7 @@
     "@angular/router": "~8.2.13",
     "@auth0/angular-jwt": "^3.0.1",
     "@stomp/ng2-stompjs": "^7.2.0",
+    "ng2-tooltip-directive": "^2.8.17",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

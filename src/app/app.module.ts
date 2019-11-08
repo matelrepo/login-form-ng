@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
+import {TooltipModule} from 'ng2-tooltip-directive';
 
 
 import { AppComponent } from './app.component';
@@ -26,7 +27,8 @@ import { ContractsListComponent } from './contracts-list/contracts-list.componen
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routesConfig)
+    RouterModule.forRoot(routesConfig),
+    TooltipModule
   ],
   providers: [RoleGuardService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     RxStompService
