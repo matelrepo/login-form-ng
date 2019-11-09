@@ -2,7 +2,7 @@
 .grid-container {
   width:60%;
   display: grid;
-  grid-template-columns: 7% 20% 100px;
+  grid-template-columns: 7% 25% 100px;
 }
 
 .tool-tip{

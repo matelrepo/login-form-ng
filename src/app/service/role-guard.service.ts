@@ -9,18 +9,15 @@ export class RoleGuardService implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    // const expectedRole = route.data.expectedRole;
+    console.log(this.auth.helper.isTokenExpired(this.auth.jwtToken))
+    console.log(this.auth.helper.getTokenExpirationDate(this.auth.jwtToken))
 
-    // if (expectedRole === "assistant" && this.auth.getUser().isAssistant) return true;
-    // if (expectedRole === "trader" && this.auth.getUser().isTrader) return true;
-    // if (expectedRole === "student" && this.auth.getUser().isStudent) return true;
-    console.log(this.auth.isLoggedIn());
-    if (!this.auth.isLoggedIn()) {
+    console.log(this.auth.user.getValue())
+    if (this.auth.user.getValue().isTrader && !this.auth.helper.isTokenExpired(this.auth.jwtToken)) {
+      return true;
+    } else {
       this.router.navigate(['/login']);
       return false;
-    } else {
-      return true;
     }
-
   }
 }
