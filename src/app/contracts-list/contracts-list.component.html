@@ -1,11 +1,12 @@
 <div *ngFor="let contract of contracts$ | async" class="grid-container">
   <div class="grid-item short-size">{{contract.idcontract}}</div>
   <div [tooltip]="HtmlContent" content-type="template" [show-delay]="1000"
-       class="grid-item"  *ngIf="contract.fusion ==0; else falsyTemplate">{{contract.symbol}}<span>.{{contract.currency}} {{contract.expiration | date:'MMMyy'}} @{{contract.exchange}}</span></div>
+       class="grid-item"  (click)="marketData(contract.idcontract)"
+       *ngIf="contract.fusion ==0; else falsyTemplate">{{contract.symbol}}<span>.{{contract.currency}} {{contract.expiration | date:'MMMyy'}} @{{contract.exchange}}</span></div>
 
   <ng-template #falsyTemplate>
     <div [tooltip]="HtmlContent" content-type="template" [show-delay]="1000"
-         class="grid-item">{{contract.symbol}}<span>.{{contract.currency}}{{contract.fusion}} {{contract.expiration | date:'MMMyy'}} @{{contract.exchange}}</span></div>
+         class="grid-item" (click)="marketData(contract.idcontract)">{{contract.symbol}}<span>.{{contract.currency}}{{contract.fusion}} {{contract.expiration | date:'MMMyy'}} @{{contract.exchange}}</span></div>
   </ng-template>
   <div class="price">{{this.prices.get(contract.idcontract)}}</div>
 

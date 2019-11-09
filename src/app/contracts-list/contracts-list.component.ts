@@ -12,6 +12,8 @@ export class ContractsListComponent implements OnInit, OnDestroy {
   contracts$;
   prices = new Map();
   subscriptionPrice: Subscription;
+  // isConnected = true;
+  connections = new Map();
 
   ngOnDestroy() {
     this.subscriptionPrice.unsubscribe();
@@ -27,6 +29,11 @@ export class ContractsListComponent implements OnInit, OnDestroy {
         this.prices.set( JSON.parse(message.body).idcontract, JSON.parse(message.body).close);
         // console.log(this.prices);
       });
+  }
+
+  marketData(idcontract: number){
+    this.isConnected = !this.isConnected;
+    this.data.connect(this.isConnected, idcontract).subscribe()
   }
 
 

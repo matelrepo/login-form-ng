@@ -45,11 +45,15 @@ export class DataService {
     return this.http.get<Contract[]>('http://localhost:8080/contracts');
   }
 
-  // helpers
   turnPause(value, delay) {
     setTimeout(() => {
       this.pauseSubj$.next(value);
     }, delay);
+  }
+
+  connect(connect: boolean, idcontract: number){
+    console.log(connect + ' ' + idcontract);
+    return this.http.post<boolean>('http://localhost:8080/connect/'+ idcontract, {connect: connect});
   }
 
   // getLiveCandles(): Observable<IMessage> {
