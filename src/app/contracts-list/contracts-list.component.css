@@ -1,8 +1,21 @@
 
 .grid-container {
-  width:60%;
+  width: 100%;
+}
+
+.comp:hover{
+  /*background-color: blue !important;*/
+  border: 1px solid gray;
+}
+
+.grid-item:hover{
+}
+
+.comp{
+  margin: 0 auto;
+  width:100%;
   display: grid;
-  grid-template-columns: 7% 25% 100px;
+  grid-template-columns: 20px auto 100px;
 }
 
 .tool-tip{
@@ -13,11 +26,21 @@ text-align: left;
   margin-bottom: 10px;
 }
 
-.grid-container div{
+.grid-container div div:hover {
+  cursor: pointer;
+}
+
+.grid-container div div{
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  margin-bottom:2px;
+  padding:2px;
+  border: 1px solid lightgray;
+  padding-left: 3px;
+}
+
+.grid-container div div:first-child{
+  font-size: 13px;
 }
 
 span{
@@ -26,7 +49,44 @@ span{
 
 .price{
   text-align: right;
+  font-size: 13px;
 }
+
+.price:hover{
+}
+
+.price-up{
+  background-color: green;
+  color: white;
+}
+
+.price-down{
+  background-color: red;
+  color: white;
+}
+
+.connect {
+  margin-top:35%;
+  margin-left:20%;
+  color: green;
+  height: 4px;
+  width:4px;
+  background-color: green;
+  border-radius: 100%;
+}
+
+.disconnect {
+  margin-top:20%;
+  margin-left:20%;
+  color: red;
+  height: 5px;
+  width:5px;
+  background-color: red;
+  border-radius: 100%;
+}
+
+
+
 
 
 

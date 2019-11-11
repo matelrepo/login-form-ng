@@ -1,0 +1,19 @@
+
+div{
+  background-color: lightgray;
+  display:flex;
+  justify-content: flex-end;
+}
+
+.container{
+  height:40px;
+}
+
+.container > div {
+  margin: 10px;
+}
+
+.container div:last-child{
+  margin-right: 30px;
+}
+

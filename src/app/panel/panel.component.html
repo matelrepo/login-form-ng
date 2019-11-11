@@ -1,5 +1,30 @@
-<div class="container">
-<p>Welcome {{user.username}}</p>
-<app-contracts-list></app-contracts-list>
 
-</div>
+<nav id="navbar"><app-header></app-header></nav>
+<section (scroll)="onWindowScroll($event)">
+    <div class="contract-list">
+      <div id="list-contract-gap"></div>
+      <div id="list-contract-gap-op"></div>
+      <div><app-contracts-list></app-contracts-list></div>
+    </div>
+  <div class="chart-panel" >
+    <div class="sticky" >
+      <div class="chart" id="display-chart-1" (click)="clickOnChart('display-chart-1')"><app-chart></app-chart></div>
+      <div class="chart" id="display-chart-2" (click)="clickOnChart('display-chart-2')"><app-chart></app-chart></div>
+      <div class="chart" id="display-chart-3" (click)="clickOnChart('display-chart-3')"><app-chart></app-chart></div>
+      <div class="chart" id="display-chart-4" (click)="clickOnChart('display-chart-4')"><app-chart></app-chart></div>
+      <div class="chart" id="display-chart-5" (click)="clickOnChart('display-chart-5')"><app-chart></app-chart></div>
+      <div class="chart" id="display-chart-6" (click)="clickOnChart('display-chart-6')"><app-chart></app-chart></div>
+      <div class="chart" id="display-chart-7" (click)="clickOnChart('display-chart-7')"><app-chart></app-chart></div>
+      <div class="chart" id="display-chart-8" (click)="clickOnChart('display-chart-8')"><app-chart></app-chart></div>
+      <div class="chart" id="display-chart-9" (click)="clickOnChart('display-chart-9')"><app-chart></app-chart></div>
+      <div class="chart" id="display-chart-10" (click)="clickOnChart('display-chart-10')"><app-chart></app-chart></div>
+      <div class="chart" id="display-chart-11" (click)="clickOnChart('display-chart-11')"><app-chart></app-chart></div>
+      <div class="chart" id="display-chart-12" (click)="clickOnChart('display-chart-12')"><app-chart></app-chart></div>
+
+    </div>
+  </div>
+</section>
+
+
+
+

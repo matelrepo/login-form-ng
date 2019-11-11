@@ -12,7 +12,6 @@ import {Router} from '@angular/router';
 export const ANONYMOUS_USER: User = {
   id: undefined,
   username: '',
-  password: '',
   isTrader: false
 };
 

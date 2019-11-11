@@ -4,3 +4,5 @@ export interface User {
   password?: string;
   isTrader: boolean;
 }
+
+

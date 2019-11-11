@@ -1,3 +1,76 @@
-.container{
-  margin-left: 10px;
+section{
+  width:100%;
+  display: flex;
 }
+
+.contract-list {
+  width:25%;
+  margin: 10px;
+}
+
+.chart-panel{
+  width:100%;
+  margin:10px 10px 10px 0;
+}
+
+.chart{
+  margin: 2px;
+  order: 1;
+  height:200px;
+  background-color: #e7e7e7;
+  border: 1px solid #878787;
+}
+
+.chart-selected{
+  margin: 2px;
+  order: 0;
+  grid-column: span 4;
+  grid-row: span 3;
+  height:600px;
+  background-color: #e7e7e7;
+  border: 1px solid #878787;
+}
+
+.sticky {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-row: 200px 200px;
+  position: sticky;
+  top: 50px;
+}
+
+nav{
+  height:40px;
+}
+.sticky2 {
+  z-index: 1;
+  background: #fff;
+  box-shadow: 0 3px 12px 0 rgba(0,0,0,.08);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  /*animation: fadein 1s;*/
+}
+
+.list-gap{
+  position: sticky;
+  top: 0;
+  height:50px;
+  background-color: white;
+  opacity: 0.97;
+}
+
+@keyframes fadein {
+  from {
+    opacity:0.5;
+  }
+  to {
+    opacity:1;
+  }
+}
+
+
+
+
+

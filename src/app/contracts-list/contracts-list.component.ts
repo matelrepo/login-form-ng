@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Contract} from '../config/contract';
 import {DataService} from '../service/data.service';
 import {Subscription} from 'rxjs';
+import {GeneratorState} from '../config/generatorState';
 
 @Component({
   selector: 'app-contracts-list',
@@ -10,41 +10,49 @@ import {Subscription} from 'rxjs';
 })
 export class ContractsListComponent implements OnInit, OnDestroy {
   contracts$;
-  prices = new Map();
-  subscriptionPrice: Subscription;
-  // isConnected = true;
-  connections = new Map();
-
-  ngOnDestroy() {
-    this.subscriptionPrice.unsubscribe();
-  }
+  generatorsState: Map<number, GeneratorState> = new Map<number, GeneratorState>();
+  subscriptionMarketData: Subscription;
 
   constructor(private data: DataService) { }
 
   ngOnInit() {
-    this.contracts$ = this.data.getContracts();
-    this.subscriptionPrice =  this.data
-      .result$
+    this.contracts$ = this.data.getContracts()
+
+    this.subscriptionMarketData =  this.data.getLivePrices()
       .subscribe((message) => {
-        this.prices.set( JSON.parse(message.body).idcontract, JSON.parse(message.body).close);
-        // console.log(this.prices);
+        Object.keys(JSON.parse(message.body)).forEach(key => {
+          this.generatorsState.set(JSON.parse(message.body)[key].idContract, JSON.parse(message.body)[key]);
+        });
       });
   }
 
   marketData(idcontract: number){
-    this.isConnected = !this.isConnected;
-    this.data.connect(this.isConnected, idcontract).subscribe()
+    this.generatorsState.get(idcontract).connected = !this.generatorsState.get(idcontract).connected;
+    if(this.generatorsState.get(idcontract).connected) {
+      this.data.connect(idcontract).subscribe(() => {
+      })
+    }else{
+      this.data.disconnect(idcontract).subscribe(() => {
+      })
+    }
   }
 
+  //
+  //
+  // on() {
+  //   this.data.turnPause(true, 10);
+  // }
+  //
+  // off() {
+  //   this.data.turnPause(false, 10);
+  // }
 
-
-  on() {
-    this.data.turnPause(true, 10);
+  addClass(event){
+    event.target.className = event.target.className.replace('myClass', '');
   }
 
-  off() {
-    this.data.turnPause(false, 10);
-
+  ngOnDestroy() {
+    this.subscriptionMarketData.unsubscribe();
   }
 
 }

@@ -1,43 +1,24 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {User} from '../config/user';
-import {ANONYMOUS_USER} from './auth.service';
 import {Contract} from '.././config/contract';
-import {HttpClient, HttpResponse} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {RxStompService} from '@stomp/ng2-stompjs';
 import {rxStompConfig} from '../config/rxStompConfig';
+import {BehaviorSubject, Observable} from 'rxjs';
 import { IMessage } from '@stomp/stompjs';
-import {distinctUntilChanged, startWith, filter, windowToggle, flatMap, tap} from 'rxjs/operators';
 
+
+
+export const DEFAULT_CONTRACT: Contract = {
+  id: 5,
+  symbol: 'ES'
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  // contracts = new BehaviorSubject([]);
-  // contracts$: Observable<Contract[]> = this.contracts.asObservable();
-
-  pace = 0;
-
-   pauseSubj$: Subject<boolean> = new Subject();
-   pause$: Observable<boolean> = this.pauseSubj$.pipe(
-    startWith(false),
-    distinctUntilChanged()
-  );
-
-   ons$ = this.pause$.pipe(filter(v => v));
-   offs$ = this.pause$.pipe(filter(v => !v));
-
-   result$ = this.rxStompService.watch('/get/live', rxStompConfig.connectHeaders).pipe(
-     tap(x => {
-       this.pace = this.pace + 1;
-     }),
-    windowToggle(
-      this.offs$,
-      () => this.ons$
-    ),
-    flatMap(x => x)
-  );
+  private activeContract = new BehaviorSubject(DEFAULT_CONTRACT);
+  activeContract$: Observable<Contract> = this.activeContract.asObservable();
 
   constructor(private http: HttpClient, private rxStompService: RxStompService) {}
 
@@ -45,18 +26,19 @@ export class DataService {
     return this.http.get<Contract[]>('http://localhost:8080/contracts');
   }
 
-  turnPause(value, delay) {
-    setTimeout(() => {
-      this.pauseSubj$.next(value);
-    }, delay);
+  getLiveTicks(idcontract: number): Observable<IMessage>{
+    return this.rxStompService.watch('/get/tick-live/' + idcontract, rxStompConfig.connectHeaders);
   }
 
-  connect(connect: boolean, idcontract: number){
-    console.log(connect + ' ' + idcontract);
-    return this.http.post<boolean>('http://localhost:8080/connect/'+ idcontract, {connect: connect});
+  getLivePrices(): Observable<IMessage>{
+    return this.rxStompService.watch('/get/prices', rxStompConfig.connectHeaders);
   }
 
-  // getLiveCandles(): Observable<IMessage> {
-  //   return this.rxStompService.watch('/get/live', rxStompConfig.connectHeaders).pipe();
-  // }
+  connect(idContract: number){
+    return this.http.post<boolean>('http://localhost:8080/connect/'+ idContract, true);
+  }
+
+  disconnect(idContract: number){
+    return this.http.post<boolean>('http://localhost:8080/connect/'+ idContract, false);
+  }
 }

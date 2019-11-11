@@ -1,28 +1,50 @@
 <div *ngFor="let contract of contracts$ | async" class="grid-container">
-  <div class="grid-item short-size">{{contract.idcontract}}</div>
-  <div [tooltip]="HtmlContent" content-type="template" [show-delay]="1000"
-       class="grid-item"  (click)="marketData(contract.idcontract)"
-       *ngIf="contract.fusion ==0; else falsyTemplate">{{contract.symbol}}<span>.{{contract.currency}} {{contract.expiration | date:'MMMyy'}} @{{contract.exchange}}</span></div>
+  <div class="comp" (mouseover)="addClass($event)">
+    <div class="grid-item"
+         *ngIf="this.generatorsState.get(contract.idcontract) != undefined"
+         [ngClass]="{'disconnect': !this.generatorsState.get(contract.idcontract).connected,
+       'connect' : this.generatorsState.get(contract.idcontract).connected}"
+         [tooltip]="tipId" content-type="template" [show-delay]="1000"
+         (click)="marketData(contract.idcontract)">{{contract.idcontract}}</div>
 
-  <ng-template #falsyTemplate>
-    <div [tooltip]="HtmlContent" content-type="template" [show-delay]="1000"
-         class="grid-item" (click)="marketData(contract.idcontract)">{{contract.symbol}}<span>.{{contract.currency}}{{contract.fusion}} {{contract.expiration | date:'MMMyy'}} @{{contract.exchange}}</span></div>
-  </ng-template>
-  <div class="price">{{this.prices.get(contract.idcontract)}}</div>
+    <div class="grid-item"
+         [tooltip]="tipContract" content-type="template" [show-delay]="2000"
+         *ngIf="contract.fusion ==0; else falsyTemplate">{{contract.symbol}}
+      <span>.{{contract.currency}} {{contract.expiration | date:'MMMyy'}} @{{contract.exchange}}</span></div>
 
-  <ng-template #HtmlContent  class="tool-tip">
-    <div class="tool-tip">
-      <div>{{contract.title}}</div>
-      <div>Expiration: {{contract.expiration | date: 'dd MMM yyyy'}}</div>
-      <div>First Notice: {{contract.firstNotice | date: 'dd MMM yyyy'}}</div>
-      <div>Tick Size: {{contract.tickSize}}</div>
-      <div>Multiplier: {{contract.multiplier}}</div>
-    </div>
-  </ng-template>
+    <ng-template #falsyTemplate>
+      <div [tooltip]="tipContract" content-type="template" [show-delay]="2000"
+           class="grid-item">{{contract.symbol}}
+        <span>.{{contract.currency}}{{contract.fusion}} {{contract.expiration | date:'MMMyy'}}
+          @{{contract.exchange}}</span></div>
+    </ng-template>
+
+    <div *ngIf="this.generatorsState.get(contract.idcontract) != undefined"
+         class="price"
+         [ngClass]="{'price-up':this.generatorsState.get(contract.idcontract).update>0, 'price-down': this.generatorsState.get(contract.idcontract).update<0}">{{this.generatorsState.get(contract.idcontract).lastPrice}}</div>
+
+    <ng-template #tipId class="tool-tip">
+      <div class="tool-tip">
+        <div>{{contract.symbol}} ({{contract.idcontract}}) -
+          Connected: {{this.generatorsState.get(contract.idcontract).connected}}</div>
+      </div>
+    </ng-template>
+
+    <ng-template #tipContract class="tool-tip">
+      <div class="tool-tip">
+        <div>{{contract.title}}</div>
+        <div>Expiration: {{contract.expiration | date: 'dd MMM yyyy'}}</div>
+        <div>First Notice: {{contract.firstNotice | date: 'dd MMM yyyy'}}</div>
+        <div>Tick Size: {{contract.tickSize}}</div>
+        <div>Multiplier: {{contract.multiplier}}</div>
+      </div>
+    </ng-template>
+
+  </div>
 </div>
 
-<button (click)="on()">on</button>
-<button (click)="off()">off</button>
+<!--<button (click)="on()">on</button>-->
+<!--<button (click)="off()">off</button>-->
 
 
 
