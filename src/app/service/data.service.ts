@@ -5,6 +5,7 @@ import {RxStompService} from '@stomp/ng2-stompjs';
 import {rxStompConfig} from '../config/rxStompConfig';
 import {BehaviorSubject, Observable} from 'rxjs';
 import { IMessage } from '@stomp/stompjs';
+import {Message} from '@angular/compiler/src/i18n/i18n_ast';
 
 
 
@@ -17,10 +18,13 @@ export const DEFAULT_CONTRACT: Contract = {
   providedIn: 'root'
 })
 export class DataService {
-  private activeContract = new BehaviorSubject(DEFAULT_CONTRACT);
-  activeContract$: Observable<Contract> = this.activeContract.asObservable();
+
+  private activeContract = new BehaviorSubject(DEFAULT_CONTRACT)
+  activeContract$: Observable<Contract> = this.activeContract.asObservable()
 
   constructor(private http: HttpClient, private rxStompService: RxStompService) {}
+
+
 
   getContracts() {
     return this.http.get<Contract[]>('http://localhost:8080/contracts');

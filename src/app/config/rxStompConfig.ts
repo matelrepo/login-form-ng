@@ -2,7 +2,7 @@ import { InjectableRxStompConfig } from '@stomp/ng2-stompjs';
 
 export const rxStompConfig: InjectableRxStompConfig = {
   // Which server?
-  brokerURL: 'ws://127.0.0.1:8080/api-feed',
+  brokerURL: 'ws://127.0.0.1:8080/api',
   // brokerURL: 'ws://51.77.148.255:8081/api-feed',
 
   // Headers

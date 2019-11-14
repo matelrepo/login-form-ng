@@ -89,20 +89,13 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     });
 
+    const worker = new Worker('../worker/fetcher.worker', { type: 'module'});
+    worker.onmessage = (message) => {
+      console.log(`Got message`, message.data);
+    };
 
+    worker.postMessage({freq: this.freq});
 
-    // this.contractService.getActiveContract().subscribe((contract: Contract) => {
-    //   // if (this.activeContract.freq != contract.freq) {
-    //   //   this.activeContract = contract;
-    //   //   this.reqFreqChange();
-    //   // }
-    //   this.activeContract = contract;
-    //   if (this.activeContract != undefined) {
-    //     this.unSubscribeHisto();
-    //     this.subscribeHisto();
-    //     this.dataService.reqHistoCandles(this.activeContract);
-    //   }
-    // });
   }
 
   // subscribeHisto() {
