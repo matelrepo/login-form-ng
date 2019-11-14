@@ -27,7 +27,7 @@ export class DataService {
   }
 
   getLiveTicks(idcontract: number): Observable<IMessage>{
-    return this.rxStompService.watch('/get/tick-live/' + idcontract, rxStompConfig.connectHeaders);
+    return this.rxStompService.watch('/get/candle-live/' + idcontract, rxStompConfig.connectHeaders);
   }
 
   getLivePrices(): Observable<IMessage>{

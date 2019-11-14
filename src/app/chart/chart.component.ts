@@ -5,7 +5,7 @@ import {
   ViewChild,
   ElementRef,
   Output,
-  EventEmitter, AfterViewInit
+  EventEmitter, AfterViewInit, Input, OnChanges
 } from '@angular/core';
 import {Message} from '@stomp/stompjs';
 import {Subscription, Subject} from 'rxjs';
@@ -23,6 +23,8 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // @Output() activeComponent = new EventEmitter()
   @ViewChild('chartRef', {static: false}) canvasRef: ElementRef
+  @ViewChild('divRef', {static: false}) divRef: ElementRef
+  resize$
 
   private widthChart
   private heightChart
@@ -32,6 +34,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   // private candlesLive$: Subscription
   // private candlesHisto$: Subscription
 
+  @Input() freq;
   private widthCandle = 3;
   private width = 5;
   private min;
@@ -55,27 +58,37 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(){
     this.gc = this.canvasRef.nativeElement.getContext('2d')
+    // this.divRef.nativeElement.clientWidth.asObservable().subscribe((width => {
+    //   this.canvasRef.nativeElement.width = width
+    //   this.canvasRef.nativeElement.height = this.divRef.nativeElement.clientHeight
+    // }))
     this.canvasRef.nativeElement.style.width = '100%'
     this.canvasRef.nativeElement.style.height = '100%'
     this.widthChart = this.canvasRef.nativeElement.width
     this.heightChart = this.canvasRef.nativeElement.height
-
   }
 
   ngOnInit() {
     this.dataService.activeContract$.subscribe( contract => {
       this.activeContract = contract
-      console.log(contract)
+      // console.log(contract)
       //sub histo
       //sub live
       this.dataService.getLiveTicks(this.activeContract.id).subscribe(mes => {
-        this.candles.unshift(JSON.parse(mes.body))
-        this.draw()
-        console.log(this.candles[0])
-        if(this.candles.length>100)
-          this.candles.pop();
+        const candle: Candle = JSON.parse(mes.body);
+        if (this.freq == candle.freq) {
+          if (candle.newCandle) {
+            this.candles.unshift(candle)
+          } else {
+            this.candles[0] = candle
+          }
+          this.draw()
+          if (this.candles.length > 100)
+            this.candles.pop();
+        }
       });
     });
+
 
 
     // this.contractService.getActiveContract().subscribe((contract: Contract) => {
@@ -196,7 +209,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
       this.gc.lineTo(time + this.widthCandle / 2, low);
       this.gc.stroke();
 
-      console.log(open + " " + high + " " + low + " " + close)
+      // console.log(open + " " + high + " " + low + " " + close)
 
       if (candle.open <= candle.close) {
         this.gc.fillStyle = this.colorUp;
@@ -265,34 +278,44 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   //   this.draw();
   // }
   //
-  // onMouseMove(ev: MouseEvent) {
-  //   if (this.isDrag) {
-  //     this.dragEnd = this.dragCumul + ev.clientX - this.dragStart;
-  //     this.draw();
-  //   }
-  //
-  //   if (this.data.get(ev.layerX)) {
-  //     this.displayCandle$.next(this.data.get(ev.layerX));
-  //     // console.log(this.data.get(ev.layerX));
-  //   }
-  // }
-  //
-  // onMouseDown(ev: MouseEvent) {
-  //   this.isDrag = true;
-  //   this.dragStart = ev.clientX;
-  //   //  this.activeComponent.next(this.componentId);
-  // }
-  //
-  // onMouseUp() {
-  //   if (this.isDrag) {
-  //     this.dragCumul = this.dragEnd;
-  //     this.isDrag = false;
-  //   }
-  // }
-  //
-  // onMouseDblClick() {
-  //   this.dragCumul = 0;
-  //   this.dragEnd = 0;
-  //   this.draw();
-  // }
+  onMouseMove(ev: MouseEvent) {
+    if (this.isDrag) {
+      this.dragEnd = this.dragCumul + ev.clientX - this.dragStart;
+      this.draw();
+    }
+
+    if (this.data.get(ev.layerX)) {
+      this.displayCandle$.next(this.data.get(ev.layerX));
+      // console.log(this.data.get(ev.layerX));
+    }
+  }
+
+  onMouseDown(ev: MouseEvent) {
+    console.log('coucou')
+    // const width = this.canvasRef.nativeElement.clientWidth
+    // const height = this.canvasRef.nativeElement.clientHeight
+    // console.log(width + " " + height)
+    // this.canvasRef.nativeElement.width = width
+    // this.canvasRef.nativeElement.height = height
+    //   this.widthChart = width
+    // this.heightChart = height
+    console.log(this.canvasRef.nativeElement.width)
+
+    this.isDrag = true;
+    this.dragStart = ev.clientX;
+    //  this.activeComponent.next(this.componentId);
+  }
+
+  onMouseUp() {
+    if (this.isDrag) {
+      this.dragCumul = this.dragEnd;
+      this.isDrag = false;
+    }
+  }
+
+  onMouseDblClick() {
+    this.dragCumul = 0;
+    this.dragEnd = 0;
+    this.draw();
+  }
 }

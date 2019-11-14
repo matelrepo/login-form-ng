@@ -21,7 +21,7 @@ export class ContractsListComponent implements OnInit, OnDestroy {
     this.subscriptionMarketData =  this.data.getLivePrices()
       .subscribe((message) => {
         Object.keys(JSON.parse(message.body)).forEach(key => {
-          this.generatorsState.set(JSON.parse(message.body)[key].idContract, JSON.parse(message.body)[key]);
+          this.generatorsState.set(JSON.parse(message.body)[key].idcontract, JSON.parse(message.body)[key]);
         });
       });
   }
