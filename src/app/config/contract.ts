@@ -1,5 +1,5 @@
 export interface Contract{
-  id: number;
+  idcontract: number;
   title?: string;
   exchange?: string;
   currency?: string;

@@ -1,9 +1,13 @@
+import { MatSliderModule, MatButtonModule } from '@angular/material';
+
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {TooltipModule} from 'ng2-tooltip-directive';
 import {AngularStickyThingsModule} from '@w11k/angular-sticky-things';
+
 
 
 import { AppComponent } from './app.component';
@@ -18,6 +22,10 @@ import { ContractsListComponent } from './contracts-list/contracts-list.componen
 import { HeaderComponent } from './header/header.component';
 import { ChartComponent } from './chart/chart.component';
 import {ChartControlDirective} from './chart/chart-control.directive';
+import { ContractDetailsComponent } from './contract-details/contract-details.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 
 
 @NgModule({
@@ -28,7 +36,8 @@ import {ChartControlDirective} from './chart/chart-control.directive';
     ContractsListComponent,
     HeaderComponent,
     ChartComponent,
-    ChartControlDirective
+    ChartControlDirective,
+    ContractDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +45,10 @@ import {ChartControlDirective} from './chart/chart-control.directive';
     HttpClientModule,
     RouterModule.forRoot(routesConfig),
     TooltipModule,
-    AngularStickyThingsModule
+    AngularStickyThingsModule,
+    BrowserAnimationsModule,
+    MatSliderModule,
+    MatButtonModule
   ],
   providers: [RoleGuardService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     RxStompService

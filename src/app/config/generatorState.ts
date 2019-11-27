@@ -8,5 +8,5 @@ export interface GeneratorState {
   bid: number
   volume: number
   lastPrice: number
-  update: number
+  color: number
 }

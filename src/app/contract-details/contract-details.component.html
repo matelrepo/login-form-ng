@@ -1,0 +1,11 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+<!--  <p *ngIf="errorMessage != undefined" class ="errorMessage">{{ errorMessage}}</p>-->
+  <h1>{{this.activeContract.idcontract}} - {{this.activeContract.symbol}}</h1>
+  <p>Expiration</p>
+  <input type="text" formControlName="expiration">
+  <p>First notice</p>
+  <input type="text" formControlName="firstNotice">
+  <p>Adjustment</p>
+  <input type="text" formControlName="adjustment">
+  <p><input type="submit" name="" value="Update"></p>
+</form>

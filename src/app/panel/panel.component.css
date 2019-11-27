@@ -1,16 +1,18 @@
 section{
   width:100%;
   display: flex;
+  margin-top:10px;
 }
 
-.contract-list {
-  width:25%;
-  margin: 10px;
-}
+/*.contract-list {*/
+/*  width:25%;*/
+/*  margin: 10px;*/
+/*}*/
 
 .chart-panel{
   width:100%;
-  margin:10px 10px 10px 0;
+  margin: 10px;
+  /*margin:10px 10px 10px 0;*/
 }
 
 .chart{
@@ -35,7 +37,7 @@ section{
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-row: 200px 200px;
+  /*grid-template-rows: 200px 200px 200px;*/
   position: sticky;
   top: 50px;
 }
