@@ -8,6 +8,7 @@ import { IMessage } from '@stomp/stompjs';
 import {Message} from '@angular/compiler/src/i18n/i18n_ast';
 import {tap, throttleTime} from 'rxjs/operators';
 import {Candle} from '../config/candle';
+import {Macro} from '../config/macro';
 
 
 
@@ -30,6 +31,10 @@ export class DataService {
 
   getContracts() {
     return this.http.get<Contract[]>('http://localhost:8080/contracts');
+  }
+
+  getTickerCrawl() {
+    return this.http.get<Macro[]>('http://localhost:8080/ticker-crawl');
   }
 
   getHistoCandles(idcontract: number, freq: number) {

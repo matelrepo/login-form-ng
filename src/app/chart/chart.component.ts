@@ -78,6 +78,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck
       this.draw()
     }
 
+      // this.subscribeHisto(0)
       this.subscribeHisto()
       })
 
@@ -128,66 +129,76 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck
 
 
   ngOnDestroy() {
-    this.activeContractSub.unsubscribe()
-    this.liveSub$.unsubscribe()
-    this.liveHisto$.unsubscribe()
-    this.chartChange$.unsubscribe()
+    if (this.activeContractSub != undefined) {
+      this.activeContractSub.unsubscribe();
+    }
+    if (this.liveSub$ != undefined) {
+      this.liveSub$.unsubscribe();
+    }
+    if (this.liveHisto$ != undefined) {
+      this.liveHisto$.unsubscribe();
+    }
+    if (this.chartChange$ != undefined) {
+      this.chartChange$.unsubscribe()
+    }
   }
 
   draw() {
-    this.data = new Map()
-    this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    // this.gc.fillStyle ='black'
-    // this.gc.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    this.min = this.getTrailingMin(this.currentZoomValue);
-    this.max = this.getTrailingMax(this.currentZoomValue);
+    if(this.canvas != undefined) {
+      this.data = new Map()
+      this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      // this.gc.fillStyle ='black'
+      // this.gc.fillRect(0, 0, this.canvas.width, this.canvas.height);
+      this.min = this.getTrailingMin(this.currentZoomValue);
+      this.max = this.getTrailingMax(this.currentZoomValue);
 
-    let x = 1 - this.dragEnd;
-    for (let candle of this.candles) {
-      if (candle.color == 1) {
-        this.colorUp = 'lightgreen';
-        this.colorDown = 'lightgreen';
-      } else if (candle.color > 1) {
-        this.colorUp = 'green';
-        this.colorDown = 'green';
-      } else if (candle.color == -1) {
-        this.colorUp = 'salmon';
-        this.colorDown = 'salmon';
-      } else if (candle.color < -1) {
-        this.colorUp = 'red';
-        this.colorDown = 'red';
-      } else {
-        this.colorUp = 'black';
-        this.colorDown = 'black';
+      let x = 1 - this.dragEnd;
+      for (let candle of this.candles) {
+        if (candle.color == 1) {
+          this.colorUp = 'lightgreen';
+          this.colorDown = 'lightgreen';
+        } else if (candle.color > 1) {
+          this.colorUp = 'green';
+          this.colorDown = 'green';
+        } else if (candle.color == -1) {
+          this.colorUp = 'salmon';
+          this.colorDown = 'salmon';
+        } else if (candle.color < -1) {
+          this.colorUp = 'red';
+          this.colorDown = 'red';
+        } else {
+          this.colorUp = 'black';
+          this.colorDown = 'black';
+        }
+
+        let time = this.getX(x) - 10;
+        if (time < 0) {
+          break;
+        }
+        this.data.set(Math.round(time), candle);
+        this.data.set(Math.round(time) - 1, candle);
+        this.data.set(Math.round(time) + 1, candle);
+        let high = this.getYPixel(candle.high);
+        let low = this.getYPixel(candle.low);
+        let open = this.getYPixel(candle.open);
+        let close = this.getYPixel(candle.close);
+
+        this.gc.strokeStyle = 'black';
+        this.gc.beginPath();
+        this.gc.moveTo(time + this.widthCandle / 2, high);
+        this.gc.lineTo(time + this.widthCandle / 2, low);
+        this.gc.stroke();
+
+        if (candle.open <= candle.close) {
+          this.gc.fillStyle = this.colorUp;
+          this.gc.fillRect(time, close, this.widthCandle, open - close);
+        } else {
+          this.gc.fillStyle = this.colorDown;
+          this.gc.fillRect(time, open, this.widthCandle, close - open);
+        }
+
+        x += this.width;
       }
-
-      let time = this.getX(x) - 10;
-      if (time < 0) {
-        break;
-      }
-      this.data.set(Math.round(time), candle);
-      this.data.set(Math.round(time) - 1, candle);
-      this.data.set(Math.round(time) + 1, candle);
-      let high = this.getYPixel(candle.high);
-      let low = this.getYPixel(candle.low);
-      let open = this.getYPixel(candle.open);
-      let close = this.getYPixel(candle.close);
-
-      this.gc.strokeStyle = 'black';
-      this.gc.beginPath();
-      this.gc.moveTo(time + this.widthCandle / 2, high);
-      this.gc.lineTo(time + this.widthCandle / 2, low);
-      this.gc.stroke();
-
-      if (candle.open <= candle.close) {
-        this.gc.fillStyle = this.colorUp;
-        this.gc.fillRect(time, close, this.widthCandle, open - close);
-      } else {
-        this.gc.fillStyle = this.colorDown;
-        this.gc.fillRect(time, open, this.widthCandle, close - open);
-      }
-
-      x += this.width;
     }
   }
 
@@ -277,7 +288,8 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck
 
   resize(event){
     this.appService.notifyChartResize({ id: this.id, width: -1, height: -1})
-    console.log('hey')
+    if (this.currentZoomValue < 50) this.currentZoomValue = 100
+    else this.currentZoomValue = 40
     event.stopPropagation();
   }
 

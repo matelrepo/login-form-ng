@@ -1,4 +1,4 @@
-import { MatSliderModule, MatButtonModule } from '@angular/material';
+import { MatSliderModule, MatButtonModule,MatBadgeModule } from '@angular/material';
 
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,6 +24,7 @@ import { ChartComponent } from './chart/chart.component';
 import {ChartControlDirective} from './chart/chart-control.directive';
 import { ContractDetailsComponent } from './contract-details/contract-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { QuoteComponent } from './quote/quote.component';
 
 
 
@@ -37,7 +38,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HeaderComponent,
     ChartComponent,
     ChartControlDirective,
-    ContractDetailsComponent
+    ContractDetailsComponent,
+    QuoteComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AngularStickyThingsModule,
     BrowserAnimationsModule,
     MatSliderModule,
-    MatButtonModule
+    MatButtonModule,
+    MatBadgeModule
   ],
   providers: [RoleGuardService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     RxStompService

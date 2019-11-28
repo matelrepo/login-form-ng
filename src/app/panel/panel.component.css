@@ -4,10 +4,10 @@ section{
   margin-top:10px;
 }
 
-/*.contract-list {*/
-/*  width:25%;*/
-/*  margin: 10px;*/
-/*}*/
+.contract-list {
+   width:25%;
+   margin: 10px;
+ }
 
 .chart-panel{
   width:100%;
@@ -39,11 +39,11 @@ section{
   grid-template-columns: 1fr 1fr 1fr 1fr;
   /*grid-template-rows: 200px 200px 200px;*/
   position: sticky;
-  top: 50px;
+  top: 100px;
 }
 
 nav{
-  height:40px;
+  height:90px;
 }
 .sticky2 {
   z-index: 1;
@@ -58,7 +58,7 @@ nav{
 .list-gap{
   position: sticky;
   top: 0;
-  height:50px;
+  height:100px;
   background-color: white;
   opacity: 0.97;
 }
