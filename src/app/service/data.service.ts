@@ -30,7 +30,7 @@ export class DataService {
 
 
   getContracts() {
-    return this.http.get<Contract[]>('http://localhost:8080/contracts');
+    return this.http.get<Contract[]>('http://localhost:8080/contracts/live');
   }
 
   getTickerCrawl() {
