@@ -1,19 +1,99 @@
 
-div{
+.container {
+  height:90px;
   background-color: lightgray;
-  display:flex;
-  justify-content: flex-end;
-}
-
-.container{
-  height:40px;
+  display: flex;
+  flex-direction: column;
+  /*justify-content: flex-end;*/
 }
 
 .container > div {
+  padding: 3px;
   margin: 10px;
 }
 
-.container div:last-child{
-  margin-right: 30px;
+.menu{
+  display: flex;
+  justify-content: flex-end;
+ }
+
+.menu div{
+  margin-right:30px;
 }
+
+/*.user-1 {*/
+/*  margin-left: 100px !important;*/
+/*}*/
+
+/*.user-1 .user-2 {*/
+/*  z-index: 2;*/
+/*}*/
+
+.item {
+  margin-left: 5px;
+}
+
+/*.container div:last-child{*/
+/*  margin-right: 30px;*/
+/*}*/
+
+.ticker-crawl {
+  /*overflow: hidden;*/
+  width: 75%;
+  display: flex;
+  animation: marquee 80s linear infinite;
+}
+
+.ticker-crawl div {
+  /*margin:2px;*/
+  display: flex;
+}
+
+.small {
+  font-size: 0.7em;
+}
+
+.medium {
+  font-size: 0.9em;
+}
+
+.big {
+  font-size: 1.1em;
+}
+
+.ticker-crawl div:first-child {
+  margin-left: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.ticker-crawl div div {
+  /*height:20px;*/
+  white-space: nowrap;
+}
+
+.price-up {
+  /*background-color: green;*/
+  color: green;
+}
+
+.price-down {
+  /*background-color: red;*/
+  color: red;
+}
+
+.item:hover{
+  cursor: pointer;
+}
+
+
+@keyframes marquee {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-500%, 0);
+  }
+}
+
 

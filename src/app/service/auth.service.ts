@@ -82,12 +82,13 @@ export class AuthService {
   //   return true;
   // }
 
-  // logout() {
-  //   this.user.next(ANONYMOUS_USER);
-  //   this.rxStompService.deactivate();
-  //   this.jwtToken = null;
-  //   // this.router.navigate(['/login']);
-  // }
+  logout() {
+    this.user.next(ANONYMOUS_USER);
+    this.rxStompService.deactivate();
+    this.jwtToken = null;
+    localStorage.removeItem('matel-token')
+    this.router.navigate(['/login']);
+  }
 
   private isRoleAuthorized(authoritiesList: string, expectedRole: string): boolean {
     let list: string[] = authoritiesList.replace(/ /g, '')

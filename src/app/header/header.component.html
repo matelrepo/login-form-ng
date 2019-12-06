@@ -1,4 +1,27 @@
 <div class="container">
-  <div class="item-1">Welcome Trader</div>
-  <div class="item-2">Log out</div>
+  <div class="ticker-crawl">
+    <!--    <div class="marquee">-->
+    <!--      <ul>-->
+    <div class="'row" (click)="onRowClick(ticker)" *ngFor="let ticker of tickers">
+      <div class="item small">({{ticker.code}})</div>
+      <div class="item">{{ticker.dataName}}</div>
+      <div class="item small">{{ticker.date | date:'MMMyy'}}</div>
+      <div class="item">{{ticker.current}} <i *ngIf="ticker.current> ticker.previous; else arrowDown"
+                                              class="material-icons medium price-up">arrow_upward</i></div>
+      <div class="item"> vs {{ticker.previous}}</div>
+    </div>
+
+    <ng-template #arrowDown>
+      <i class="material-icons medium price-down">arrow_downward</i>
+    </ng-template>
+  </div>
+  <div class="menu">
+    <div class="user-1"><span matBadge="12" matBadgeOverlap="false" matBadgeSize="small" matBadgeColor="warn">Stocks</span></div>
+    <div class="user-1"><span matBadge="4" matBadgeOverlap="false" matBadgeSize="small" matBadgeColor="warn">Futures</span></div>
+    <div class="user-1">Macro</div>
+    <div class="user-1">Portfolio</div>
+    <div class="user-1"><span matBadge="4" matBadgeOverlap="false" matBadgeSize="small" matBadgeColor="warn">Maintenance</span></div>
+    <div class="user-1">Welcome {{username | titlecase}}</div>
+    <div class="user-2"><a (click)="logout()">Log out</a></div>
+  </div>
 </div>

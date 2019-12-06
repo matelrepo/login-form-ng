@@ -5,39 +5,41 @@ import {
   ViewChild,
   ElementRef,
   Output,
-  EventEmitter, AfterViewInit
+  EventEmitter, AfterViewInit, Input, OnChanges, DoCheck
 } from '@angular/core';
 import {Message} from '@stomp/stompjs';
-import {Subscription, Subject} from 'rxjs';
+import {Subscription, Subject, Observable, of} from 'rxjs';
 import {Candle} from '../config/candle';
 import {Contract} from '../config/contract';
 import {DataService} from '../service/data.service';
+import {AppService} from '../service/app.service';
+
 
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css']
 })
-export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
-  constructor( private dataService: DataService) {}
-
-  // @Output() activeComponent = new EventEmitter()
-  @ViewChild('chartRef', {static: false}) canvasRef: ElementRef
-
-  private widthChart
-  private heightChart
-  private gc: CanvasRenderingContext2D
+export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck {
+  constructor( private dataService: DataService, private appService: AppService) {}
 
   private activeContractSub: Subscription
-  // private candlesLive$: Subscription
-  // private candlesHisto$: Subscription
+  private liveSub$: Subscription
+  private liveHisto$: Subscription
+  private chartChange$: Subscription
 
+  @Input() freq
+  @Input() id
+  @ViewChild('chartRef', {static: false}) canvasRef: ElementRef
+  @ViewChild('divRef', {static: false}) divRef: ElementRef
+  canvas: HTMLCanvasElement
+  private gc: CanvasRenderingContext2D
   private widthCandle = 3;
   private width = 5;
   private min;
   private max;
   private candles: Candle[] = [];
-  private currentZoomValue = 100;
+  private currentZoomValue = 40;
   private data = new Map();
   private colorUp = 'lightgreen';
   private colorDown = '#ff0000';
@@ -45,186 +47,176 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   private dragEnd = 0;
   private dragCumul = 0;
   private isDrag = false;
-  private title: string;
-  private titleClass: string;
-  private progress: number;
-  private speed: number = 100;
   private displayCandle$ = new Subject<Candle>();
-  private liveCandle$ = new Subject<Candle>();
   private activeContract: Contract;
 
   ngAfterViewInit(){
-    this.gc = this.canvasRef.nativeElement.getContext('2d')
-    this.canvasRef.nativeElement.style.width = '100%'
-    this.canvasRef.nativeElement.style.height = '100%'
-    this.widthChart = this.canvasRef.nativeElement.width
-    this.heightChart = this.canvasRef.nativeElement.height
+    this.init()
+  }
+
+  init() {
+    if (this.canvasRef != undefined) {
+      this.canvas = this.canvasRef.nativeElement;
+      this.gc = this.canvas.getContext('2d');
+      this.canvasRef.nativeElement.style.width = '100%';
+      this.canvasRef.nativeElement.style.height = '100%';
+      this.canvasRef.nativeElement.height = this.divRef.nativeElement.offsetHeight;
+      this.canvasRef.nativeElement.width = this.divRef.nativeElement.offsetWidth;
+      this.draw();
+    }
+  }
+
+  ngDoCheck() {
 
   }
 
   ngOnInit() {
     this.dataService.activeContract$.subscribe( contract => {
       this.activeContract = contract
-      console.log(contract)
-      //sub histo
-      //sub live
-      this.dataService.getLiveTicks(this.activeContract.id).subscribe(mes => {
-        this.candles.unshift(JSON.parse(mes.body))
-        this.draw()
-        console.log(this.candles[0])
-        if(this.candles.length>100)
-          this.candles.pop();
-      });
-    });
+      if (this.candles.length > 0) {
+      this.candles = []
+      this.draw()
+    }
 
+      // this.subscribeHisto(0)
+      this.subscribeHisto()
+      })
 
-    // this.contractService.getActiveContract().subscribe((contract: Contract) => {
-    //   // if (this.activeContract.freq != contract.freq) {
-    //   //   this.activeContract = contract;
-    //   //   this.reqFreqChange();
-    //   // }
-    //   this.activeContract = contract;
-    //   if (this.activeContract != undefined) {
-    //     this.unSubscribeHisto();
-    //     this.subscribeHisto();
-    //     this.dataService.reqHistoCandles(this.activeContract);
-    //   }
-    // });
+    this.appService.chart$.subscribe(chart =>{
+      if(this.id == chart.id){
+        this.init()
+        console.log(this.candles.length)
+      }
+    })
   }
 
-  // subscribeHisto() {
-  //   if (this.candlesLive$ != undefined) {
-  //     this.candlesLive$.unsubscribe();
-  //   }
-  //   this.candlesHisto$ = this.dataService
-  //     .getHistoCandles(this.activeContract)
-  //     .subscribe((message: Message) => {
-  //       const can: Candle[] = JSON.parse(message.body);
-  //       this.candles = can.slice(0, 8000);
-  //       //if (this.candles.length > 0) {
-  //       this.draw();
-  //       this.subscribeLiveCandles();
-  //       //}
-  //     });
-  // }
-  //
-  // subscribeLiveCandles() {
-  //   this.candlesLive$ = this.dataService
-  //     .getLiveCandles(this.activeContract)
-  //     .subscribe((message: Message) => {
-  //       const candle: Candle = JSON.parse(message.body);
-  //       this.speed = candle.speed;
-  //       this.progress = candle.progress;
-  //       if (
-  //         candle.idcontract == this.activeContract.idcontract &&
-  //         candle.freq == this.activeContract.freq
-  //       ) {
-  //         if (candle.newCandle) {
-  //           this.candles.unshift(candle);
-  //           if (this.candles.length > 1000) {
-  //             this.candles.pop();
-  //           }
-  //         } else {
-  //           this.candles[0] = candle;
-  //         }
-  //
-  //         // if (this.freq == 0) this.dataService.setActiveCandle(candle);
-  //
-  //         this.draw();
-  //       }
-  //     });
-  // }
+  subscribeLive(){
+    if (this.liveHisto$ != undefined) {
+      this.liveHisto$.unsubscribe();
+    }
+    if (this.liveSub$ != undefined) {
+      this.liveSub$.unsubscribe()
+    }
+    this.liveSub$  = this.dataService.getLiveTicks(this.activeContract.idcontract, this.freq).subscribe(mes => {
+      const candle: Candle = JSON.parse(mes.body);
+      if (this.freq == candle.freq) {
+        if (candle.freq ==0 || candle.id !== this.candles[0].id) {
+          this.candles.unshift(candle)
+        } else {
+          this.candles[0] = candle
+        }
+        this.draw()
+        if (this.candles.length > 100)
+          this.candles.pop();
+      }
+
+    });
+  }
+
+  subscribeHisto(){
+    if (this.liveHisto$ != undefined) {
+      this.liveHisto$.unsubscribe();
+    }
+    if (this.liveSub$ != undefined) {
+      this.liveSub$.unsubscribe()
+    }
+    this.dataService.getHistoCandles(this.activeContract.idcontract, this.freq).subscribe(candles =>{
+      this.candles = candles;
+      this.draw()
+      this.subscribeLive()
+    });
+  }
+
 
   ngOnDestroy() {
-    this.activeContractSub.unsubscribe();
+    if (this.activeContractSub != undefined) {
+      this.activeContractSub.unsubscribe();
+    }
+    if (this.liveSub$ != undefined) {
+      this.liveSub$.unsubscribe();
+    }
+    if (this.liveHisto$ != undefined) {
+      this.liveHisto$.unsubscribe();
+    }
+    if (this.chartChange$ != undefined) {
+      this.chartChange$.unsubscribe()
+    }
   }
 
-  // unSubscribeHisto() {
-  //   if (this.candlesHisto$ != undefined) {
-  //     this.candlesHisto$.unsubscribe();
-  //   }
-  // }
-
-  // reqFreqChange() {
-  //   this.unSubscribeHisto();
-  //   this.subscribeHisto();
-  //   this.dataService.reqHistoCandles(this.activeContract);
-  // }
-
   draw() {
-    this.data = new Map()
-    // this.gc.fillStyle ='black'
-    this.gc.clearRect(0, 0, this.widthChart, this.heightChart);
-    // this.gc.fillRect(0, 0, this.widthChart, this.heightChart);
-    this.min = this.getTrailingMin(this.currentZoomValue);
-    this.max = this.getTrailingMax(this.currentZoomValue);
+    if(this.canvas != undefined) {
+      this.data = new Map()
+      this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      // this.gc.fillStyle ='black'
+      // this.gc.fillRect(0, 0, this.canvas.width, this.canvas.height);
+      this.min = this.getTrailingMin(this.currentZoomValue);
+      this.max = this.getTrailingMax(this.currentZoomValue);
 
-    let x = 1 - this.dragEnd;
-    for (let candle of this.candles) {
-      if (candle.color == 1) {
-        this.colorUp = 'lightgreen';
-        this.colorDown = 'lightgreen';
-      } else if (candle.color > 1) {
-        this.colorUp = 'green';
-        this.colorDown = 'green';
-      } else if (candle.color == -1) {
-        this.colorUp = 'salmon';
-        this.colorDown = 'salmon';
-      } else if (candle.color < -1) {
-        this.colorUp = 'red';
-        this.colorDown = 'red';
-      } else {
-        this.colorUp = 'black';
-        this.colorDown = 'black';
+      let x = 1 - this.dragEnd;
+      for (let candle of this.candles) {
+        if (candle.color == 1) {
+          this.colorUp = 'lightgreen';
+          this.colorDown = 'lightgreen';
+        } else if (candle.color > 1) {
+          this.colorUp = 'green';
+          this.colorDown = 'green';
+        } else if (candle.color == -1) {
+          this.colorUp = 'salmon';
+          this.colorDown = 'salmon';
+        } else if (candle.color < -1) {
+          this.colorUp = 'red';
+          this.colorDown = 'red';
+        } else {
+          this.colorUp = 'black';
+          this.colorDown = 'black';
+        }
+
+        let time = this.getX(x) - 10;
+        if (time < 0) {
+          break;
+        }
+        this.data.set(Math.round(time), candle);
+        this.data.set(Math.round(time) - 1, candle);
+        this.data.set(Math.round(time) + 1, candle);
+        let high = this.getYPixel(candle.high);
+        let low = this.getYPixel(candle.low);
+        let open = this.getYPixel(candle.open);
+        let close = this.getYPixel(candle.close);
+
+        this.gc.strokeStyle = 'black';
+        this.gc.beginPath();
+        this.gc.moveTo(time + this.widthCandle / 2, high);
+        this.gc.lineTo(time + this.widthCandle / 2, low);
+        this.gc.stroke();
+
+        if (candle.open <= candle.close) {
+          this.gc.fillStyle = this.colorUp;
+          this.gc.fillRect(time, close, this.widthCandle, open - close);
+        } else {
+          this.gc.fillStyle = this.colorDown;
+          this.gc.fillRect(time, open, this.widthCandle, close - open);
+        }
+
+        x += this.width;
       }
-
-      let time = this.getX(x) - 10;
-      if (time < 0) {
-        break;
-      }
-      this.data.set(Math.round(time), candle);
-      this.data.set(Math.round(time) - 1, candle);
-      this.data.set(Math.round(time) + 1, candle);
-      let high = this.getYPixel(candle.high);
-      let low = this.getYPixel(candle.low);
-      let open = this.getYPixel(candle.open);
-      let close = this.getYPixel(candle.close);
-
-      this.gc.strokeStyle = 'black';
-      this.gc.beginPath();
-      this.gc.moveTo(time + this.widthCandle / 2, high);
-      this.gc.lineTo(time + this.widthCandle / 2, low);
-      this.gc.stroke();
-
-      console.log(open + " " + high + " " + low + " " + close)
-
-      if (candle.open <= candle.close) {
-        this.gc.fillStyle = this.colorUp;
-        this.gc.fillRect(time, close, this.widthCandle, open - close);
-      } else {
-        this.gc.fillStyle = this.colorDown;
-        this.gc.fillRect(time, open, this.widthCandle, close - open);
-      }
-
-      x += this.width;
     }
   }
 
   /** Convert bar value to y coordinate. */
   getYPixel(v: number) {
     let span = (this.max - this.min) * 1.1;
-    return ((this.max - v) * this.heightChart) / span + 10;
+    return ((this.max - v) * this.canvas.height) / span + 10;
   }
 
   getYPrice(v) {
     let span = this.max - this.min;
-    const tmp = ((this.heightChart - v) * span) / this.heightChart;
+    const tmp = ((this.canvas.height - v) * span) / this.canvas.height;
     return tmp + this.min;
   }
 
   getX(v) {
-    let pct = (this.currentZoomValue * this.width) / this.widthChart;
-    return this.widthChart - v / pct;
+    let pct = (this.currentZoomValue * this.width) / this.canvas.width;
+    return this.canvas.width - v / pct -20;
   }
 
   getTrailingMin(numDays) {
@@ -265,34 +257,46 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   //   this.draw();
   // }
   //
-  // onMouseMove(ev: MouseEvent) {
-  //   if (this.isDrag) {
-  //     this.dragEnd = this.dragCumul + ev.clientX - this.dragStart;
-  //     this.draw();
-  //   }
-  //
-  //   if (this.data.get(ev.layerX)) {
-  //     this.displayCandle$.next(this.data.get(ev.layerX));
-  //     // console.log(this.data.get(ev.layerX));
-  //   }
-  // }
-  //
-  // onMouseDown(ev: MouseEvent) {
-  //   this.isDrag = true;
-  //   this.dragStart = ev.clientX;
-  //   //  this.activeComponent.next(this.componentId);
-  // }
-  //
-  // onMouseUp() {
-  //   if (this.isDrag) {
-  //     this.dragCumul = this.dragEnd;
-  //     this.isDrag = false;
-  //   }
-  // }
-  //
-  // onMouseDblClick() {
-  //   this.dragCumul = 0;
-  //   this.dragEnd = 0;
-  //   this.draw();
-  // }
+  onMouseMove(ev: MouseEvent) {
+    if (this.isDrag) {
+      this.dragEnd = this.dragCumul + ev.clientX - this.dragStart;
+      this.draw();
+    }
+
+    if (this.data.get(ev.layerX)) {
+      this.displayCandle$.next(this.data.get(ev.layerX));
+    }
+  }
+
+  onMouseDown(ev: MouseEvent) {
+    this.isDrag = true;
+    this.dragStart = ev.clientX;
+  }
+
+  onMouseUp() {
+    if (this.isDrag) {
+      this.dragCumul = this.dragEnd;
+      this.isDrag = false;
+    }
+  }
+
+  onMouseDblClick() {
+    this.dragCumul = 0;
+    this.dragEnd = 0;
+    this.draw();
+  }
+
+  resize(event){
+    this.appService.notifyChartResize({ id: this.id, width: -1, height: -1})
+    if (this.currentZoomValue < 50) this.currentZoomValue = 100
+    else this.currentZoomValue = 40
+    event.stopPropagation();
+  }
+
+  onChange(value: number){
+    this.currentZoomValue = value
+    this.draw()
+    console.log(value)
+  }
+
 }

@@ -1,12 +1,23 @@
 export interface GeneratorState {
-  idContract: number
+  idcontract: number
   timestamp: number
   connected: boolean
   speed: number
   randomGenerator: boolean
   ask: number
+  askQuantity: number
   bid: number
-  volume: number
+  bidQuantity: number
+  dailyVolume: number
   lastPrice: number
-  update: number
+  color: number
+  changeValue: number
+  changePerc: number
+  high: number
+  low: number
+  weeklyMark: number
+  monthlyMark: number
+  yearlyMark: number
+
+
 }

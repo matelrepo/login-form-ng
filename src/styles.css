@@ -1,3 +1,5 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
 
 body{
@@ -5,4 +7,12 @@ body{
   padding: 0;
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+a:hover{
+  cursor: pointer;
 }

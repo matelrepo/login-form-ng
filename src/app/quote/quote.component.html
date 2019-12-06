@@ -1,0 +1,37 @@
+<div class="title" *ngIf="this.contract != undefined">
+  <div><h1>{{contract.symbol}} Dec27'19 @{{contract.exchange}}</h1></div>
+  <div><h2>{{contract.title}} - QUOTE DETAILS</h2></div>
+</div>
+
+<div class="container" *ngIf="this.generatorState.get(contract.idcontract) != undefined">
+
+  <div class="item">
+  <div>{{generatorState.get(contract.idcontract).lastPrice}}</div>
+  <div [ngClass]="{'price-up':this.generatorState.get(contract.idcontract).changeValue>0, 'price-down': this.generatorState.get(contract.idcontract).changeValue<0}">{{generatorState.get(contract.idcontract).changeValue}}</div>
+  <div [ngClass]="{'price-up':this.generatorState.get(contract.idcontract).changePerc>0, 'price-down': this.generatorState.get(contract.idcontract).changePerc<0}">{{generatorState.get(contract.idcontract).changePerc | percent:'1.2-2'}}</div>
+</div>
+
+  <div class="item">
+    <div>Weekly <span>{{generatorState.get(contract.idcontract).lastPrice / generatorState.get(contract.idcontract).weeklyMark - 1 | percent:'1.2-2'}}</span></div>
+    <div>Monthly <span>{{generatorState.get(contract.idcontract).lastPrice / generatorState.get(contract.idcontract).monthlyMark - 1 | percent:'1.2-2'}}</span></div>
+    <div>YTD <span>{{generatorState.get(contract.idcontract).lastPrice / generatorState.get(contract.idcontract).yearlyMark - 1 | percent:'1.2-2'}}</span></div>
+  </div>
+
+  <div class="item">
+    <div>NBBO</div>
+    <div>{{generatorState.get(contract.idcontract).ask}} x<span class="quantity">{{generatorState.get(contract.idcontract).askQuantity}}</span></div>
+    <div>{{generatorState.get(contract.idcontract).bid}} x<span class="quantity">{{generatorState.get(contract.idcontract).bidQuantity}}</span></div>
+  </div>
+
+  <div class="item">
+    <div>H/L</div>
+    <div>{{generatorState.get(contract.idcontract).high}}</div>
+    <div>{{generatorState.get(contract.idcontract).low}}</div>
+  </div>
+
+  <div class="item">
+    <div>V/ADV</div>
+    <div>{{generatorState.get(contract.idcontract).dailyVolume / 1000}}K</div>
+    <div></div>
+  </div>
+</div>

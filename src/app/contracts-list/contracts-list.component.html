@@ -1,5 +1,7 @@
-<div *ngFor="let contract of contracts$ | async" class="grid-container">
-  <div class="comp" (mouseover)="addClass($event)">
+<!--<app-contract-details></app-contract-details>-->
+
+<div *ngFor="let contract of contracts; index as i" class="grid-container">
+  <div class="comp" (mouseover)="addClass($event)" (click)="onClick(contract, i)">
     <div class="grid-item"
          *ngIf="this.generatorsState.get(contract.idcontract) != undefined"
          [ngClass]="{'disconnect': !this.generatorsState.get(contract.idcontract).connected,
@@ -21,12 +23,12 @@
 
     <div *ngIf="this.generatorsState.get(contract.idcontract) != undefined"
          class="price"
-         [ngClass]="{'price-up':this.generatorsState.get(contract.idcontract).update>0, 'price-down': this.generatorsState.get(contract.idcontract).update<0}">{{this.generatorsState.get(contract.idcontract).lastPrice}}</div>
+         [ngClass]="{'price-up':this.generatorsState.get(contract.idcontract).color>0, 'price-down': this.generatorsState.get(contract.idcontract).color<0}">{{this.generatorsState.get(contract.idcontract).lastPrice}}</div>
 
     <ng-template #tipId class="tool-tip">
       <div class="tool-tip">
         <div>{{contract.symbol}} ({{contract.idcontract}}) -
-          Connected: {{this.generatorsState.get(contract.idcontract).connected}}</div>
+          Connected: {{this.generatorsState.get(contract.idcontract).connected + '' | uppercase}}</div>
       </div>
     </ng-template>
 

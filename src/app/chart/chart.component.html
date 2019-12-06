@@ -1,6 +1,15 @@
-<canvas #chartRef chartControl>
-<!--        (onMouseMove)="onMouseMove($event)"-->
-<!--        (onMouseDown)="onMouseDown($event)"-->
-<!--        (onMouseUp)="onMouseUp()"-->
-<!--        (onMouseDblClick)='onMouseDblClick()'-->
+<div class="chart-panel" #divRef>
+  <div class="chart">
+  <canvas #chartRef chartControl
+        (onMouseMove)="onMouseMove($event)"
+        (onMouseDown)="onMouseDown($event)"
+        (onMouseUp)="onMouseUp()"
+        (onMouseDblClick)='onMouseDblClick()'>
 </canvas>
+  </div>
+  <div class="tools">
+    <div class="corner" (click)="resize($event)"></div>
+    <div class="zoom"><mat-slider min="10" max="200" step="10" value="100" (valueChange)="onChange($event)" ></mat-slider></div>
+  </div>
+</div>
+

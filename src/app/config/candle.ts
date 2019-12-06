@@ -5,25 +5,19 @@ export class Candle {
     this.freq = freq;
   }
 
-  idcandle: number;
+  id: number;
+  idTick: number;
+  timestamp: Date;
   open: number;
   high: number;
   low: number;
   close: number;
+  idcontract: number;
+  freq: number;
+  color: number;
   trigger_up: number;
   trigger_down: number;
-  timestamp: Date;
-  idcontract: number;
-  isOpen: boolean;
-  freq: number;
-  oldFreq: number = 0;
-  speed: number;
   newCandle: boolean;
-  average: number;
-  color: number;
-  resistance: number;
-  support: number;
-  lowestMin: number;
-  highestMax: number;
+  speed: number;
   progress: number;
 }
