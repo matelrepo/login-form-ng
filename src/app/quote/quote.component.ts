@@ -3,6 +3,7 @@ import {DataService} from '../service/data.service';
 import {GeneratorState} from '../config/generatorState';
 import {Observable, Subscription} from 'rxjs';
 import {Contract} from '../config/contract';
+import {Candle} from '../config/candle';
 
 @Component({
   selector: 'app-quote',
@@ -13,10 +14,16 @@ export class QuoteComponent implements OnInit {
   generatorStateSub: Subscription
   generatorState: Map<number, GeneratorState> = new Map<number, GeneratorState>()
   contract: Contract
+  activeCandle: Candle
 
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
+
+    this.dataService.activeCandle$.subscribe( candle => {
+      console.log(candle)
+      this.activeCandle = candle
+    })
 
     this.dataService.activeContract$.subscribe(contract => {
       this.contract = contract

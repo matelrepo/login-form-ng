@@ -47,7 +47,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck
   private dragEnd = 0;
   private dragCumul = 0;
   private isDrag = false;
-  private displayCandle$ = new Subject<Candle>();
+  // private displayCandle$ = new Subject<Candle>();
   private activeContract: Contract;
 
   ngAfterViewInit(){
@@ -258,13 +258,17 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck
   // }
   //
   onMouseMove(ev: MouseEvent) {
+    console.log('coucou')
+
     if (this.isDrag) {
       this.dragEnd = this.dragCumul + ev.clientX - this.dragStart;
       this.draw();
     }
 
     if (this.data.get(ev.layerX)) {
-      this.displayCandle$.next(this.data.get(ev.layerX));
+      console.log(this.data.get(ev.layerX))
+      this.dataService.activeCandle.next(this.data.get(ev.layerX))
+      // this.displayCandle$.next(this.data.get(ev.layerX));
     }
   }
 
@@ -296,7 +300,6 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck
   onChange(value: number){
     this.currentZoomValue = value
     this.draw()
-    console.log(value)
   }
 
 }

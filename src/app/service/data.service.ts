@@ -13,7 +13,7 @@ import {Macro} from '../config/macro';
 
 
 export const DEFAULT_CONTRACT: Contract = {
-  idcontract: 5,
+  idcontract: 12,
   symbol: 'ES'
 };
 
@@ -24,6 +24,9 @@ export class DataService {
 
   activeContract = new BehaviorSubject(DEFAULT_CONTRACT)
   activeContract$: Observable<Contract> = this.activeContract.asObservable()
+
+  activeCandle = new BehaviorSubject(null)
+  activeCandle$: Observable<Candle> = this.activeCandle.asObservable()
 
   constructor(private http: HttpClient, private rxStompService: RxStompService) {}
 

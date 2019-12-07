@@ -1,6 +1,7 @@
 <div class="title" *ngIf="this.contract != undefined">
   <div><h1>{{contract.symbol}} Dec27'19 @{{contract.exchange}}</h1></div>
   <div><h2>{{contract.title}} - QUOTE DETAILS</h2></div>
+  <div *ngIf="activeCandle != null"><span>{{activeCandle.timestamp}}</span><span>O: {{activeCandle.open}}</span><span>H: {{activeCandle.high}}</span><span>L: {{activeCandle.low}}</span><span>C: {{activeCandle.close}}</span></div>
 </div>
 
 <div class="container" *ngIf="this.generatorState.get(contract.idcontract) != undefined">

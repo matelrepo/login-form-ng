@@ -35,7 +35,6 @@ padding:0px 5px 0 5px;
 .item:nth-child(2) div:first-child {
   border: none;
   margin-bottom: 0px;
-
 }
 
 .item:nth-child(2){
@@ -58,6 +57,10 @@ padding:0px 5px 0 5px;
   width: 100%;
   align-items: center;
   /*justify-content: center;*/
+}
+
+.title div span {
+  margin-left: 20px;
 }
 
 .quantity {
