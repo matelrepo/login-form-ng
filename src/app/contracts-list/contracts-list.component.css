@@ -15,7 +15,7 @@
   margin: 0 auto;
   width:100%;
   display: grid;
-  grid-template-columns: 20px auto 100px;
+  grid-template-columns: 20px auto 70px 70px;
 }
 
 .tool-tip{
@@ -48,7 +48,7 @@ span{
 }
 
 .price{
-  text-align: right;
+  text-align: center;
   font-size: 13px;
 }
 
@@ -58,11 +58,14 @@ span{
 .price-up{
   background-color: green;
   color: white;
+  border-left: none !important;
+
 }
 
 .price-down{
   background-color: red;
   color: white;
+  border-left: none !important;
 }
 
 .connect {

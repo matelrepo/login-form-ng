@@ -6,9 +6,10 @@ export interface Contract{
   symbol: string;
   tickSize?: number;
   multiplier?: string;
-  expiration?: string;
+  expiration?: Date;
   firstNotice?: string;
   active?: boolean;
   flowType?: string;
   fusion?: number;
+
 }

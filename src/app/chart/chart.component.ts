@@ -73,10 +73,10 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck
   ngOnInit() {
     this.dataService.activeContract$.subscribe( contract => {
       this.activeContract = contract
-      if (this.candles.length > 0) {
+      // if (this.candles.length > 0) {
       this.candles = []
       this.draw()
-    }
+    // }
 
       // this.subscribeHisto(0)
       this.subscribeHisto()
@@ -99,7 +99,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck
     }
     this.liveSub$  = this.dataService.getLiveTicks(this.activeContract.idcontract, this.freq).subscribe(mes => {
       const candle: Candle = JSON.parse(mes.body);
-      if (this.freq == candle.freq) {
+      if (this.freq == candle.freq && this.candles != null) {
         if (candle.freq ==0 || candle.id !== this.candles[0].id) {
           this.candles.unshift(candle)
         } else {
@@ -144,60 +144,79 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck
   }
 
   draw() {
-    if(this.canvas != undefined) {
-      this.data = new Map()
-      this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      // this.gc.fillStyle ='black'
-      // this.gc.fillRect(0, 0, this.canvas.width, this.canvas.height);
-      this.min = this.getTrailingMin(this.currentZoomValue);
-      this.max = this.getTrailingMax(this.currentZoomValue);
+    if(this.candles!= null) {
+      if (this.canvas != undefined) {
+        this.data = new Map()
+        this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        // this.gc.fillStyle ='black'
+        // this.gc.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.min = this.getTrailingMin(this.currentZoomValue);
+        this.max = this.getTrailingMax(this.currentZoomValue);
 
-      let x = 1 - this.dragEnd;
-      for (let candle of this.candles) {
-        if (candle.color == 1) {
-          this.colorUp = 'lightgreen';
-          this.colorDown = 'lightgreen';
-        } else if (candle.color > 1) {
-          this.colorUp = 'green';
-          this.colorDown = 'green';
-        } else if (candle.color == -1) {
-          this.colorUp = 'salmon';
-          this.colorDown = 'salmon';
-        } else if (candle.color < -1) {
-          this.colorUp = 'red';
-          this.colorDown = 'red';
-        } else {
-          this.colorUp = 'black';
-          this.colorDown = 'black';
+        let x = 1 - this.dragEnd;
+        for (let candle of this.candles) {
+          if (candle.color == 1) {
+            this.colorUp = 'lightgreen';
+            this.colorDown = 'lightgreen';
+          } else if (candle.color == 2) {
+            this.colorUp = 'green';
+            this.colorDown = 'green';
+          } else if (candle.color > 2) {
+            // this.colorUp = 'yellow';
+            // this.colorDown = 'yellow';
+          } else if (candle.color == -1) {
+            this.colorUp = 'salmon';
+            this.colorDown = 'salmon';
+          } else if (candle.color == -2) {
+            this.colorUp = 'red';
+            this.colorDown = 'red';
+          } else if (candle.color < -2) {
+            // this.colorUp = 'orange';
+            // this.colorDown = 'orange';
+          } else {
+            this.colorUp = 'black';
+            this.colorDown = 'black';
+          }
+
+          if (candle.high - candle.low > candle.abnormalHeightLevel) {
+            this.colorUp = 'yellow';
+            this.colorDown = 'yellow';
+          }
+
+
+          let time = this.getX(x) - 10;
+          if (time < 0) {
+            break;
+          }
+          this.data.set(Math.round(time), candle);
+          this.data.set(Math.round(time) - 1, candle);
+          this.data.set(Math.round(time) + 1, candle);
+          let high = this.getYPixel(candle.high);
+          let low = this.getYPixel(candle.low);
+          let open = this.getYPixel(candle.open);
+          let close = this.getYPixel(candle.close);
+
+          this.gc.strokeStyle = 'black';
+          this.gc.beginPath();
+          this.gc.moveTo(time + this.widthCandle / 2, high);
+          this.gc.lineTo(time + this.widthCandle / 2, low);
+          this.gc.stroke();
+
+          this.gc.beginPath();
+          this.gc.moveTo(time, this.getYPixel(candle.closeAverage));
+          this.gc.lineTo(time + this.widthCandle, this.getYPixel(candle.closeAverage));
+          this.gc.stroke();
+
+          if (candle.open <= candle.close) {
+            this.gc.fillStyle = this.colorUp;
+            this.gc.fillRect(time, close, this.widthCandle, open - close);
+          } else {
+            this.gc.fillStyle = this.colorDown;
+            this.gc.fillRect(time, open, this.widthCandle, close - open);
+          }
+
+          x += this.width;
         }
-
-        let time = this.getX(x) - 10;
-        if (time < 0) {
-          break;
-        }
-        this.data.set(Math.round(time), candle);
-        this.data.set(Math.round(time) - 1, candle);
-        this.data.set(Math.round(time) + 1, candle);
-        let high = this.getYPixel(candle.high);
-        let low = this.getYPixel(candle.low);
-        let open = this.getYPixel(candle.open);
-        let close = this.getYPixel(candle.close);
-
-        this.gc.strokeStyle = 'black';
-        this.gc.beginPath();
-        this.gc.moveTo(time + this.widthCandle / 2, high);
-        this.gc.lineTo(time + this.widthCandle / 2, low);
-        this.gc.stroke();
-
-        if (candle.open <= candle.close) {
-          this.gc.fillStyle = this.colorUp;
-          this.gc.fillRect(time, close, this.widthCandle, open - close);
-        } else {
-          this.gc.fillStyle = this.colorDown;
-          this.gc.fillRect(time, open, this.widthCandle, close - open);
-        }
-
-        x += this.width;
       }
     }
   }
@@ -258,15 +277,13 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck
   // }
   //
   onMouseMove(ev: MouseEvent) {
-    console.log('coucou')
-
     if (this.isDrag) {
       this.dragEnd = this.dragCumul + ev.clientX - this.dragStart;
       this.draw();
     }
 
     if (this.data.get(ev.layerX)) {
-      console.log(this.data.get(ev.layerX))
+      // console.log(this.data.get(ev.layerX))
       this.dataService.activeCandle.next(this.data.get(ev.layerX))
       // this.displayCandle$.next(this.data.get(ev.layerX));
     }

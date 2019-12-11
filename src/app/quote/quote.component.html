@@ -1,38 +1,39 @@
 <div class="title" *ngIf="this.contract != undefined">
-  <div><h1>{{contract.symbol}} Dec27'19 @{{contract.exchange}}</h1></div>
-  <div><h2>{{contract.title}} - QUOTE DETAILS</h2></div>
-  <div *ngIf="activeCandle != null"><span>{{activeCandle.timestamp}}</span><span>O: {{activeCandle.open}}</span><span>H: {{activeCandle.high}}</span><span>L: {{activeCandle.low}}</span><span>C: {{activeCandle.close}}</span></div>
+  <div><h1>({{contract.idcontract}}) {{contract.symbol}} {{contract.expiration}} @{{contract.exchange}}</h1></div>
+  <div><h1>{{date | date:'dd-MM-yy hh:mm:ss'}}</h1></div>
+  <div *ngIf="activeCandle != null"><span>{{activeCandle.timestamp | date:'dd-MM-yy hh:mm:ss'}}</span><span>O: {{activeCandle.open}}</span><span>H: {{activeCandle.high}}</span><span>L: {{activeCandle.low}}</span><span>C: {{activeCandle.close}}</span><span>A: {{activeCandle.closeAverage}}</span></div>
 </div>
 
-<div class="container" *ngIf="this.generatorState.get(contract.idcontract) != undefined">
+<div class="container" *ngIf="this.generatorState != undefined">
+
 
   <div class="item">
-  <div>{{generatorState.get(contract.idcontract).lastPrice}}</div>
-  <div [ngClass]="{'price-up':this.generatorState.get(contract.idcontract).changeValue>0, 'price-down': this.generatorState.get(contract.idcontract).changeValue<0}">{{generatorState.get(contract.idcontract).changeValue}}</div>
-  <div [ngClass]="{'price-up':this.generatorState.get(contract.idcontract).changePerc>0, 'price-down': this.generatorState.get(contract.idcontract).changePerc<0}">{{generatorState.get(contract.idcontract).changePerc | percent:'1.2-2'}}</div>
+  <div><span>({{generatorState.timestamp | date:'dd-MM hh:mm'}})</span>{{generatorState.lastPrice}}</div>
+  <div [ngClass]="{'price-up':this.generatorState.changeValue>0, 'price-down': this.generatorState.changeValue<0}">{{generatorState.changeValue}}</div>
+  <div [ngClass]="{'price-up':this.generatorState.changePerc>0, 'price-down': this.generatorState.changePerc<0}">{{generatorState.changePerc | percent:'1.2-2'}}</div>
 </div>
 
   <div class="item">
-    <div>Weekly <span>{{generatorState.get(contract.idcontract).lastPrice / generatorState.get(contract.idcontract).weeklyMark - 1 | percent:'1.2-2'}}</span></div>
-    <div>Monthly <span>{{generatorState.get(contract.idcontract).lastPrice / generatorState.get(contract.idcontract).monthlyMark - 1 | percent:'1.2-2'}}</span></div>
-    <div>YTD <span>{{generatorState.get(contract.idcontract).lastPrice / generatorState.get(contract.idcontract).yearlyMark - 1 | percent:'1.2-2'}}</span></div>
+    <div>Weekly <span>{{generatorState.lastPrice / generatorState.weeklyMark - 1 | percent:'1.2-2'}}</span></div>
+    <div>Monthly <span>{{generatorState.lastPrice / generatorState.monthlyMark - 1 | percent:'1.2-2'}}</span></div>
+    <div>YTD <span>{{generatorState.lastPrice / generatorState.yearlyMark - 1 | percent:'1.2-2'}}</span></div>
   </div>
 
   <div class="item">
     <div>NBBO</div>
-    <div>{{generatorState.get(contract.idcontract).ask}} x<span class="quantity">{{generatorState.get(contract.idcontract).askQuantity}}</span></div>
-    <div>{{generatorState.get(contract.idcontract).bid}} x<span class="quantity">{{generatorState.get(contract.idcontract).bidQuantity}}</span></div>
+    <div>{{generatorState.ask}} x<span class="quantity">{{generatorState.askQuantity}}</span></div>
+    <div>{{generatorState.bid}} x<span class="quantity">{{generatorState.bidQuantity}}</span></div>
   </div>
 
   <div class="item">
     <div>H/L</div>
-    <div>{{generatorState.get(contract.idcontract).high}}</div>
-    <div>{{generatorState.get(contract.idcontract).low}}</div>
+    <div>{{generatorState.high}}</div>
+    <div>{{generatorState.low}}</div>
   </div>
 
   <div class="item">
     <div>V/ADV</div>
-    <div>{{generatorState.get(contract.idcontract).dailyVolume / 1000}}K</div>
+    <div>{{generatorState.dailyVolume / 1000}}K</div>
     <div></div>
   </div>
 </div>

@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit {
 
   initForm() {
     this.myForm = this.fb.group({
-      username: 'trader',
-      password: 'trader123'
+      username: '',
+      password: ''
     });
   }
 

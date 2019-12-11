@@ -19,6 +19,9 @@ export const ANONYMOUS_USER: User = {
   providedIn: 'root'
 })
 export class AuthService {
+  // dst = 'http://37.59.39.230:8080'
+  dst = 'http://localhost:8080'
+
   user = new BehaviorSubject(ANONYMOUS_USER);
   user$: Observable<User> = this.user.asObservable();
   helper = new JwtHelperService();
@@ -45,7 +48,7 @@ export class AuthService {
   // }
 
   login(username: string, password: string) {
-    return this.http.post<HttpResponse<any>>('http://localhost:8080/login', {username, password}, {observe: 'response'})
+    return this.http.post<HttpResponse<any>>(this.dst + '/login', {username, password}, {observe: 'response'})
       .pipe(tap(res => {
         this.jwtToken = res.headers.get('authorization').replace('Bearer ', '');
         localStorage.setItem('matel-token', this.jwtToken);

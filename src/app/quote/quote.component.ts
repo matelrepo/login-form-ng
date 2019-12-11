@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DataService} from '../service/data.service';
 import {GeneratorState} from '../config/generatorState';
 import {Observable, Subscription} from 'rxjs';
@@ -11,31 +11,44 @@ import {Candle} from '../config/candle';
   styleUrls: ['./quote.component.css']
 })
 export class QuoteComponent implements OnInit {
-  generatorStateSub: Subscription
-  generatorState: Map<number, GeneratorState> = new Map<number, GeneratorState>()
-  contract: Contract
-  activeCandle: Candle
+  generatorStateSub: Subscription;
+  generatorState: GeneratorState;
+  contract: Contract;
+  activeCandle: Candle;
+  date: Date;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService) {
+  }
 
   ngOnInit() {
 
-    this.dataService.activeCandle$.subscribe( candle => {
-      console.log(candle)
-      this.activeCandle = candle
-    })
+    setInterval(() => {         //replaced function() by ()=>
+      this.date = new Date();
+    }, 1000);
+
+    this.dataService.activeCandle$.subscribe(candle => {
+      this.activeCandle = candle;
+    });
 
     this.dataService.activeContract$.subscribe(contract => {
-      this.contract = contract
-      console.log(this.contract)
-    })
+      this.contract = contract;
+      this.activeCandle = null;
+      if (this.generatorState != undefined) {
+        this.generatorStateSub.unsubscribe();
+      }
 
-    this.generatorStateSub = this.dataService.getLivePrices()
-      .subscribe((message) => {
-        Object.keys(JSON.parse(message.body)).forEach(key => {
-          this.generatorState.set(JSON.parse(message.body)[key].idcontract, JSON.parse(message.body)[key]);
+      // this.dataService.getHistoQuote(this.contract.idcontract).subscribe( quote=> this.generatorState = quote)
+
+      this.generatorStateSub = this.dataService.getLiveQuote(this.contract.idcontract)
+        .subscribe((message) => {
+          this.generatorState = JSON.parse(message.body);
         });
-      });
+    });
+
+    // this.generatorStateSub = this.dataService.getLiveQuote(this.contract.idcontract)
+    //   .subscribe((message) => {
+    //       this.generatorState = JSON.parse(message.body)
+    //   });
 
   }
 

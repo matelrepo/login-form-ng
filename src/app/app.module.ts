@@ -25,6 +25,7 @@ import {ChartControlDirective} from './chart/chart-control.directive';
 import { ContractDetailsComponent } from './contract-details/contract-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { QuoteComponent } from './quote/quote.component';
+import { LogProcessorDataComponent } from './log-processor-data/log-processor-data.component';
 
 
 
@@ -39,7 +40,8 @@ import { QuoteComponent } from './quote/quote.component';
     ChartComponent,
     ChartControlDirective,
     ContractDetailsComponent,
-    QuoteComponent
+    QuoteComponent,
+    LogProcessorDataComponent
   ],
   imports: [
     BrowserModule,

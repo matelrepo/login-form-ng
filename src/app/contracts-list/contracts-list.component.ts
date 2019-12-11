@@ -32,7 +32,10 @@ export class ContractsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.contractSub = this.data.getContracts().subscribe( contracts => this.contracts = contracts)
+    this.contractSub = this.data.getContracts().subscribe( contracts => {
+      this.contracts = contracts
+      console.log(contracts)
+    })
 
     this.marketDataSub =  this.data.getLivePrices()
       .subscribe((message) => {
