@@ -22,7 +22,6 @@ export class LogProcessorDataComponent implements OnInit {
       if(this.logsProcessorSub != undefined)
       this.logsProcessorSub.unsubscribe()
       this.logsProcessorSub = this.dataService.getlogsPocessor(contract.idcontract,6900).subscribe(logs => {
-        console.log(logs)
         this.logsProcessor = logs
       })
 

@@ -21,7 +21,6 @@ export class HeaderComponent implements OnInit {
     this.auth.user$.subscribe(user => this.username = user.username)
     this.dataService.getTickerCrawl().subscribe( list => {
       this.tickers = list
-      console.log(this.tickers)
     })
   }
 

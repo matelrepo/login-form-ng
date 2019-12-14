@@ -85,7 +85,6 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck
     this.appService.chart$.subscribe(chart =>{
       if(this.id == chart.id){
         this.init()
-        console.log(this.candles.length)
       }
     })
   }

@@ -88,6 +88,22 @@ span{
   border-radius: 100%;
 }
 
+.inactive{
+  margin-top:20%;
+  margin-left:20%;
+  color: yellow !important;
+  height: 5px;
+  width:5px;
+  background-color: yellow;
+  border-radius: 100%;
+}
+
+
+
+
+
+
+
 
 
 

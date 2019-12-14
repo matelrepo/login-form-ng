@@ -1,14 +1,14 @@
 <div class="title" *ngIf="this.contract != undefined">
   <div><h1>({{contract.idcontract}}) {{contract.symbol}} {{contract.expiration}} @{{contract.exchange}}</h1></div>
-  <div><h1>{{date | date:'dd-MM-yy hh:mm:ss'}}</h1></div>
-  <div *ngIf="activeCandle != null"><span>{{activeCandle.timestamp | date:'dd-MM-yy hh:mm:ss'}}</span><span>O: {{activeCandle.open}}</span><span>H: {{activeCandle.high}}</span><span>L: {{activeCandle.low}}</span><span>C: {{activeCandle.close}}</span><span>A: {{activeCandle.closeAverage}}</span></div>
+  <div><h1>{{date | date:'dd-MM-yy HH:mm:ss'}}</h1></div>
+  <div *ngIf="activeCandle != null"><span>{{activeCandle.timestamp | date:'dd-MM-yy HH:mm:ss'}}</span><span>O: {{activeCandle.open}}</span><span>H: {{activeCandle.high}}</span><span>L: {{activeCandle.low}}</span><span>C: {{activeCandle.close}}</span><span>A: {{activeCandle.closeAverage}}</span></div>
 </div>
 
 <div class="container" *ngIf="this.generatorState != undefined">
 
 
   <div class="item">
-  <div><span>({{generatorState.timestamp | date:'dd-MM hh:mm'}})</span>{{generatorState.lastPrice}}</div>
+  <div><span>({{generatorState.timestamp | date:'dd-MM HH:mm'}})</span>{{generatorState.lastPrice}}</div>
   <div [ngClass]="{'price-up':this.generatorState.changeValue>0, 'price-down': this.generatorState.changeValue<0}">{{generatorState.changeValue}}</div>
   <div [ngClass]="{'price-up':this.generatorState.changePerc>0, 'price-down': this.generatorState.changePerc<0}">{{generatorState.changePerc | percent:'1.2-2'}}</div>
 </div>

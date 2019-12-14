@@ -1,11 +1,11 @@
 <!--<app-contract-details></app-contract-details>-->
-
 <div *ngFor="let contract of contracts; index as i" class="grid-container">
   <div class="comp" (mouseover)="addClass($event)" (click)="onClick(contract, i)">
     <div class="grid-item"
          *ngIf="this.generatorsState.get(contract.idcontract) != undefined"
-         [ngClass]="{'disconnect': !this.generatorsState.get(contract.idcontract).connected,
-       'connect' : this.generatorsState.get(contract.idcontract).connected}"
+         [ngClass]="{'disconnect': this.generatorsState.get(contract.idcontract).marketDataStatus===0,
+         'inactive' : this.generatorsState.get(contract.idcontract).marketDataStatus===2,
+       'connect' : this.generatorsState.get(contract.idcontract).marketDataStatus===1}"
          [tooltip]="tipId" content-type="template" [show-delay]="1000"
          (click)="marketData(contract.idcontract)">{{contract.idcontract}}</div>
 
@@ -35,7 +35,7 @@
     <ng-template #tipId class="tool-tip">
       <div class="tool-tip">
         <div>{{contract.symbol}} ({{contract.idcontract}}) -
-          Connected: {{this.generatorsState.get(contract.idcontract).connected + '' | uppercase}}</div>
+          Connected: {{this.generatorsState.get(contract.idcontract).marketDataStatus}}</div>
       </div>
     </ng-template>
 

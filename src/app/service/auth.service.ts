@@ -99,9 +99,7 @@ export class AuthService {
       .replace(']','')
       .split(',')
     expectedRole = "ROLE_" + expectedRole.toUpperCase()
-    console.log(list)
-    console.log(expectedRole.toUpperCase())
-    console.log(list.includes(expectedRole.toUpperCase()))
+
     return list.includes(expectedRole.toUpperCase())
   }
 

@@ -15,7 +15,7 @@ import {ProcessorState} from '../config/processorState';
 
 
 export const DEFAULT_CONTRACT: Contract = {
-  idcontract: 88,
+  idcontract: 5,
   symbol: 'ES'
 };
 

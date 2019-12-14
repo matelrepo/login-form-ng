@@ -34,7 +34,6 @@ export class ContractsListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.contractSub = this.data.getContracts().subscribe( contracts => {
       this.contracts = contracts
-      console.log(contracts)
     })
 
     this.marketDataSub =  this.data.getLivePrices()
@@ -46,11 +45,12 @@ export class ContractsListComponent implements OnInit, OnDestroy {
   }
 
   marketData(idcontract: number){
-    this.generatorsState.get(idcontract).connected = !this.generatorsState.get(idcontract).connected;
-    if(this.generatorsState.get(idcontract).connected) {
+      if(this.generatorsState.get(idcontract).marketDataStatus>0) {
+        this.generatorsState.get(idcontract).marketDataStatus = 0
       this.data.connect(idcontract).subscribe(() => {
       })
     }else{
+        this.generatorsState.get(idcontract).marketDataStatus=1
       this.data.disconnect(idcontract).subscribe(() => {
       })
     }

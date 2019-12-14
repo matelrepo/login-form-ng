@@ -1,7 +1,6 @@
 export interface GeneratorState {
   idcontract: number
   timestamp: number
-  connected: boolean
   speed: number
   randomGenerator: boolean
   ask: number
@@ -18,6 +17,7 @@ export interface GeneratorState {
   weeklyMark: number
   monthlyMark: number
   yearlyMark: number
+  marketDataStatus: number
 
 
 }
