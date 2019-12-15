@@ -1,4 +1,20 @@
 <!--<app-contract-details></app-contract-details>-->
+<div class="menu">
+  <mat-button-toggle-group #group="matButtonToggleGroup">
+    <mat-button-toggle (change)="selectionChanged($event)" value="MAIN">
+      MAIN
+    </mat-button-toggle>
+    <mat-button-toggle (change)="selectionChanged($event)" value="COMMO">
+COMMO
+    </mat-button-toggle>
+    <mat-button-toggle (change)="selectionChanged($event)" value="ETF">
+ETF
+    </mat-button-toggle>
+    <mat-button-toggle (change)="selectionChanged($event)" value="FOREX">
+FOREX
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
 <div *ngFor="let contract of contracts; index as i" class="grid-container">
   <div class="comp" (mouseover)="addClass($event)" (click)="onClick(contract, i)">
     <div class="grid-item"
@@ -12,7 +28,7 @@
     <div class="grid-item"
          [tooltip]="tipContract" content-type="template" [show-delay]="2000"
          *ngIf="contract.fusion ==0; else falsyTemplate">{{contract.symbol}}
-      <span>.{{contract.currency}} {{contract.expiration}} @{{contract.exchange}}</span></div>
+      <span>.{{contract.currency}} {{contract.expiration | date:'MMMyy'}} @{{contract.exchange}}</span></div>
 
     <ng-template #falsyTemplate>
       <div [tooltip]="tipContract" content-type="template" [show-delay]="2000"

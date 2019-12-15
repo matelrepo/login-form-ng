@@ -35,8 +35,8 @@ export class DataService {
 
 
 
-  getContracts() {
-    return this.http.get<Contract[]>(this.dst + '/contracts/live');
+  getContracts(category: string) {
+    return this.http.get<Contract[]>(this.dst + '/contracts/live/' + category);
   }
 
   getTickerCrawl() {

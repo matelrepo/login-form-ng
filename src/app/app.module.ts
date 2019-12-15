@@ -1,4 +1,4 @@
-import { MatSliderModule, MatButtonModule,MatBadgeModule } from '@angular/material';
+import { MatSliderModule, MatButtonModule, MatBadgeModule, MatButtonToggleModule } from '@angular/material';
 
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -53,7 +53,8 @@ import { LogProcessorDataComponent } from './log-processor-data/log-processor-da
     BrowserAnimationsModule,
     MatSliderModule,
     MatButtonModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatButtonToggleModule
   ],
   providers: [RoleGuardService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     RxStompService

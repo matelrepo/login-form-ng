@@ -1,5 +1,5 @@
 <div class="title" *ngIf="this.contract != undefined">
-  <div><h1>({{contract.idcontract}}) {{contract.symbol}} {{contract.expiration}} @{{contract.exchange}}</h1></div>
+  <div><h1>({{contract.idcontract}}) {{contract.symbol}} {{contract.expiration | date:'MMMyy'}} @{{contract.exchange}}</h1></div>
   <div><h1>{{date | date:'dd-MM-yy HH:mm:ss'}}</h1></div>
   <div *ngIf="activeCandle != null"><span>{{activeCandle.timestamp | date:'dd-MM-yy HH:mm:ss'}}</span><span>O: {{activeCandle.open}}</span><span>H: {{activeCandle.high}}</span><span>L: {{activeCandle.low}}</span><span>C: {{activeCandle.close}}</span><span>A: {{activeCandle.closeAverage}}</span></div>
 </div>

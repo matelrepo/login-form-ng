@@ -98,6 +98,11 @@ span{
   border-radius: 100%;
 }
 
+.menu{
+  display: flex;
+  margin-bottom: 10px;
+}
+
 
 
 
