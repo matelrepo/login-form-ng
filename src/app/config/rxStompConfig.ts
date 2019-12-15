@@ -6,7 +6,7 @@ export const rxStompConfig: InjectableRxStompConfig = {
   // Which server?
 
    brokerURL: 'ws://localhost:8080/api',
- // brokerURL: 'ws://37.59.39.230:8080/api',
+ //brokerURL: 'ws://37.59.39.230:8080/api',
 
   // Headers
   // Typical keys: login, passcode, host

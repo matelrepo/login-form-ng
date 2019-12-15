@@ -23,7 +23,7 @@ export const DEFAULT_CONTRACT: Contract = {
   providedIn: 'root'
 })
 export class DataService {
-  // dst  = 'http://37.59.39.230:8080'
+  //dst  = 'http://37.59.39.230:8080'
   dst  = 'http://localhost:8080'
   activeContract = new BehaviorSubject(DEFAULT_CONTRACT)
   activeContract$: Observable<Contract> = this.activeContract.asObservable()
