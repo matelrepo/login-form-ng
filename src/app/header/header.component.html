@@ -17,10 +17,16 @@
   </div>
   <div class="menu">
     <div class="user-1"><span matBadge="12" matBadgeOverlap="false" matBadgeSize="small" matBadgeColor="warn">Stocks</span></div>
-    <div class="user-1"><span matBadge="4" matBadgeOverlap="false" matBadgeSize="small" matBadgeColor="warn">Futures</span></div>
-    <div class="user-1">Macro</div>
-    <div class="user-1">Portfolio</div>
-    <div class="user-1"><span matBadge="4" matBadgeOverlap="false" matBadgeSize="small" matBadgeColor="warn">Maintenance</span></div>
+    <div class="user-1"><span (click)="onClickFutures()" matBadge="4" matBadgeOverlap="false" matBadgeSize="small" matBadgeColor="warn">Futures</span></div>
+    <div class="user-1"><span (click)="onClickMacro()">Macro</span></div>
+    <div class="user-1" (click)="onClickPortfolio()"><span>Portfolio</span></div>
+    <div class="user-1, dropdown">
+      <span matBadge="4" matBadgeOverlap="false" matBadgeSize="small" matBadgeColor="warn">Maintenance</span>
+      <div class="dropdown-content">
+        <a (click)="onClickContractUpdate()">Update Contract</a>
+        <a (click)="onClickProcessorLogs()">Processor logs</a>
+      </div>
+    </div>
     <div class="user-1">Welcome {{username | titlecase}}</div>
     <div class="user-2"><a (click)="logout()">Log out</a></div>
   </div>

@@ -3,6 +3,7 @@ import {DataService} from '../service/data.service';
 import {Subscription} from 'rxjs';
 import {GeneratorState} from '../config/generatorState';
 import {Contract} from '../config/contract';
+import {AppService} from '../service/app.service';
 
 @Component({
   selector: 'app-contracts-list',
@@ -18,7 +19,7 @@ export class ContractsListComponent implements OnInit, OnDestroy {
   currentIndex = 5;
   selectedValue  = 'MAIN';
 
-  constructor(private data: DataService) { }
+  constructor(private data: DataService, private appService: AppService) { }
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
@@ -75,7 +76,8 @@ export class ContractsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.marketDataSub.unsubscribe();
+    this.marketDataSub.unsubscribe()
+    this.contractSub.unsubscribe()
   }
 
 }

@@ -1,75 +1,77 @@
 <!--<app-contract-details></app-contract-details>-->
-<div class="menu">
-  <mat-button-toggle-group #group="matButtonToggleGroup">
-    <mat-button-toggle (change)="selectionChanged($event)" value="MAIN">
-      MAIN
-    </mat-button-toggle>
-    <mat-button-toggle (change)="selectionChanged($event)" value="COMMO">
-COMMO
-    </mat-button-toggle>
-    <mat-button-toggle (change)="selectionChanged($event)" value="ETF">
-ETF
-    </mat-button-toggle>
-    <mat-button-toggle (change)="selectionChanged($event)" value="FOREX">
-FOREX
-    </mat-button-toggle>
-  </mat-button-toggle-group>
-</div>
-<div *ngFor="let contract of contracts; index as i" class="grid-container">
-  <div class="comp" (mouseover)="addClass($event)" (click)="onClick(contract, i)">
-    <div class="grid-item"
-         *ngIf="this.generatorsState.get(contract.idcontract) != undefined"
-         [ngClass]="{'disconnect': this.generatorsState.get(contract.idcontract).marketDataStatus===0,
+<div *ngIf="appService.displayPortfolio">
+  <div class="menu">
+    <mat-button-toggle-group #group="matButtonToggleGroup">
+      <mat-button-toggle (change)="selectionChanged($event)" value="MAIN">
+        MAIN
+      </mat-button-toggle>
+      <mat-button-toggle (change)="selectionChanged($event)" value="COMMO">
+        COMMO
+      </mat-button-toggle>
+      <mat-button-toggle (change)="selectionChanged($event)" value="ETF">
+        ETF
+      </mat-button-toggle>
+      <mat-button-toggle (change)="selectionChanged($event)" value="FOREX">
+        FOREX
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <div *ngFor="let contract of contracts; index as i" class="grid-container">
+    <div class="comp" (mouseover)="addClass($event)" (click)="onClick(contract, i)">
+      <div class="grid-item"
+           *ngIf="this.generatorsState.get(contract.idcontract) != undefined"
+           [ngClass]="{'disconnect': this.generatorsState.get(contract.idcontract).marketDataStatus===0,
          'inactive' : this.generatorsState.get(contract.idcontract).marketDataStatus===2,
        'connect' : this.generatorsState.get(contract.idcontract).marketDataStatus===1}"
-         [tooltip]="tipId" content-type="template" [show-delay]="1000"
-         (click)="marketData(contract.idcontract)">{{contract.idcontract}}</div>
+           [tooltip]="tipId" content-type="template" [show-delay]="1000"
+           (click)="marketData(contract.idcontract)">{{contract.idcontract}}</div>
 
-    <div class="grid-item"
-         [tooltip]="tipContract" content-type="template" [show-delay]="2000"
-         *ngIf="contract.fusion ==0; else falsyTemplate">{{contract.symbol}}
-      <span>.{{contract.currency}} {{contract.expiration | date:'MMMyy'}} @{{contract.exchange}}</span></div>
+      <div class="grid-item"
+           [tooltip]="tipContract" content-type="template" [show-delay]="2000"
+           *ngIf="contract.fusion ==0; else falsyTemplate">{{contract.symbol}}
+        <span>.{{contract.currency}} {{contract.expiration | date:'MMMyy'}} @{{contract.exchange}}</span></div>
 
-    <ng-template #falsyTemplate>
-      <div [tooltip]="tipContract" content-type="template" [show-delay]="2000"
-           class="grid-item">{{contract.symbol}}
-        <span>.{{contract.currency}}{{contract.fusion}} {{contract.expiration | date:'MMMyy'}}
-          @{{contract.exchange}}</span></div>
-    </ng-template>
+      <ng-template #falsyTemplate>
+        <div [tooltip]="tipContract" content-type="template" [show-delay]="2000"
+             class="grid-item">{{contract.symbol}}
+          <span>.{{contract.currency}}{{contract.fusion}} {{contract.expiration | date:'MMMyy'}}
+            @{{contract.exchange}}</span></div>
+      </ng-template>
 
-    <div *ngIf="this.generatorsState.get(contract.idcontract) != undefined"
-         class="price"
-         [ngClass]="{'price-up':this.generatorsState.get(contract.idcontract).changePerc>0, 'price-down': this.generatorsState.get(contract.idcontract).changePerc<0}">
-      {{this.generatorsState.get(contract.idcontract).lastPrice}}
-    </div>
-    <div *ngIf="this.generatorsState.get(contract.idcontract) != undefined"
-         class="price"
-         [ngClass]="{'price-up':this.generatorsState.get(contract.idcontract).changePerc>0, 'price-down': this.generatorsState.get(contract.idcontract).changePerc<0}">
-      {{this.generatorsState.get(contract.idcontract).changePerc | percent:'1.2-2'}}
-    </div>
-
-    <ng-template #tipId class="tool-tip">
-      <div class="tool-tip">
-        <div>{{contract.symbol}} ({{contract.idcontract}}) -
-          Connected: {{this.generatorsState.get(contract.idcontract).marketDataStatus}}</div>
+      <div *ngIf="this.generatorsState.get(contract.idcontract) != undefined"
+           class="price"
+           [ngClass]="{'price-up':this.generatorsState.get(contract.idcontract).changePerc>0, 'price-down': this.generatorsState.get(contract.idcontract).changePerc<0}">
+        {{this.generatorsState.get(contract.idcontract).lastPrice}}
       </div>
-    </ng-template>
-
-    <ng-template #tipContract class="tool-tip">
-      <div class="tool-tip">
-        <div>{{contract.title}}</div>
-        <div>Expiration: {{contract.expiration | date: 'dd MMM yyyy'}}</div>
-        <div>First Notice: {{contract.firstNotice | date: 'dd MMM yyyy'}}</div>
-        <div>Tick Size: {{contract.tickSize}}</div>
-        <div>Multiplier: {{contract.multiplier}}</div>
+      <div *ngIf="this.generatorsState.get(contract.idcontract) != undefined"
+           class="price"
+           [ngClass]="{'price-up':this.generatorsState.get(contract.idcontract).changePerc>0, 'price-down': this.generatorsState.get(contract.idcontract).changePerc<0}">
+        {{this.generatorsState.get(contract.idcontract).changePerc | percent:'1.2-2'}}
       </div>
-    </ng-template>
 
+      <ng-template #tipId class="tool-tip">
+        <div class="tool-tip">
+          <div>{{contract.symbol}} ({{contract.idcontract}}) -
+            Connected: {{this.generatorsState.get(contract.idcontract).marketDataStatus}}</div>
+        </div>
+      </ng-template>
+
+      <ng-template #tipContract class="tool-tip">
+        <div class="tool-tip">
+          <div>{{contract.title}}</div>
+          <div>Expiration: {{contract.expiration | date: 'dd MMM yyyy'}}</div>
+          <div>First Notice: {{contract.firstNotice | date: 'dd MMM yyyy'}}</div>
+          <div>Tick Size: {{contract.tickSize}}</div>
+          <div>Multiplier: {{contract.multiplier}}</div>
+        </div>
+      </ng-template>
+
+    </div>
   </div>
 </div>
-
-<!--<button (click)="on()">on</button>-->
-<!--<button (click)="off()">off</button>-->
+<div *ngIf="!appService.displayPortfolio">
+  <app-portfolio></app-portfolio>
+</div>
 
 
 

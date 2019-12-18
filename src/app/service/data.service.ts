@@ -11,6 +11,7 @@ import {Candle} from '../config/candle';
 import {Macro} from '../config/macro';
 import {GeneratorState} from '../config/generatorState';
 import {ProcessorState} from '../config/processorState';
+import {Portfolio} from '../config/portfolio';
 
 
 
@@ -58,6 +59,14 @@ export class DataService {
 
   getLiveQuote(idcontract: number): Observable<IMessage>{
     return this.rxStompService.watch('/get/quote/'+idcontract, rxStompConfig.connectHeaders);
+  }
+
+  getPortfolioLive(): Observable<IMessage>{
+    return this.rxStompService.watch('/get/portfolio-update', rxStompConfig.connectHeaders);
+  }
+
+  getPorfolio() {
+    return this.http.get(this.dst + '/portfolio', {responseType: 'text'});
   }
 
   getHistoQuote(idcontract: number) {

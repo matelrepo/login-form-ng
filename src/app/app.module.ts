@@ -26,6 +26,8 @@ import { ContractDetailsComponent } from './contract-details/contract-details.co
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { QuoteComponent } from './quote/quote.component';
 import { LogProcessorDataComponent } from './log-processor-data/log-processor-data.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
+import { MacroComponent } from './macro/macro.component';
 
 
 
@@ -41,7 +43,9 @@ import { LogProcessorDataComponent } from './log-processor-data/log-processor-da
     ChartControlDirective,
     ContractDetailsComponent,
     QuoteComponent,
-    LogProcessorDataComponent
+    LogProcessorDataComponent,
+    PortfolioComponent,
+    MacroComponent
   ],
   imports: [
     BrowserModule,

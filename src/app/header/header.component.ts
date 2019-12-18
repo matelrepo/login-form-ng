@@ -3,6 +3,7 @@ import {DataService} from '../service/data.service';
 import {AuthService} from '../service/auth.service';
 import {Observable} from 'rxjs';
 import {Macro} from '../config/macro';
+import {AppService} from '../service/app.service';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,7 @@ export class HeaderComponent implements OnInit {
   tickers: Macro[]
   arrow: string;
 
-  constructor(private dataService: DataService, private auth: AuthService) {
+  constructor(private dataService: DataService, private auth: AuthService, private appService: AppService) {
   }
 
   ngOnInit() {
@@ -26,6 +27,34 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.auth.logout()
+  }
+
+  onClickPortfolio(){
+    this.appService.displayPortfolio = !this.appService.displayPortfolio;
+  }
+
+  onClickFutures(){
+    this.appService.displayMacro = false
+    this.appService.displayChart = true;
+    this.appService.displayUpdateContract = false;
+  }
+
+  onClickProcessorLogs(){
+    this.appService.displayProcessorLogs = !this.appService.displayProcessorLogs;
+
+  }
+
+  onClickMacro(){
+    this.appService.displayMacro = !this.appService.displayMacro;
+    this.appService.displayChart = false;
+    this.appService.displayUpdateContract = false;
+  }
+
+  onClickContractUpdate(){
+    this.appService.displayUpdateContract = !this.appService.displayUpdateContract;
+    this.appService.displayChart = false;
+    this.appService.displayMacro = false
+
   }
 
   onRowClick(ticker: Macro){
