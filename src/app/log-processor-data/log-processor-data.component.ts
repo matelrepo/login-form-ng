@@ -19,10 +19,13 @@ export class LogProcessorDataComponent implements OnInit {
 
     this.dataService.activeContract$.subscribe(contract => {
       this.contract = contract;
+      console.log(contract)
       if(this.logsProcessorSub != undefined)
       this.logsProcessorSub.unsubscribe()
+
       this.logsProcessorSub = this.dataService.getlogsPocessor(contract.idcontract,6900).subscribe(logs => {
         this.logsProcessor = logs
+        console.log(logs)
       })
 
     })

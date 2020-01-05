@@ -6,7 +6,7 @@ import {rxStompConfig} from '../config/rxStompConfig';
 import {BehaviorSubject, Observable} from 'rxjs';
 import { IMessage } from '@stomp/stompjs';
 import {Message} from '@angular/compiler/src/i18n/i18n_ast';
-import {tap, throttleTime} from 'rxjs/operators';
+import {switchMap, tap, throttleTime} from 'rxjs/operators';
 import {Candle} from '../config/candle';
 import {Macro} from '../config/macro';
 import {GeneratorState} from '../config/generatorState';
