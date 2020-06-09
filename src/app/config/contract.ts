@@ -1,4 +1,4 @@
-export interface Contract{
+export interface Contract {
   idcontract: number;
   title?: string;
   exchange?: string;
@@ -11,5 +11,8 @@ export interface Contract{
   active?: boolean;
   flowType?: string;
   fusion?: number;
+  secType?: string;
+  rounding?: number;
+  category?: number;
 
 }

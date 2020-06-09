@@ -20,9 +20,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.auth.user$.subscribe(user => this.username = user.username)
-    this.dataService.getTickerCrawl().subscribe( list => {
-      this.tickers = list
-    })
+    // this.dataService.getTickerCrawl().subscribe( list => {
+    //   this.tickers = list
+    // })
   }
 
   logout() {
@@ -36,24 +36,30 @@ export class HeaderComponent implements OnInit {
   onClickFutures(){
     this.appService.displayMacro = false
     this.appService.displayChart = true;
-    this.appService.displayUpdateContract = false;
+    this.appService.displaySaveContract = false;
   }
 
   onClickProcessorLogs(){
     this.appService.displayProcessorLogs = !this.appService.displayProcessorLogs;
-
   }
 
-  onClickMacro(){
+  onConnectAll(){
+    this.dataService.connectAll().subscribe();
+  }
+  onDisConnectAll(){
+    this.dataService.disconnectAll().subscribe();
+  }
+
+  onClickMacro() {
     this.appService.displayMacro = !this.appService.displayMacro;
     this.appService.displayChart = false;
-    this.appService.displayUpdateContract = false;
+    this.appService.displaySaveContract = false;
   }
 
-  onClickContractUpdate(){
-    this.appService.displayUpdateContract = !this.appService.displayUpdateContract;
+  onClickSaveContract() {
+    this.appService.displaySaveContract = !this.appService.displaySaveContract;
     this.appService.displayChart = false;
-    this.appService.displayMacro = false
+    this.appService.displayMacro = false;
 
   }
 

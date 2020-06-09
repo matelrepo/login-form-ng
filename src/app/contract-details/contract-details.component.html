@@ -1,10 +1,20 @@
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-<!--  <p *ngIf="errorMessage != undefined" class ="errorMessage">{{ errorMessage}}</p>-->
   <h1>{{this.activeContract.idcontract}} - {{this.activeContract.symbol}}</h1>
-  <p>Expiration</p>
-  <input type="text" formControlName="expiration">
-  <p>First notice</p>
-  <input type="text" formControlName="firstNotice">
+  <p><span>ID</span><span>  <input type="text" formControlName="idcontract"></span></p>
+  <p><span>Title</span><span>  <input type="text" formControlName="title"></span></p>
+  <p><span>Sec Type</span><span>  <input type="text" formControlName="secType"></span></p>
+  <p><span>Exchange</span><span>  <input type="text" formControlName="exchange"></span></p>
+  <p><span>Currency</span><span>  <input type="text" formControlName="currency"></span></p>
+  <p><span>Symbol</span><span>  <input type="text" formControlName="symbol"></span></p>
+  <p><span>Tick Size</span><span>  <input type="text" formControlName="tickSize"></span></p>
+  <p><span>Rounding</span><span>  <input type="text" formControlName="rounding"></span></p>
+  <p><span>Multiplier</span><span>  <input type="text" formControlName="multiplier"></span></p>
+  <p><span>Expiration</span><span>  <input type="text" formControlName="expiration"></span></p>
+  <p><span>First Notice</span><span>  <input type="text" formControlName="firstNotice"></span></p>
+  <p><span>Active</span><span>  <input type="text" formControlName="active"></span></p>
+  <p><span>Flow Type</span><span>  <input type="text" formControlName="flowType"></span></p>
+  <p><span>Fusion</span><span>  <input type="text" formControlName="fusion"></span></p>
+  <p><span>Category</span><span>  <input type="text" formControlName="category"></span></p>
   <p>Adjustment</p>
   <input type="text" formControlName="adjustment">
   <p><input type="submit" name="" value="Update"></p>

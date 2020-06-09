@@ -6,8 +6,9 @@ export class Candle {
   }
 
   id: number;
-  idTick: number;
-  timestamp: Date;
+  idtick: number;
+  timestampTick: Date;
+  timestampCandle: Date;
   open: number;
   high: number;
   low: number;

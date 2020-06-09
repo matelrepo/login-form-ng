@@ -1,4 +1,4 @@
-export interface GeneratorState {
+export class GeneratorState {
   idcontract: number
   timestamp: number
   speed: number
@@ -17,7 +17,7 @@ export interface GeneratorState {
   weeklyMark: number
   monthlyMark: number
   yearlyMark: number
-  marketDataStatus: number
+  marketDataStatus = 2;
 
 
 }

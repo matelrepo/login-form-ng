@@ -2,20 +2,26 @@
 <div *ngIf="appService.displayPortfolio">
   <div class="menu">
     <mat-button-toggle-group #group="matButtonToggleGroup">
-      <mat-button-toggle (change)="selectionChanged($event)" value="MAIN">
+      <mat-button-toggle (change)="selectionChanged($event.value,'a')" value="MAIN">
         MAIN
       </mat-button-toggle>
-      <mat-button-toggle (change)="selectionChanged($event)" value="COMMO">
+      <mat-button-toggle (change)="selectionChanged($event.value,'a')" value="COMMO">
         COMMO
       </mat-button-toggle>
-      <mat-button-toggle (change)="selectionChanged($event)" value="ETF">
+      <mat-button-toggle (change)="selectionChanged($event.value,'a')" value="ETF">
         ETF
       </mat-button-toggle>
-      <mat-button-toggle (change)="selectionChanged($event)" value="FOREX">
+      <mat-button-toggle (change)="selectionChanged($event.value,'a')" value="FOREX">
         FOREX
+      </mat-button-toggle>
+      <mat-button-toggle (change)="selectionChanged($event.value,'a')" value="DAILY">
+        DAILY
       </mat-button-toggle>
     </mat-button-toggle-group>
   </div>
+
+
+  <p [ngStyle]="{'visibility':selectedValue === 'DAILY' ? 'visible' : 'hidden' }"><span>Search</span><span><input type="text" id="search"></span></p>
   <div *ngFor="let contract of contracts; index as i" class="grid-container">
     <div class="comp" (mouseover)="addClass($event)" (click)="onClick(contract, i)">
       <div class="grid-item"
@@ -26,7 +32,7 @@
            [tooltip]="tipId" content-type="template" [show-delay]="1000"
            (click)="marketData(contract.idcontract)">{{contract.idcontract}}</div>
 
-      <div class="grid-item"
+      <div class="grid-item min-w"
            [tooltip]="tipContract" content-type="template" [show-delay]="2000"
            *ngIf="contract.fusion ==0; else falsyTemplate">{{contract.symbol}}
         <span>.{{contract.currency}} {{contract.expiration | date:'MMMyy'}} @{{contract.exchange}}</span></div>

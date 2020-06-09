@@ -23,8 +23,12 @@
     <div class="user-1, dropdown">
       <span matBadge="4" matBadgeOverlap="false" matBadgeSize="small" matBadgeColor="warn">Maintenance</span>
       <div class="dropdown-content">
-        <a (click)="onClickContractUpdate()">Update Contract</a>
+        <a (click)="onClickSaveContract()">Save Contract</a>
         <a (click)="onClickProcessorLogs()">Processor logs</a>
+        <a (click)="onConnectAll()">Connect all contracts </a>
+        <a (click)="onDisConnectAll()">Disconnect all contracts </a>
+
+
       </div>
     </div>
     <div class="user-1">Welcome {{username | titlecase}}</div>

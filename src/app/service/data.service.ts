@@ -24,44 +24,50 @@ export const DEFAULT_CONTRACT: Contract = {
   providedIn: 'root'
 })
 export class DataService {
-  //dst  = 'http://37.59.39.230:8080'
-  dst  = 'http://localhost:8080'
-  activeContract = new BehaviorSubject(DEFAULT_CONTRACT)
-  activeContract$: Observable<Contract> = this.activeContract.asObservable()
+  // dst  = 'http://37.59.39.230:8080'
+// dst  = 'http://localhost:8080';
+  dst = 'http://91.121.83.101:8080'
 
-  activeCandle = new BehaviorSubject(null)
-  activeCandle$: Observable<Candle> = this.activeCandle.asObservable()
+  activeContract = new BehaviorSubject(DEFAULT_CONTRACT);
+  activeContract$: Observable<Contract> = this.activeContract.asObservable();
+
+  activeCandle = new BehaviorSubject(null);
+  activeCandle$: Observable<Candle> = this.activeCandle.asObservable();
 
   constructor(private http: HttpClient, private rxStompService: RxStompService) {}
 
 
 
-  getContracts(category: string) {
-    return this.http.get<Contract[]>(this.dst + '/contracts/live/' + category);
+  getContracts(category: string, filter: string) {
+   if (category === 'DAILY') {
+    return this.http.get<Contract[]>(this.dst + '/contracts/dailycon/' + category + '/' + filter);
+   } else {
+     return this.http.get<Contract[]>(this.dst + '/contracts/live/' + category + '/' + filter);
+   }
   }
 
   getTickerCrawl() {
     return this.http.get<Macro[]>(this.dst + '/ticker-crawl');
   }
 
-  getHistoCandles(idcontract: number, freq: number) {
-    return this.http.get<Candle[]>(this.dst + '/histo-candles/' + idcontract +'/' + freq);
+  getHistoCandles(idcontract: number, code: string, freq: number) {
+    return this.http.get<Candle[]>(this.dst + '/histo-candles/' + idcontract + '/' + code + '/' + freq);
   }
 
   getlogsPocessor(idcontract: number, freq: number) {
-    return this.http.get<ProcessorState[]>(this.dst + '/log-processor/' + idcontract +'/' + freq);
+    return this.http.get<ProcessorState[]>(this.dst + '/log-processor/' + idcontract + '/' + freq);
   }
 
-  getLiveTicks(idcontract: number, freq: number): Observable<IMessage>{
-    return this.rxStompService.watch('/get/candle-live/' + idcontract +'/' + freq, rxStompConfig.connectHeaders)
-      .pipe(throttleTime(100))
+  getLiveTicks(idcontract: number, freq: number): Observable<IMessage> {
+    return this.rxStompService.watch('/get/candle-live/' + idcontract + '/' + freq, rxStompConfig.connectHeaders)
+      .pipe(throttleTime(100));
   }
 
-  getLiveQuote(idcontract: number): Observable<IMessage>{
-    return this.rxStompService.watch('/get/quote/'+idcontract, rxStompConfig.connectHeaders);
+  getLiveQuote(idcontract: number): Observable<IMessage> {
+    return this.rxStompService.watch('/get/quote/' + idcontract, rxStompConfig.connectHeaders);
   }
 
-  getPortfolioLive(): Observable<IMessage>{
+  getPortfolioLive(): Observable<IMessage> {
     return this.rxStompService.watch('/get/portfolio-update', rxStompConfig.connectHeaders);
   }
 
@@ -73,24 +79,34 @@ export class DataService {
     return this.http.get<GeneratorState>(this.dst + '/quote-histo/' + idcontract);
   }
 
-  getLivePrices(): Observable<IMessage>{
+  getLivePrices(): Observable<IMessage> {
     return this.rxStompService.watch('/get/prices', rxStompConfig.connectHeaders);
   }
 
-  connect(idContract: number){
-    return this.http.post<boolean>(this.dst + '/connect/'+ idContract, true);
+  connect(idContract: number) {
+    console.log('connect');
+    return this.http.post<boolean>(this.dst + '/connect/' + idContract, true);
   }
 
-  disconnect(idContract: number){
-    return this.http.post<boolean>(this.dst + '/connect/'+ idContract, false);
+  connectAll() {
+    return this.http.post<boolean>(this.dst + '/connect-all', false);
+  }
+  disconnectAll() {
+    return this.http.post<boolean>(this.dst + '/disconnect-all/true', false);
   }
 
-  getNotifications(): Observable<IMessage>{
-    return this.rxStompService.watch('/get/notifications', rxStompConfig.connectHeaders)
+
+  disconnect(idContract: number) {
+    console.log('disconnect');
+    return this.http.post<boolean>(this.dst + '/connect/' + idContract, false);
+  }
+
+  getNotifications(): Observable<IMessage> {
+    return this.rxStompService.watch('/get/notifications', rxStompConfig.connectHeaders);
   }
 
   updateContract(contract: Contract, factor: string) {
-    return this.http.post<HttpResponse<any>>(this.dst + '/contract/' + contract.idcontract + '/' + factor, contract, {observe: 'response'})
+    return this.http.post<HttpResponse<any>>(this.dst + '/save-contract/' + factor, contract, {observe: 'response'});
   }
 
   }

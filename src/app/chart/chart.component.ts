@@ -20,7 +20,7 @@ import {AppService} from '../service/app.service';
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css']
 })
-export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck {
+export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor( private dataService: DataService, private appService: AppService) {}
 
   private activeContractSub: Subscription;
@@ -43,11 +43,11 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck
   private data = new Map();
   private colorUp = 'lightgreen';
   private colorDown = '#ff0000';
+  private colorMat = '#FF2FC5';
   private dragStart = 0;
   private dragEnd = 0;
   private dragCumul = 0;
   private isDrag = false;
-  // private displayCandle$ = new Subject<Candle>();
   private activeContract: Contract;
 
   ngAfterViewInit() {
@@ -55,7 +55,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck
   }
 
   init() {
-    if (this.canvasRef != undefined) {
+    if (this.canvasRef !== undefined) {
       this.canvas = this.canvasRef.nativeElement;
       this.gc = this.canvas.getContext('2d');
       this.canvasRef.nativeElement.style.width = '100%';
@@ -66,40 +66,33 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck
     }
   }
 
-  ngDoCheck() {
-
-  }
 
   ngOnInit() {
     this.dataService.activeContract$.subscribe( contract => {
       this.activeContract = contract;
-      // if (this.candles.length > 0) {
       this.candles = [];
       this.draw();
-    // }
-
-      // this.subscribeHisto(0)
       this.subscribeHisto();
       });
 
     this.appService.chart$.subscribe(chart => {
-      if (this.id == chart.id) {
+      if (this.id === chart.id) {
         this.init();
       }
     });
   }
 
   subscribeLive() {
-    if (this.liveHisto$ != undefined) {
+    if (this.liveHisto$ !== undefined) {
       this.liveHisto$.unsubscribe();
     }
-    if (this.liveSub$ != undefined) {
+    if (this.liveSub$ !== undefined) {
       this.liveSub$.unsubscribe();
     }
     this.liveSub$  = this.dataService.getLiveTicks(this.activeContract.idcontract, this.freq).subscribe(mes => {
       const candle: Candle = JSON.parse(mes.body);
-      if (this.freq == candle.freq && this.candles != null) {
-        if (candle.freq == 0 || candle.id !== this.candles[0].id) {
+      if (this.freq === candle.freq && this.candles.length > 0) {
+        if (candle.freq === 0 || candle.id !== this.candles[0].id) {
           this.candles.unshift(candle);
         } else {
           this.candles[0] = candle;
@@ -108,44 +101,49 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck
         if (this.candles.length > 100) {
           this.candles.pop();
         }
+      } else {
+        this.candles.unshift(candle);
       }
 
     });
   }
 
   subscribeHisto() {
-    if (this.liveHisto$ != undefined) {
+    if (this.liveHisto$ !== undefined) {
       this.liveHisto$.unsubscribe();
     }
-    if (this.liveSub$ != undefined) {
+    if (this.liveSub$ !== undefined) {
       this.liveSub$.unsubscribe();
     }
-    this.dataService.getHistoCandles(this.activeContract.idcontract, this.freq).subscribe(candles => {
+    this.dataService.getHistoCandles(this.activeContract.idcontract, this.activeContract.symbol, this.freq).subscribe(candles => {
       this.candles = candles;
       this.draw();
+      if (this.activeContract.idcontract < 10000) {
       this.subscribeLive();
+      }
     });
+
   }
 
 
   ngOnDestroy() {
-    if (this.activeContractSub != undefined) {
+    if (this.activeContractSub !== undefined) {
       this.activeContractSub.unsubscribe();
     }
-    if (this.liveSub$ != undefined) {
+    if (this.liveSub$ !== undefined) {
       this.liveSub$.unsubscribe();
     }
-    if (this.liveHisto$ != undefined) {
+    if (this.liveHisto$ !== undefined) {
       this.liveHisto$.unsubscribe();
     }
-    if (this.chartChange$ != undefined) {
+    if (this.chartChange$ !== undefined) {
       this.chartChange$.unsubscribe();
     }
   }
 
   draw() {
     if (this.candles != null) {
-      if (this.canvas != undefined) {
+      if (this.canvas !== undefined) {
         this.data = new Map();
         this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
         // this.gc.fillStyle ='black'
@@ -155,32 +153,36 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck
 
         let x = 1 - this.dragEnd;
         for (const candle of this.candles) {
-          if (candle.color == 1) {
+          if (candle.color === 1) {
             this.colorUp = 'lightgreen';
             this.colorDown = 'lightgreen';
-          } else if (candle.color == 2) {
+            this.colorMat = 'lightgreen';
+          } else if (candle.color === 2) {
             this.colorUp = 'green';
             this.colorDown = 'green';
+            this.colorMat = 'green';
           } else if (candle.color > 2) {
             // this.colorUp = 'yellow';
             // this.colorDown = 'yellow';
-          } else if (candle.color == -1) {
+          } else if (candle.color === -1) {
             this.colorUp = 'salmon';
             this.colorDown = 'salmon';
-          } else if (candle.color == -2) {
+            this.colorMat = 'salmon';
+          } else if (candle.color === -2) {
             this.colorUp = 'red';
             this.colorDown = 'red';
+            this.colorMat = 'red';
           } else if (candle.color < -2) {
             // this.colorUp = 'orange';
             // this.colorDown = 'orange';
           } else {
             this.colorUp = 'black';
             this.colorDown = 'black';
+            this.colorMat = 'black';
           }
 
           if (candle.high - candle.low > candle.abnormalHeightLevel) {
-            this.colorUp = 'yellow';
-            this.colorDown = 'yellow';
+            this.colorMat = 'yellow';
           }
 
 
@@ -195,6 +197,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck
           const low = this.getYPixel(candle.low);
           const open = this.getYPixel(candle.open);
           const close = this.getYPixel(candle.close);
+          const midPrice = this.getYPixel((candle.open + candle.close) / 2);
 
           this.gc.strokeStyle = 'black';
           this.gc.beginPath();
@@ -208,11 +211,17 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck
           this.gc.stroke();
 
           if (candle.open <= candle.close) {
+            this.gc.fillStyle = this.colorMat;
+            this.gc.fillRect(time, close, this.widthCandle, open - midPrice);
             this.gc.fillStyle = this.colorUp;
-            this.gc.fillRect(time, close, this.widthCandle, open - close);
+            this.gc.fillRect(time, close + open - midPrice, this.widthCandle, open - (close + open - midPrice));
           } else {
+            // this.gc.fillStyle = this.colorDown;
+            // this.gc.fillRect(time, open, this.widthCandle, close - open);
             this.gc.fillStyle = this.colorDown;
-            this.gc.fillRect(time, open, this.widthCandle, close - open);
+            this.gc.fillRect(time, open, this.widthCandle, close - midPrice);
+            this.gc.fillStyle = this.colorMat;
+            this.gc.fillRect(time, open + close - midPrice, this.widthCandle, close - (open + close - midPrice));
           }
 
           x += this.width;
@@ -263,7 +272,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy, DoCheck
         if (candle.high > max) {
           max = candle.high;
         }
-        if (candle.closeAverage > max && candle.closeAverage>0) {
+        if (candle.closeAverage > max && candle.closeAverage > 0) {
           max = candle.closeAverage;
         }
       }

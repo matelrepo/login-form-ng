@@ -22,7 +22,7 @@ export class QuoteComponent implements OnInit {
 
   ngOnInit() {
 
-    setInterval(() => {         // replaced function() by ()=>
+    setInterval(() => {
       this.date = new Date();
     }, 1000);
 
@@ -32,25 +32,21 @@ export class QuoteComponent implements OnInit {
 
     this.dataService.activeContract$.subscribe(contract => {
       this.contract = contract;
+      console.log(this.contract)
       this.activeCandle = null;
       if (this.generatorState != undefined) {
         this.generatorStateSub.unsubscribe();
       }
 
-      this.dataService.getHistoQuote(this.contract.idcontract).subscribe( quote => {
-        this.generatorState = quote;
-      });
+      // this.dataService.getHistoQuote(this.contract.idcontract).subscribe( quote => {
+      //   this.generatorState = quote;
+      // });
 
       this.generatorStateSub = this.dataService.getLiveQuote(this.contract.idcontract)
         .subscribe((message) => {
           this.generatorState = JSON.parse(message.body);
         });
     });
-
-    // this.generatorStateSub = this.dataService.getLiveQuote(this.contract.idcontract)
-    //   .subscribe((message) => {
-    //       this.generatorState = JSON.parse(message.body)
-    //   });
 
   }
 

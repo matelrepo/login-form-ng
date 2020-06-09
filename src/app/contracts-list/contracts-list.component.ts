@@ -1,16 +1,18 @@
-import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {DataService} from '../service/data.service';
-import {Subscription} from 'rxjs';
+import {fromEvent, Observable, Subscription} from 'rxjs';
 import {GeneratorState} from '../config/generatorState';
 import {Contract} from '../config/contract';
 import {AppService} from '../service/app.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-contracts-list',
   templateUrl: './contracts-list.component.html',
   styleUrls: ['./contracts-list.component.css']
 })
-export class ContractsListComponent implements OnInit, OnDestroy {
+export class ContractsListComponent implements OnInit, OnDestroy, AfterViewInit {
   // contracts$
   contracts: Contract[] = [];
   generatorsState: Map<number, GeneratorState> = new Map<number, GeneratorState>();
@@ -19,7 +21,7 @@ export class ContractsListComponent implements OnInit, OnDestroy {
   currentIndex = 5;
   selectedValue  = 'MAIN';
 
-  constructor(private data: DataService, private appService: AppService) { }
+  constructor(private data: DataService, public appService: AppService) { }
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
@@ -33,35 +35,51 @@ export class ContractsListComponent implements OnInit, OnDestroy {
 
   }
 
-  selectionChanged(item) {
-    this.selectedValue = item.value;
-    if(this.contractSub !== undefined) this.contractSub.unsubscribe();
-    this.contractSub = this.data.getContracts(this.selectedValue).subscribe( contracts => {
+  selectionChanged(item, filter: string) {
+    if ( filter.length > 0) {
+      this.selectedValue = item;
+      if (this.contractSub !== undefined) { this.contractSub.unsubscribe(); }
+      this.contractSub = this.data.getContracts(this.selectedValue, filter).subscribe( contracts => {
       this.contracts = contracts;
     });
+    }
+  }
+
+  ngAfterViewInit() {
+    const input: any = document.getElementById('search');
+    input.value = 'a';
+    const search$ = fromEvent<any>(input, 'keyup')
+      .pipe(tap(() => this.selectionChanged(this.selectedValue, input.value)));
+    search$.subscribe();
   }
 
   ngOnInit() {
-    this.contractSub = this.data.getContracts(this.selectedValue).subscribe( contracts => {
+    this.contractSub = this.data.getContracts(this.selectedValue, 'a').subscribe( contracts => {
       this.contracts = contracts;
     });
-
     this.marketDataSub =  this.data.getLivePrices()
       .subscribe((message) => {
         Object.keys(JSON.parse(message.body)).forEach(key => {
           this.generatorsState.set(JSON.parse(message.body)[key].idcontract, JSON.parse(message.body)[key]);
+          if(JSON.parse(message.body)[key].idcontract >= 10000) {
+            console.log(JSON.parse(message.body)[key]);
+          }
         });
       });
+
+
   }
 
+
   marketData(idcontract: number) {
-      if (this.generatorsState.get(idcontract).marketDataStatus > 0) {
+    console.log(this.generatorsState.get(idcontract).marketDataStatus);
+    if (this.generatorsState.get(idcontract).marketDataStatus >= 1) {
         this.generatorsState.get(idcontract).marketDataStatus = 0;
-        this.data.connect(idcontract).subscribe(() => {
+        this.data.disconnect(idcontract).subscribe(() => {
       });
     } else {
         this.generatorsState.get(idcontract).marketDataStatus = 1;
-        this.data.disconnect(idcontract).subscribe(() => {
+        this.data.connect(idcontract).subscribe(() => {
       });
     }
   }
@@ -76,8 +94,8 @@ export class ContractsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.marketDataSub.unsubscribe()
-    this.contractSub.unsubscribe()
+    this.marketDataSub.unsubscribe();
+    this.contractSub.unsubscribe();
   }
 
 }

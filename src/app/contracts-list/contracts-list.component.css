@@ -8,7 +8,8 @@
   border: 1px solid gray;
 }
 
-.grid-item:hover{
+.min-w{
+  min-width: 200px;
 }
 
 .comp{
@@ -102,7 +103,6 @@ span{
   display: flex;
   margin-bottom: 10px;
 }
-
 
 
 

@@ -8,7 +8,7 @@ import {AppService} from './service/app.service';
 })
 export class AppComponent {
 
-  constructor(private appService: AppService){}
+  constructor(public appService: AppService){}
 
 
 }
