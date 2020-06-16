@@ -6,8 +6,11 @@ body{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Arial";
   font-size: 14px;
+  /*background-color: #cfccc2;*/
+  background-color: gray;
+  /*color:lightgray;*/
 }
 
 html, body { height: 100%; }

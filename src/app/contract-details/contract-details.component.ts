@@ -1,25 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Contract} from '../config/contract';
 import {DataService} from '../service/data.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-contract-details',
   templateUrl: './contract-details.component.html',
   styleUrls: ['./contract-details.component.css']
 })
-export class ContractDetailsComponent implements OnInit {
+export class ContractDetailsComponent implements OnInit, OnDestroy {
 
   myForm: FormGroup;
   activeContract: Contract;
+  quoteSub: Subscription;
+  activeContractSub: Subscription;
+  lastPrice = 0;
 
   constructor(private fb: FormBuilder, private dataService: DataService) { }
 
   ngOnInit() {
-    this.dataService.activeContract$.subscribe( contract => {
+   this.activeContractSub =  this.dataService.activeContract$.subscribe( contract => {
       this.activeContract = contract;
       this.initForm();
+      this.quoteSub = this.dataService.getHistoQuote(this.activeContract.idcontract).subscribe( state => {
+        this.lastPrice =  state.lastPrice;
+        console.log(this.myForm.value.oldPrice);
+
+      });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.activeContractSub.unsubscribe();
+    this.quoteSub.unsubscribe();
+
   }
 
   initForm() {
@@ -39,6 +54,8 @@ export class ContractDetailsComponent implements OnInit {
       flowType: this.activeContract.flowType,
       fusion: this.activeContract.fusion,
       category: this.activeContract.category,
+      oldPrice: this.lastPrice,
+      newPrice: '0',
       adjustment: '0'
     });
   }
@@ -59,7 +76,6 @@ export class ContractDetailsComponent implements OnInit {
     this.activeContract.flowType = this.myForm.value.flowType;
     this.activeContract.fusion = this.myForm.value.fusion;
     this.activeContract.category = this.myForm.value.category;
-    console.log(this.activeContract);
     this.dataService.updateContract(this.activeContract, this.myForm.value.adjustment).subscribe();
   }
 

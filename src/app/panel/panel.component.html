@@ -1,9 +1,9 @@
 
-<nav id="navbar"><app-header></app-header></nav>
-<section *ngIf="this.appService.displayChart" (scroll)="onWindowScroll($event)">
+<nav id="navbar">
+  <app-header></app-header>
+</nav>
+<section *ngIf="this.appService.displayChart">
     <div class="contract-list">
-      <div id="list-contract-gap"></div>
-      <div id="list-contract-gap-op"></div>
       <div><app-contracts-list></app-contracts-list></div>
     </div>
   <div class="chart-panel" >
@@ -23,9 +23,6 @@
       <div class="chart" id="12" ><app-chart [freq]="300000" [id] ="12"></app-chart></div>
     </div>
   </div>
-</section>
-<section *ngIf="this.appService.displayMacro">
-<app-macro></app-macro>
 </section>
 <section *ngIf="this.appService.displaySaveContract">
 <app-contract-details></app-contract-details>

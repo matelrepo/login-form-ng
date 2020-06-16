@@ -1,6 +1,7 @@
 
 .grid-container {
   width: 100%;
+
 }
 
 .comp:hover{
@@ -11,6 +12,21 @@
 .min-w{
   min-width: 200px;
 }
+.grid-item{
+  font-size: 20px;
+  padding:2px;
+}
+
+.mat-button-toggle {
+  background-color: dimgray;
+  color: white;
+  font-size: 15px;
+}
+
+.mat-button-toggle-checked {
+  background-color: orange;
+  color: black;
+}
 
 .comp{
   margin: 0 auto;
@@ -19,13 +35,13 @@
   grid-template-columns: 20px auto 70px 70px;
 }
 
-.tool-tip{
-text-align: left;
-}
+/*.tool-tip{*/
+/*text-align: left;*/
+/*}*/
 
-.tool-tip div:first-child, .tool-tip div:last-child{
-  margin-bottom: 10px;
-}
+/*.tool-tip div:first-child, .tool-tip div:last-child{*/
+/*  margin-bottom: 10px;*/
+/*}*/
 
 .grid-container div div:hover {
   cursor: pointer;
@@ -36,21 +52,25 @@ text-align: left;
   overflow: hidden;
   white-space: nowrap;
   padding:2px;
-  border: 1px solid lightgray;
+  /*border: 1px solid gray;*/
   padding-left: 3px;
 }
 
 .grid-container div div:first-child{
-  font-size: 13px;
+  font-size: 18px;
+}
+
+p span:first-child{
+  margin-right:10px;
 }
 
 span{
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .price{
   text-align: center;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .price:hover{
@@ -64,7 +84,7 @@ span{
 }
 
 .price-down{
-  background-color: red;
+  background-color: #BD2828;
   color: white;
   border-left: none !important;
 }
@@ -101,7 +121,7 @@ span{
 
 .menu{
   display: flex;
-  margin-bottom: 10px;
+  /*margin-bottom: 10px;*/
 }
 
 

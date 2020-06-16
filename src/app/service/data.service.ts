@@ -1,17 +1,15 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {Contract} from '.././config/contract';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {RxStompService} from '@stomp/ng2-stompjs';
 import {rxStompConfig} from '../config/rxStompConfig';
 import {BehaviorSubject, Observable} from 'rxjs';
-import { IMessage } from '@stomp/stompjs';
-import {Message} from '@angular/compiler/src/i18n/i18n_ast';
+import {IMessage} from '@stomp/stompjs';
 import {switchMap, tap, throttleTime} from 'rxjs/operators';
 import {Candle} from '../config/candle';
-import {Macro} from '../config/macro';
 import {GeneratorState} from '../config/generatorState';
 import {ProcessorState} from '../config/processorState';
-import {Portfolio} from '../config/portfolio';
+import {GlobalSettings} from '../config/globalSettings';
 
 
 
@@ -23,10 +21,10 @@ export const DEFAULT_CONTRACT: Contract = {
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class DataService implements OnDestroy {
   // dst  = 'http://37.59.39.230:8080'
-// dst  = 'http://localhost:8080';
-  dst = 'http://91.121.83.101:8080'
+  dst = 'http://localhost:8080';
+//  dst = 'http://91.121.83.101:8080'
 
   activeContract = new BehaviorSubject(DEFAULT_CONTRACT);
   activeContract$: Observable<Contract> = this.activeContract.asObservable();
@@ -34,20 +32,31 @@ export class DataService {
   activeCandle = new BehaviorSubject(null);
   activeCandle$: Observable<Candle> = this.activeCandle.asObservable();
 
-  constructor(private http: HttpClient, private rxStompService: RxStompService) {}
-
-
-
-  getContracts(category: string, filter: string) {
-   if (category === 'DAILY') {
-    return this.http.get<Contract[]>(this.dst + '/contracts/dailycon/' + category + '/' + filter);
-   } else {
-     return this.http.get<Contract[]>(this.dst + '/contracts/live/' + category + '/' + filter);
-   }
+  constructor(private http: HttpClient, private rxStompService: RxStompService) {
   }
 
-  getTickerCrawl() {
-    return this.http.get<Macro[]>(this.dst + '/ticker-crawl');
+  ngOnDestroy(): void {
+    this.rxStompService.deactivate();
+  }
+
+  getContracts(category: string, filter: string) {
+    if (category === 'DAILY') {
+      return this.http.get<Contract[]>(this.dst + '/contracts/dailycon/' + category + '/' + filter);
+    } else {
+      return this.http.get<Contract[]>(this.dst + '/contracts/live/' + category + '/' + filter);
+    }
+  }
+
+  // getTickerCrawl() {
+  //   return this.http.get<Macro[]>(this.dst + '/ticker-crawl');
+  // }
+
+  getGlobalSettings(idcontract: number) {
+    return this.http.get<Map<number, GlobalSettings>>(this.dst + '/global-settings/' + idcontract);
+  }
+
+  setGlobalSettings(setting: GlobalSettings){
+    return this.http.post<GlobalSettings>(this.dst + '/update-global-settings', setting);
   }
 
   getHistoCandles(idcontract: number, code: string, freq: number) {
@@ -91,6 +100,7 @@ export class DataService {
   connectAll() {
     return this.http.post<boolean>(this.dst + '/connect-all', false);
   }
+
   disconnectAll() {
     return this.http.post<boolean>(this.dst + '/disconnect-all/true', false);
   }
@@ -109,4 +119,4 @@ export class DataService {
     return this.http.post<HttpResponse<any>>(this.dst + '/save-contract/' + factor, contract, {observe: 'response'});
   }
 
-  }
+}

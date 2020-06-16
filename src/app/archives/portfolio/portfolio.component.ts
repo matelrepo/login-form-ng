@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Portfolio} from '../config/portfolio';
+import {Portfolio} from '../../config/portfolio';
 
-import {DataService} from '../service/data.service';
+import {DataService} from '../../service/data.service';
 import {Subscription} from 'rxjs';
-import {Position} from '../config/position';
+import {Position} from '../../config/position';
 
 @Component({
   selector: 'app-portfolio',

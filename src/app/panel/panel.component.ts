@@ -1,7 +1,7 @@
 import {Component, ElementRef, HostListener, Inject, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from '../service/auth.service';
 import {User} from '../config/user';
-import { DOCUMENT } from '@angular/common';
+import {DOCUMENT} from '@angular/common';
 import {Chart} from '../config/chart';
 import {AppService} from '../service/app.service';
 
@@ -15,7 +15,8 @@ export class PanelComponent implements OnInit {
 
   constructor(@Inject(DOCUMENT) document,
               private auth: AuthService,
-              public appService: AppService) { }
+              public appService: AppService) {
+  }
 
   ngOnInit() {
     this.auth.user$.subscribe(user => {
@@ -23,26 +24,11 @@ export class PanelComponent implements OnInit {
     });
     this.appService.chart$.subscribe(chart => {
       if (chart.width < 0) {
-      this.resizeChart(chart);
+        this.resizeChart(chart);
       }
     });
   }
 
-  @HostListener('window:scroll', ['$event'])
-
-  onWindowScroll(e) {
-    if (window.pageYOffset > 0) {
-      const element_nav = document.getElementById('navbar');
-      element_nav.classList.add('sticky2');
-      const element_gap = document.getElementById('list-contract-gap');
-      element_gap.classList.add('list-gap');
-    } else {
-      const element_nav = document.getElementById('navbar');
-      element_nav.classList.remove('sticky2');
-      const element_gap = document.getElementById('list-contract-gap');
-      element_gap.classList.remove('list-gap');
-    }
-  }
 
   resizeChart(chart: Chart) {
     console.log('o');

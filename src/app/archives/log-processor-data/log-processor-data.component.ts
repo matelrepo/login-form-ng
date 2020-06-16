@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {DataService} from '../service/data.service';
-import {Contract} from '../config/contract';
-import {ProcessorState} from '../config/processorState';
+import {DataService} from '../../service/data.service';
+import {Contract} from '../../config/contract';
+import {ProcessorState} from '../../config/processorState';
 import {Subscription} from 'rxjs';
 
 @Component({

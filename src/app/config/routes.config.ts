@@ -2,7 +2,7 @@ import {Routes} from '@angular/router';
 import {LoginComponent} from '../login/login.component';
 import {RoleGuardService} from '../service/role-guard.service';
 import {PanelComponent} from '../panel/panel.component';
-import {PortfolioComponent} from '../portfolio/portfolio.component';
+import {PortfolioComponent} from '../archives/portfolio/portfolio.component';
 
 export const routesConfig: Routes = [
   {path: 'login', component: LoginComponent },

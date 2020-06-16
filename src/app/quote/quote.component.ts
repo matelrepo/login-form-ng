@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DataService} from '../service/data.service';
 import {GeneratorState} from '../config/generatorState';
 import {Observable, Subscription} from 'rxjs';
@@ -10,12 +10,14 @@ import {Candle} from '../config/candle';
   templateUrl: './quote.component.html',
   styleUrls: ['./quote.component.css']
 })
-export class QuoteComponent implements OnInit {
+export class QuoteComponent implements OnInit, OnDestroy {
   generatorStateSub: Subscription;
+  generatorStateHistoSub: Subscription;
   generatorState: GeneratorState;
   contract: Contract;
   activeCandle: Candle;
   date: Date;
+  hideMe = false;
 
   constructor(private dataService: DataService) {
   }
@@ -31,23 +33,35 @@ export class QuoteComponent implements OnInit {
     });
 
     this.dataService.activeContract$.subscribe(contract => {
-      this.contract = contract;
-      console.log(this.contract)
-      this.activeCandle = null;
-      if (this.generatorState != undefined) {
+      if (this.generatorState !== undefined) {
+      //  console.log("Unsubscribe data for " + this.contract.idcontract)
         this.generatorStateSub.unsubscribe();
       }
+      this.contract = contract;
+      this.activeCandle = null;
 
-      // this.dataService.getHistoQuote(this.contract.idcontract).subscribe( quote => {
-      //   this.generatorState = quote;
-      // });
+
+      this.generatorStateHistoSub = this.dataService.getHistoQuote(this.contract.idcontract).subscribe( quote => {
+        this.generatorState = quote;
+        this.generatorStateHistoSub.unsubscribe();
+      });
 
       this.generatorStateSub = this.dataService.getLiveQuote(this.contract.idcontract)
         .subscribe((message) => {
           this.generatorState = JSON.parse(message.body);
+        //  console.log(this.generatorState.ask + " " + this.generatorState.bid);
         });
     });
 
+  }
+
+  hideButton(){
+    console.log('coucou');
+    this.hideMe = !this.hideMe;
+  }
+
+  ngOnDestroy() {
+    this.generatorStateSub.unsubscribe();
   }
 
 }

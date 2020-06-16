@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService} from '../service/data.service';
 import {AuthService} from '../service/auth.service';
-import {Observable} from 'rxjs';
-import {Macro} from '../config/macro';
 import {AppService} from '../service/app.service';
+import {subscribeOn} from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -11,59 +10,46 @@ import {AppService} from '../service/app.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  username: string
-  tickers: Macro[]
-  arrow: string;
+  username: string;
 
   constructor(private dataService: DataService, private auth: AuthService, private appService: AppService) {
   }
 
   ngOnInit() {
-    this.auth.user$.subscribe(user => this.username = user.username)
-    // this.dataService.getTickerCrawl().subscribe( list => {
-    //   this.tickers = list
-    // })
+    this.auth.user$.subscribe(user => this.username = user.username);
   }
 
   logout() {
-    this.auth.logout()
+    this.auth.logout();
   }
 
-  onClickPortfolio(){
-    this.appService.displayPortfolio = !this.appService.displayPortfolio;
-  }
-
-  onClickFutures(){
-    this.appService.displayMacro = false
+  onClickFutures() {
     this.appService.displayChart = true;
     this.appService.displaySaveContract = false;
   }
 
-  onClickProcessorLogs(){
-    this.appService.displayProcessorLogs = !this.appService.displayProcessorLogs;
-  }
 
-  onConnectAll(){
+  onConnectAll() {
     this.dataService.connectAll().subscribe();
   }
-  onDisConnectAll(){
+  onDisConnectAll() {
     this.dataService.disconnectAll().subscribe();
   }
 
-  onClickMacro() {
-    this.appService.displayMacro = !this.appService.displayMacro;
-    this.appService.displayChart = false;
-    this.appService.displaySaveContract = false;
-  }
 
   onClickSaveContract() {
     this.appService.displaySaveContract = !this.appService.displaySaveContract;
     this.appService.displayChart = false;
-    this.appService.displayMacro = false;
-
   }
 
-  onRowClick(ticker: Macro){
-    window.open("https://www.quandl.com/data/SGE/" + ticker.code, "_blank");    }
+  activateEmails() {
+    this.appService.sendEmail = !this.appService.sendEmail;
+    this.appService.activateEmail().subscribe();
+  }
+
+  sendEmailTest() {
+    this.appService.sendEmailTest().subscribe();
+  }
+
 
 }

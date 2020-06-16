@@ -20,15 +20,17 @@ export class ContractsListComponent implements OnInit, OnDestroy, AfterViewInit 
   contractSub: Subscription;
   currentIndex = 5;
   selectedValue  = 'MAIN';
+  inputValue = 'a';
+   input;
 
   constructor(private data: DataService, public appService: AppService) { }
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    if (event.key == 'ArrowRight') {
+    if (event.key === 'ArrowRight') {
       this.currentIndex = this.currentIndex + 1;
       this.data.activeContract.next(this.contracts[this.currentIndex]);
-    } else if (event.key == 'ArrowLeft') {
+    } else if (event.key === 'ArrowLeft') {
       this.currentIndex = this.currentIndex - 1;
       this.data.activeContract.next(this.contracts[this.currentIndex]);
     }
@@ -46,24 +48,26 @@ export class ContractsListComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   ngAfterViewInit() {
-    const input: any = document.getElementById('search');
-    input.value = 'a';
-    const search$ = fromEvent<any>(input, 'keyup')
+     const input: any = document.getElementById('search');
+     const search$ = fromEvent<any>(input, 'keyup')
       .pipe(tap(() => this.selectionChanged(this.selectedValue, input.value)));
-    search$.subscribe();
+     search$.subscribe(ev => {
+      this.inputValue = input.value;
+      // console.log(this.inputValue);
+    });
   }
 
   ngOnInit() {
-    this.contractSub = this.data.getContracts(this.selectedValue, 'a').subscribe( contracts => {
+    this.contractSub = this.data.getContracts(this.selectedValue, this.inputValue).subscribe( contracts => {
       this.contracts = contracts;
     });
     this.marketDataSub =  this.data.getLivePrices()
       .subscribe((message) => {
         Object.keys(JSON.parse(message.body)).forEach(key => {
           this.generatorsState.set(JSON.parse(message.body)[key].idcontract, JSON.parse(message.body)[key]);
-          if(JSON.parse(message.body)[key].idcontract >= 10000) {
-            console.log(JSON.parse(message.body)[key]);
-          }
+          // if (JSON.parse(message.body)[key].idcontract >= 10000) {
+          //   console.log(JSON.parse(message.body)[key]);
+          // }
         });
       });
 

@@ -13,6 +13,8 @@ import {Candle} from '../config/candle';
 import {Contract} from '../config/contract';
 import {DataService} from '../service/data.service';
 import {AppService} from '../service/app.service';
+import {GlobalSettings} from '../config/globalSettings';
+import set = Reflect.set;
 
 
 @Component({
@@ -21,12 +23,16 @@ import {AppService} from '../service/app.service';
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
-  constructor( private dataService: DataService, private appService: AppService) {}
+  constructor(private dataService: DataService, private appService: AppService) {
+  }
 
   private activeContractSub: Subscription;
   private liveSub$: Subscription;
   private liveHisto$: Subscription;
   private chartChange$: Subscription;
+  // private emailMap = new Map();
+  // private voiceMap = new Map();
+  // private tradeMap = new Map();
 
   @Input() freq;
   @Input() id;
@@ -34,8 +40,8 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('divRef', {static: false}) divRef: ElementRef;
   canvas: HTMLCanvasElement;
   private gc: CanvasRenderingContext2D;
-  private widthCandle = 3;
-  private width = 5;
+  private widthCandle = 6;
+  private width = 10;
   private min;
   private max;
   private candles: Candle[] = [];
@@ -50,6 +56,8 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   private isDrag = false;
   private activeContract: Contract;
 
+  private globalSetting: GlobalSettings = {'idcontract':-1, 'freq':-1, 'email':false, 'voice':false, 'trade': false}
+
   ngAfterViewInit() {
     this.init();
   }
@@ -60,27 +68,52 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
       this.gc = this.canvas.getContext('2d');
       this.canvasRef.nativeElement.style.width = '100%';
       this.canvasRef.nativeElement.style.height = '100%';
-      this.canvasRef.nativeElement.height = this.divRef.nativeElement.offsetHeight;
-      this.canvasRef.nativeElement.width = this.divRef.nativeElement.offsetWidth;
+      // this.canvasRef.nativeElement.height = this.divRef.nativeElement.offsetHeight;
+      // this.canvasRef.nativeElement.width = this.divRef.nativeElement.offsetWidth;
       this.draw();
     }
   }
 
 
   ngOnInit() {
-    this.dataService.activeContract$.subscribe( contract => {
+    this.dataService.activeContract$.subscribe(contract => {
       this.activeContract = contract;
       this.candles = [];
       this.draw();
       this.subscribeHisto();
-      });
+    });
 
     this.appService.chart$.subscribe(chart => {
       if (this.id === chart.id) {
         this.init();
       }
     });
+
+    this.dataService.getGlobalSettings(this.activeContract.idcontract).subscribe(settings =>{
+      Object.values(settings).forEach((setting)=> {
+        if (this.freq == setting.freq) {
+        this.globalSetting.idcontract = setting.idcontract;
+        this.globalSetting.freq = setting.freq;
+        this.globalSetting.email = setting.email;
+        this.globalSetting.voice = setting.voice;
+        this.globalSetting.trade = setting.trade;
+      }
+      });
+    });
   }
+
+  onClickEmailChange(change){
+    console.log(change)
+    this.globalSetting.email = change;
+    this.dataService.setGlobalSettings(this.globalSetting).subscribe()
+  }
+  onClickVoiceChange(change){
+    this.globalSetting.voice = change;
+    this.dataService.setGlobalSettings(this.globalSetting).subscribe()  }
+
+  onClickTradeChange(change){
+    this.globalSetting.trade = change;
+    this.dataService.setGlobalSettings(this.globalSetting).subscribe()  }
 
   subscribeLive() {
     if (this.liveHisto$ !== undefined) {
@@ -89,7 +122,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.liveSub$ !== undefined) {
       this.liveSub$.unsubscribe();
     }
-    this.liveSub$  = this.dataService.getLiveTicks(this.activeContract.idcontract, this.freq).subscribe(mes => {
+    this.liveSub$ = this.dataService.getLiveTicks(this.activeContract.idcontract, this.freq).subscribe(mes => {
       const candle: Candle = JSON.parse(mes.body);
       if (this.freq === candle.freq && this.candles.length > 0) {
         if (candle.freq === 0 || candle.id !== this.candles[0].id) {
@@ -119,7 +152,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
       this.candles = candles;
       this.draw();
       if (this.activeContract.idcontract < 10000) {
-      this.subscribeLive();
+        this.subscribeLive();
       }
     });
 
@@ -145,44 +178,51 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.candles != null) {
       if (this.canvas !== undefined) {
         this.data = new Map();
-        this.gc.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        // this.gc.fillStyle ='black'
-        // this.gc.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        this.min = this.getTrailingMin(this.currentZoomValue) ;
+        this.gc.fillStyle = '#ebe8e1';
+        this.gc.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.gc.fillStyle = 'black';
+        this.gc.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.min = this.getTrailingMin(this.currentZoomValue);
         this.max = this.getTrailingMax(this.currentZoomValue);
 
         let x = 1 - this.dragEnd;
         for (const candle of this.candles) {
           if (candle.color === 1) {
-            this.colorUp = 'lightgreen';
-            this.colorDown = 'lightgreen';
-            this.colorMat = 'lightgreen';
+            // this.colorUp = 'lightgreen';
+            // this.colorDown = 'lightgreen';
+            // this.colorMat = 'lightgreen';
+            this.colorUp = 'limegreen';
+            this.colorDown = 'limegreen';
+            this.colorMat = 'limegreen';
           } else if (candle.color === 2) {
-            this.colorUp = 'green';
-            this.colorDown = 'green';
-            this.colorMat = 'green';
+            this.colorUp = 'greenyellow';
+            this.colorDown = 'greenyellow';
+            this.colorMat = 'greenyellow';
           } else if (candle.color > 2) {
             // this.colorUp = 'yellow';
             // this.colorDown = 'yellow';
           } else if (candle.color === -1) {
-            this.colorUp = 'salmon';
-            this.colorDown = 'salmon';
-            this.colorMat = 'salmon';
-          } else if (candle.color === -2) {
+            // this.colorUp = 'salmon';
+            // this.colorDown = 'salmon';
+            // this.colorMat = 'salmon';
             this.colorUp = 'red';
             this.colorDown = 'red';
             this.colorMat = 'red';
+          } else if (candle.color === -2) {
+            this.colorUp = 'firebrick';
+            this.colorDown = 'firebrick';
+            this.colorMat = 'firebrick';
           } else if (candle.color < -2) {
             // this.colorUp = 'orange';
             // this.colorDown = 'orange';
           } else {
-            this.colorUp = 'black';
-            this.colorDown = 'black';
-            this.colorMat = 'black';
+            this.colorUp = '#767676';
+            this.colorDown = '#767676';
+            this.colorMat = '#767676';
           }
 
           if (candle.high - candle.low > candle.abnormalHeightLevel) {
-            this.colorMat = 'yellow';
+            this.colorMat = 'khaki';
           }
 
 
@@ -199,12 +239,13 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
           const close = this.getYPixel(candle.close);
           const midPrice = this.getYPixel((candle.open + candle.close) / 2);
 
-          this.gc.strokeStyle = 'black';
+          this.gc.strokeStyle = 'white';
           this.gc.beginPath();
           this.gc.moveTo(time + this.widthCandle / 2, high);
           this.gc.lineTo(time + this.widthCandle / 2, low);
           this.gc.stroke();
 
+          this.gc.strokeStyle = 'blueviolet';
           this.gc.beginPath();
           this.gc.moveTo(time, this.getYPixel(candle.closeAverage));
           this.gc.lineTo(time + this.widthCandle, this.getYPixel(candle.closeAverage));
@@ -323,8 +364,12 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   resize(event) {
-    this.appService.notifyChartResize({ id: this.id, width: -1, height: -1});
-    if (this.currentZoomValue < 50) { this.currentZoomValue = 100; } else { this.currentZoomValue = 40; }
+    this.appService.notifyChartResize({id: this.id, width: -1, height: -1});
+    if (this.currentZoomValue < 50) {
+      this.currentZoomValue = 100;
+    } else {
+      this.currentZoomValue = 40;
+    }
     event.stopPropagation();
   }
 

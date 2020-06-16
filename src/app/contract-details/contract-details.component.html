@@ -15,7 +15,8 @@
   <p><span>Flow Type</span><span>  <input type="text" formControlName="flowType"></span></p>
   <p><span>Fusion</span><span>  <input type="text" formControlName="fusion"></span></p>
   <p><span>Category</span><span>  <input type="text" formControlName="category"></span></p>
-  <p>Adjustment</p>
-  <input type="text" formControlName="adjustment">
+  <p><span>Old price</span><span><input type="text"  [(ngModel)] ="lastPrice" formControlName="oldPrice"></span></p>
+  <p><span>New price</span><span><input type="text" formControlName="newPrice"></span></p>
+  <p><span>Adjustment {{this.myForm.value.newPrice - this.myForm.value.oldPrice}}</span><span><input type="text" formControlName="adjustment"></span></p>
   <p><input type="submit" name="" value="Update"></p>
 </form>

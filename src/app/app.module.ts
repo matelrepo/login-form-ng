@@ -25,9 +25,10 @@ import {ChartControlDirective} from './chart/chart-control.directive';
 import { ContractDetailsComponent } from './contract-details/contract-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { QuoteComponent } from './quote/quote.component';
-import { LogProcessorDataComponent } from './log-processor-data/log-processor-data.component';
-import { PortfolioComponent } from './portfolio/portfolio.component';
-import { MacroComponent } from './macro/macro.component';
+import { LogProcessorDataComponent } from './archives/log-processor-data/log-processor-data.component';
+import { PortfolioComponent } from './archives/portfolio/portfolio.component';
+import { MacroComponent } from './archives/macro/macro.component';
+import { AppRoutingModule } from './app-routing.module';
 
 
 
@@ -58,7 +59,8 @@ import { MacroComponent } from './macro/macro.component';
     MatSliderModule,
     MatButtonModule,
     MatBadgeModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    AppRoutingModule
   ],
   providers: [RoleGuardService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     RxStompService

@@ -1,10 +1,8 @@
 
 .container {
-  height:90px;
   background-color: lightgray;
   display: flex;
   flex-direction: column;
-  /*justify-content: flex-end;*/
 }
 
 .container > div {
@@ -14,88 +12,24 @@
 
 .menu{
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  color: black;
  }
 
 .menu div{
   margin-right:30px;
 }
 
-
-.item {
-  margin-left: 5px;
-}
-
-/*.container div:last-child{*/
-/*  margin-right: 30px;*/
-/*}*/
-
-.ticker-crawl {
-  /*overflow: hidden;*/
-  width: 75%;
-  display: flex;
-  animation: marquee 80s linear infinite;
-}
-
-.ticker-crawl div {
-  /*margin:2px;*/
-  display: flex;
-}
-
-.small {
-  font-size: 0.7em;
-}
-
-.medium {
-  font-size: 0.9em;
-}
-
-.big {
-  font-size: 1.1em;
-}
-
-.ticker-crawl div:first-child {
-  margin-left: 40px;
-  display: flex;
-  align-items: center;
-}
-
-.ticker-crawl div div {
-  /*height:20px;*/
-  white-space: nowrap;
-}
-
-.price-up {
-  /*background-color: green;*/
-  color: green;
-}
-
-.price-down {
-  /*background-color: red;*/
-  color: red;
-}
-
-.item:hover{
+.a{
   cursor: pointer;
 }
 
-.user-1 span{
-  cursor: pointer;
-}
-
-.dropbtn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
   position: relative;
   display: inline-block;
+  cursor: pointer;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -108,12 +42,6 @@
   z-index: 1;
 }
 
-a{
-  text-decoration: none;
-  color: black;
-}
-
-/* Links inside the dropdown */
 .dropdown-content a {
   color: black;
   padding: 12px 16px;
@@ -121,26 +49,9 @@ a{
   display: block;
 }
 
-/* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #f1f1f1}
 
-/* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
   display: block;
 }
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
-  background-color: #3e8e41;
-}
-
-@keyframes marquee {
-  0% {
-    transform: translate(100%, 0);
-  }
-  100% {
-    transform: translate(-500%, 0);
-  }
-}
-
 
