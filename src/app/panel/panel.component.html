@@ -28,5 +28,12 @@
 <app-contract-details></app-contract-details>
 </section>
 
+<section *ngIf="this.appService.displayExpirationReport">
+  <app-expiration-report></app-expiration-report>
+</section>
+<section *ngIf="this.appService.displayDailyStocksReport">
+  <app-daily-stocks-report></app-daily-stocks-report>
+</section>
+
 
 

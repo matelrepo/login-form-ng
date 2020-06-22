@@ -29,6 +29,8 @@ import { LogProcessorDataComponent } from './archives/log-processor-data/log-pro
 import { PortfolioComponent } from './archives/portfolio/portfolio.component';
 import { MacroComponent } from './archives/macro/macro.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ExpirationReportComponent } from './expiration-report/expiration-report.component';
+import { DailyStocksReportComponent } from './daily-stocks-report/daily-stocks-report.component';
 
 
 
@@ -46,7 +48,9 @@ import { AppRoutingModule } from './app-routing.module';
     QuoteComponent,
     LogProcessorDataComponent,
     PortfolioComponent,
-    MacroComponent
+    MacroComponent,
+    ExpirationReportComponent,
+    DailyStocksReportComponent
   ],
   imports: [
     BrowserModule,

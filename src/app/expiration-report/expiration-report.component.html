@@ -1,0 +1,21 @@
+<div class="container">
+  <div><h1>Expiration report</h1></div>
+  <div *ngFor="let contract of contracts; index as i">
+    <div class="main-contract">
+      <div class="grid-item">{{contract.idcontract}}</div>
+      <div class="grid-item">{{contract.symbol}}</div>
+      <div class="grid-item">{{contract.title}}</div>
+      <div class="grid-item">{{contract.expiration}}</div>
+      <div class="grid-item">{{contract.firstNotice}}</div>
+    </div>
+      <div *ngFor="let subContract of this.contractsDetail.get(contract.idcontract)">
+        <div class="sub-contract" *ngIf="contractsDetail!=null">
+        <div class="grid-item">{{subContract.idcontract}}</div>
+        <div class="grid-item">{{subContract.symbol}}</div>
+        <div class="grid-item">{{subContract.title}}</div>
+        <div class="grid-item">{{subContract.expiration}}</div>
+        <div class="grid-item">{{subContract.firstNotice}}</div>
+      </div>
+    </div>
+  </div>
+</div>

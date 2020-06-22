@@ -23,9 +23,11 @@ export class HeaderComponent implements OnInit {
     this.auth.logout();
   }
 
-  onClickFutures() {
+  getMainPanel() {
     this.appService.displayChart = true;
     this.appService.displaySaveContract = false;
+    this.appService.displayExpirationReport = false;
+    this.appService.displayDailyStocksReport = false;
   }
 
 
@@ -49,6 +51,20 @@ export class HeaderComponent implements OnInit {
 
   sendEmailTest() {
     this.appService.sendEmailTest().subscribe();
+  }
+
+  getExpirationReport(){
+    this.appService.displayChart = false;
+    this.appService.displaySaveContract = false;
+    this.appService.displayExpirationReport = true;
+    this.appService.displayDailyStocksReport = false;
+  }
+
+  getDailyStocksReport(){
+    this.appService.displayChart = false;
+    this.appService.displaySaveContract = false;
+    this.appService.displayExpirationReport = false;
+    this.appService.displayDailyStocksReport = true;
   }
 
 

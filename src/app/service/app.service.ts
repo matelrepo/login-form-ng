@@ -14,8 +14,10 @@ export class AppService {
   chart = new BehaviorSubject<Chart>(INIT_CHART);
   chart$: Observable<Chart> = this.chart.asObservable();
   // displayPortfolio = true;
-  displayChart = true;
+  displayChart = false;
   displaySaveContract = false;
+  displayExpirationReport = true;
+  displayDailyStocksReport = false;
   sendEmail = true;
 
   constructor(private http: HttpClient) { }

@@ -47,6 +47,18 @@ export class DataService implements OnDestroy {
     }
   }
 
+  getExpirationReport(){
+    return this.http.get<Contract[]>(this.dst + '/expiration-report');
+  }
+
+  reqContractDetails(contract: Contract){
+    return this.http.post<Contract>(this.dst + '/contract-details', contract);
+  }
+
+  getContractDetails(): Observable<IMessage> {
+    return this.rxStompService.watch('/get/contract-details', rxStompConfig.connectHeaders);
+  }
+
   // getTickerCrawl() {
   //   return this.http.get<Macro[]>(this.dst + '/ticker-crawl');
   // }

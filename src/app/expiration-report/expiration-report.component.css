@@ -1,0 +1,29 @@
+
+.container {
+  width: 100%;
+  background-color: #ffc107;
+  margin-left:25%;
+}
+
+.main-contract{
+  font-size: 1.5em;
+  margin: 0 auto;
+  width:100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  background-color: pink;
+}
+
+.sub-contract{
+  font-size: 1.2em;
+  width:100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  background-color: yellow;
+}
+
+.grid-item{
+  font-size: 20px;
+  padding:5px;
+  margin-right:10px;
+}
