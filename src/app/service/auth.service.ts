@@ -19,9 +19,8 @@ export const ANONYMOUS_USER: User = {
   providedIn: 'root'
 })
 export class AuthService {
-  //dst = 'http://37.59.39.230:8080'
-  dst = 'http://localhost:8080'
-  //dst = 'http://91.121.83.101:8080'
+  //dst = 'http://localhost:8080'
+  dst = 'http://91.121.83.101:8080'
 
   user = new BehaviorSubject(ANONYMOUS_USER);
   user$: Observable<User> = this.user.asObservable();

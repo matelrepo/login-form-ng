@@ -9,8 +9,8 @@
         <a (click)="onConnectAll()">Connect all contracts </a>
         <a (click)="onDisConnectAll()">Disconnect all contracts </a>
         <a (click)="sendEmailTest()">Send email test </a>
-        <a *ngIf="this.appService.sendEmail" (click)="activateEmails()">Deactivate emails </a>
-        <a *ngIf="!this.appService.sendEmail" (click)="activateEmails()">Activate emails </a>
+        <a *ngIf="getAppService().sendEmail" (click)="activateEmails()">Deactivate emails </a>
+        <a *ngIf="!getAppService().sendEmail" (click)="activateEmails()">Activate emails </a>
       </div>
     </div>
     <div class="user-1, dropdown">Report

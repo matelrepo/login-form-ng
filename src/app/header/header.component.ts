@@ -30,6 +30,10 @@ export class HeaderComponent implements OnInit {
     this.appService.displayDailyStocksReport = false;
   }
 
+  getAppService(){
+    return this.appService
+  }
+
 
   onConnectAll() {
     this.dataService.connectAll().subscribe();

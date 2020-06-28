@@ -1,6 +1,6 @@
 
 .grid-container {
-  width: 100%;
+  width: 95%;
 
 }
 
@@ -32,7 +32,7 @@
   margin: 0 auto;
   width:100%;
   display: grid;
-  grid-template-columns: 20px auto 70px 70px;
+  grid-template-columns: 20px auto 50px 50px;
 }
 
 /*.tool-tip{*/
@@ -70,7 +70,7 @@ span{
 
 .price{
   text-align: center;
-  font-size: 15px;
+  /*font-size: 15px;*/
 }
 
 .price:hover{

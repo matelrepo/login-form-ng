@@ -43,6 +43,7 @@ export class QuoteComponent implements OnInit, OnDestroy {
 
       this.generatorStateHistoSub = this.dataService.getHistoQuote(this.contract.idcontract).subscribe( quote => {
         this.generatorState = quote;
+        console.log(quote)
         this.generatorStateHistoSub.unsubscribe();
       });
 

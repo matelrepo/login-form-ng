@@ -1,3 +1,7 @@
+.container{
+  width:100%;
+}
+
 section{
   width:100%;
   display: flex;
@@ -32,7 +36,7 @@ section{
 
 
 .sticky {
-  width: 100%;
+  width: 99%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   position: sticky;

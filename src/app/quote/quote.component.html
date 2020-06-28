@@ -6,7 +6,7 @@
     <button (click)="hideButton()">Hide</button>
   </div>
   <div *ngIf="activeCandle != null">
-    <span>ID: {{activeCandle.idtick | number:'1.0-0'}}</span><span>{{activeCandle.timestampCandle | date:'dd-MM-yy HH:mm':'UTC +8'}}</span><span>O: {{activeCandle.open}}</span><span>H: {{activeCandle.high}}</span><span>L: {{activeCandle.low}}</span><span>C: {{activeCandle.close}}</span><span>A: {{activeCandle.closeAverage}}</span>
+    <span>ID: {{activeCandle.idtick | number:'1.0-0'}}</span><span>{{activeCandle.timestampCandle | date:'dd-MM-yy HH:mm':'UTC -7'}}</span><span>O: {{activeCandle.open}}</span><span>H: {{activeCandle.high}}</span><span>L: {{activeCandle.low}}</span><span>C: {{activeCandle.close}}</span><span>A: {{activeCandle.closeAverage}}</span>
   </div>
 </div>
 

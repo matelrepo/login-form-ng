@@ -22,9 +22,8 @@ export const DEFAULT_CONTRACT: Contract = {
   providedIn: 'root'
 })
 export class DataService implements OnDestroy {
-  // dst  = 'http://37.59.39.230:8080'
-  dst = 'http://localhost:8080';
-//  dst = 'http://91.121.83.101:8080'
+//  dst = 'http://localhost:8080';
+  dst = 'http://91.121.83.101:8080'
 
   activeContract = new BehaviorSubject(DEFAULT_CONTRACT);
   activeContract$: Observable<Contract> = this.activeContract.asObservable();
@@ -47,11 +46,11 @@ export class DataService implements OnDestroy {
     }
   }
 
-  getExpirationReport(){
+  getExpirationReport() {
     return this.http.get<Contract[]>(this.dst + '/expiration-report');
   }
 
-  reqContractDetails(contract: Contract){
+  reqContractDetails(contract: Contract) {
     return this.http.post<Contract>(this.dst + '/contract-details', contract);
   }
 
@@ -67,7 +66,7 @@ export class DataService implements OnDestroy {
     return this.http.get<Map<number, GlobalSettings>>(this.dst + '/global-settings/' + idcontract);
   }
 
-  setGlobalSettings(setting: GlobalSettings){
+  setGlobalSettings(setting: GlobalSettings) {
     return this.http.post<GlobalSettings>(this.dst + '/update-global-settings', setting);
   }
 
