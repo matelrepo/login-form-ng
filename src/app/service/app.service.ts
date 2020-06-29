@@ -9,8 +9,8 @@ export const  INIT_CHART = {id: '1', width: 300, height: 150};
   providedIn: 'root'
 })
 export class AppService {
- // dst = 'http://localhost:8080';
-  dst = 'http://91.121.83.101:8080'
+  dst = 'http://localhost:8080';
+//  dst = 'http://91.121.83.101:8080'
   chart = new BehaviorSubject<Chart>(INIT_CHART);
   chart$: Observable<Chart> = this.chart.asObservable();
   // displayPortfolio = true;
