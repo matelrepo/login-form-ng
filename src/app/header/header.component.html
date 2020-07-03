@@ -1,11 +1,11 @@
 <div class="container">
   <div class="menu">
-    <div class="user-1">
-      <a (click)="getMainPanel()"> Welcome {{username | titlecase}}</a>
-     </div>
+    <div>
+      <a [routerLink]="['/panel']"> Welcome {{username | titlecase}}</a>
+    </div>
     <div class="user-1, dropdown">Maintenance
       <div class="dropdown-content">
-        <a (click)="onClickSaveContract()">Save Contract</a>
+        <a [routerLink]="['/save-contract']">Save Contract</a>
         <a (click)="onConnectAll()">Connect all contracts </a>
         <a (click)="onDisConnectAll()">Disconnect all contracts </a>
         <a (click)="sendEmailTest()">Send email test </a>
@@ -15,8 +15,9 @@
     </div>
     <div class="user-1, dropdown">Report
       <div class="dropdown-content">
-        <a (click)="getExpirationReport()">Expiration report</a>
-        <a (click)="getDailyStocksReport()">Daily stocks report </a>
+        <a [routerLink]="['/events-list']">Events list</a>
+        <a [routerLink]="['/expiration-report']">Expiration report</a>
+        <a [routerLink]="['/daily-stocks-report']">Daily stocks report </a>
       </div>
     </div>
     <div class="user-2"><a (click)="logout()">Log out</a></div>

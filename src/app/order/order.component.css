@@ -1,0 +1,69 @@
+.container{
+  display: flex;
+  /*margin-left:50px;*/
+  /*margin-top:40px;*/
+}
+
+div{
+  /*margin:10px;*/
+  border: 1px solid orange;
+  /*margin-bottom:4px;*/
+}
+
+input{
+  width:50px;
+  text-align: center;
+}
+
+button{
+  margin-top:4px;
+  /*border-radius: 5px;*/
+  height:25px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+li {
+  color: #fff;
+  display: block;
+  float: left;
+  position: relative;
+  text-decoration: none;
+  transition-duration: 0.5s;
+}
+
+li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+li:hover {
+  background: red;
+  cursor: pointer;
+}
+
+ul li ul {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  transition: all 0.5s ease;
+  left: 0;
+  display: none;
+}
+
+ul li:hover > ul,
+ul li ul:hover {
+  visibility: visible;
+  opacity: 1;
+  display: block;
+}
+
+ul li ul li {
+  clear: both;
+  width: 100%;
+}
+

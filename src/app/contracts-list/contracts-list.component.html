@@ -1,36 +1,39 @@
-<!--<app-contract-details></app-contract-details>-->
-<div>
-  <div class="menu">
-    <mat-button-toggle-group #group="matButtonToggleGroup">
-      <mat-button-toggle (change)="selectionChanged($event.value,'a')" value="MAIN">
-        MAIN
-      </mat-button-toggle>
-      <mat-button-toggle (change)="selectionChanged($event.value,'a')" value="COMMO">
-        COMMO
-      </mat-button-toggle>
-      <mat-button-toggle (change)="selectionChanged($event.value,'a')" value="ETF">
-        ETF
-      </mat-button-toggle>
-      <mat-button-toggle (change)="selectionChanged($event.value,'a')" value="FOREX">
-        FOREX
-      </mat-button-toggle>
-      <mat-button-toggle (change)="selectionChanged($event.value,this.inputValue)" value="DAILY">
-        DAILY
-      </mat-button-toggle>
-    </mat-button-toggle-group>
-  </div>
+<div class="container">
+  <div class="button"></div>
+  <button (click)="selectionChanged('MAIN')">MAIN</button>
+  <button (click)="selectionChanged('COMMO')">COMMO</button>
+  <button (click)="selectionChanged('ETF')">ETF</button>
+  <button (click)="selectionChanged('FOREX')">FOREX</button>
+  <button (click)="selectionChanged('DAILY')">DAILY</button>
 
+<!--  <mat-button-toggle-group class="button" #group="matButtonToggleGroup">-->
+<!--      <mat-button-toggle (change)="selectionChanged($event.value,'a')" value="MAIN">-->
+<!--        MAIN-->
+<!--      </mat-button-toggle>-->
+<!--      <mat-button-toggle (change)="selectionChanged($event.value,'a')" value="COMMO">-->
+<!--        COMMO-->
+<!--      </mat-button-toggle>-->
+<!--      <mat-button-toggle (change)="selectionChanged($event.value,'a')" value="ETF">-->
+<!--        ETF-->
+<!--      </mat-button-toggle>-->
+<!--      <mat-button-toggle (change)="selectionChanged($event.value,'a')" value="FOREX">-->
+<!--        FOREX-->
+<!--      </mat-button-toggle>-->
+<!--      <mat-button-toggle (change)="selectionChanged($event.value,this.inputValue)" value="DAILY">-->
+<!--        DAILY-->
+<!--      </mat-button-toggle>-->
+<!--    </mat-button-toggle-group>-->
 
-  <p [ngStyle]="{'visibility':selectedValue === 'DAILY' ? 'visible' : 'hidden' }">
+  <p class="search" [ngStyle]="{'visibility':selectedValue === 'DAILY' ? 'visible' : 'hidden' }">
     <span>Search</span>
     <span>
       <input type="text" id="search">
     </span>
   </p>
 
-  <div *ngFor="let contract of contracts; index as i" class="grid-container">
+  <div class="grid-container" *ngFor="let contract of contracts; index as i">
     <div class="comp" (mouseover)="addClass($event)" (click)="onClick(contract, i)">
-      <div class="grid-item"
+      <div class="grid-item status"
            *ngIf="this.generatorsState.get(contract.idcontract) != undefined"
            [ngClass]="{'disconnect': this.generatorsState.get(contract.idcontract).marketDataStatus===0,
          'inactive' : this.generatorsState.get(contract.idcontract).marketDataStatus===2,
@@ -41,17 +44,16 @@
       <div class="grid-item min-w"
            [tooltip]="tipContract" content-type="template" [show-delay]="2000"
            *ngIf="contract.fusion ==0; else falsyTemplate">{{contract.symbol}}
-        <span>.{{contract.currency}} {{contract.expiration | date:'MMMyy'}} @{{contract.exchange}}</span></div>
+        <span class="ticker-details">.{{contract.currency}} {{contract.expiration | date:'MMMyy'}} @{{contract.exchange}}</span></div>
 
       <ng-template #falsyTemplate>
         <div [tooltip]="tipContract" content-type="template" [show-delay]="2000"
              class="grid-item">{{contract.symbol}}
-          <span>.{{contract.currency}}{{contract.fusion}} {{contract.expiration | date:'MMMyy'}}
+          <span class="ticker-details">.{{contract.currency}}{{contract.fusion}} {{contract.expiration | date:'MMMyy'}}
             @{{contract.exchange}}</span></div>
       </ng-template>
 
-      <div *ngIf="this.generatorsState.get(contract.idcontract) != undefined"
-           class="price"
+      <div  class="price" *ngIf="this.generatorsState.get(contract.idcontract) != undefined"
            [ngClass]="{'price-up':this.generatorsState.get(contract.idcontract).changePerc>0, 'price-down': this.generatorsState.get(contract.idcontract).changePerc<0}">
         {{this.generatorsState.get(contract.idcontract).lastPrice}}
       </div>

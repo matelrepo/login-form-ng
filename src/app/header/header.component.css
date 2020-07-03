@@ -20,6 +20,11 @@
   margin-right:30px;
 }
 
+.menu div:first-child a{
+  text-decoration: none;
+  color: black;
+}
+
 .a{
   cursor: pointer;
 }

@@ -4,6 +4,7 @@ import {GeneratorState} from '../config/generatorState';
 import {Observable, Subscription} from 'rxjs';
 import {Contract} from '../config/contract';
 import {Candle} from '../config/candle';
+import {timeInterval, timeout} from "rxjs/operators";
 
 @Component({
   selector: 'app-quote',
@@ -18,6 +19,7 @@ export class QuoteComponent implements OnInit, OnDestroy {
   activeCandle: Candle;
   date: Date;
   hideMe = false;
+  displayActiveCandle = true;
 
   constructor(private dataService: DataService) {
   }
@@ -29,12 +31,15 @@ export class QuoteComponent implements OnInit, OnDestroy {
     }, 1000);
 
     this.dataService.activeCandle$.subscribe(candle => {
+      this.displayActiveCandle=true
       this.activeCandle = candle;
+      setTimeout(() => {
+        this.displayActiveCandle = false
+      }, 5000);
     });
 
     this.dataService.activeContract$.subscribe(contract => {
       if (this.generatorState !== undefined) {
-      //  console.log("Unsubscribe data for " + this.contract.idcontract)
         this.generatorStateSub.unsubscribe();
       }
       this.contract = contract;
@@ -43,21 +48,18 @@ export class QuoteComponent implements OnInit, OnDestroy {
 
       this.generatorStateHistoSub = this.dataService.getHistoQuote(this.contract.idcontract).subscribe( quote => {
         this.generatorState = quote;
-        console.log(quote)
         this.generatorStateHistoSub.unsubscribe();
       });
 
       this.generatorStateSub = this.dataService.getLiveQuote(this.contract.idcontract)
         .subscribe((message) => {
           this.generatorState = JSON.parse(message.body);
-        //  console.log(this.generatorState.ask + " " + this.generatorState.bid);
         });
     });
 
   }
 
   hideButton(){
-    console.log('coucou');
     this.hideMe = !this.hideMe;
   }
 

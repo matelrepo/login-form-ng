@@ -10,6 +10,7 @@ import {Candle} from '../config/candle';
 import {GeneratorState} from '../config/generatorState';
 import {ProcessorState} from '../config/processorState';
 import {GlobalSettings} from '../config/globalSettings';
+import {MyEvent} from "../config/myEvent";
 
 
 
@@ -22,8 +23,8 @@ export const DEFAULT_CONTRACT: Contract = {
   providedIn: 'root'
 })
 export class DataService implements OnDestroy {
-  dst = 'http://localhost:8080';
-//  dst = 'http://91.121.83.101:8080'
+ // dst = 'https://localhost:8443';
+  dst = 'https://matel.io:8443'
 
   activeContract = new BehaviorSubject(DEFAULT_CONTRACT);
   activeContract$: Observable<Contract> = this.activeContract.asObservable();
@@ -48,6 +49,14 @@ export class DataService implements OnDestroy {
 
   getExpirationReport() {
     return this.http.get<Contract[]>(this.dst + '/expiration-report');
+  }
+
+  getHistoEvents(idcontract: number) {
+    return this.http.get<MyEvent[]>(this.dst + '/histo-events/' + idcontract);
+  }
+
+  getLiveEvent(): Observable<IMessage> {
+    return this.rxStompService.watch('/get/live-event', rxStompConfig.connectHeaders);
   }
 
   reqContractDetails(contract: Contract) {

@@ -31,6 +31,8 @@ import { MacroComponent } from './archives/macro/macro.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ExpirationReportComponent } from './expiration-report/expiration-report.component';
 import { DailyStocksReportComponent } from './daily-stocks-report/daily-stocks-report.component';
+import { EventsListComponent } from './events-list/events-list.component';
+import { OrderComponent } from './order/order.component';
 
 
 
@@ -50,7 +52,9 @@ import { DailyStocksReportComponent } from './daily-stocks-report/daily-stocks-r
     PortfolioComponent,
     MacroComponent,
     ExpirationReportComponent,
-    DailyStocksReportComponent
+    DailyStocksReportComponent,
+    EventsListComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,

@@ -23,12 +23,12 @@ export class HeaderComponent implements OnInit {
     this.auth.logout();
   }
 
-  getMainPanel() {
-    this.appService.displayChart = true;
-    this.appService.displaySaveContract = false;
-    this.appService.displayExpirationReport = false;
-    this.appService.displayDailyStocksReport = false;
-  }
+  // getMainPanel() {
+  //   this.appService.displayChart = true;
+  //   // this.appService.displaySaveContract = false;
+  //   // this.appService.displayExpirationReport = false;
+  //   // this.appService.displayDailyStocksReport = false;
+  // }
 
   getAppService(){
     return this.appService
@@ -43,10 +43,10 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  onClickSaveContract() {
-    this.appService.displaySaveContract = !this.appService.displaySaveContract;
-    this.appService.displayChart = false;
-  }
+  // onClickSaveContract() {
+  //   // this.appService.displaySaveContract = !this.appService.displaySaveContract;
+  //   this.appService.displayChart = false;
+  // }
 
   activateEmails() {
     this.appService.sendEmail = !this.appService.sendEmail;
@@ -57,19 +57,19 @@ export class HeaderComponent implements OnInit {
     this.appService.sendEmailTest().subscribe();
   }
 
-  getExpirationReport(){
-    this.appService.displayChart = false;
-    this.appService.displaySaveContract = false;
-    this.appService.displayExpirationReport = true;
-    this.appService.displayDailyStocksReport = false;
-  }
-
-  getDailyStocksReport(){
-    this.appService.displayChart = false;
-    this.appService.displaySaveContract = false;
-    this.appService.displayExpirationReport = false;
-    this.appService.displayDailyStocksReport = true;
-  }
+  // getExpirationReport(){
+  //   this.appService.displayChart = false;
+  //   this.appService.displaySaveContract = false;
+  //   this.appService.displayExpirationReport = true;
+  //   this.appService.displayDailyStocksReport = false;
+  // }
+  //
+  // getDailyStocksReport(){
+  //   this.appService.displayChart = false;
+  //   this.appService.displaySaveContract = false;
+  //   this.appService.displayExpirationReport = false;
+  //   this.appService.displayDailyStocksReport = true;
+  // }
 
 
 }

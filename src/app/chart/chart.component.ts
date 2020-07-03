@@ -5,7 +5,7 @@ import {
   ViewChild,
   ElementRef,
   Output,
-  EventEmitter, AfterViewInit, Input, OnChanges, DoCheck
+  EventEmitter, AfterViewInit, Input, OnChanges, DoCheck, HostListener
 } from '@angular/core';
 import {Message} from '@stomp/stompjs';
 import {Subscription, Subject, Observable, of} from 'rxjs';
@@ -30,14 +30,16 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   private liveSub$: Subscription;
   private liveHisto$: Subscription;
   private chartChange$: Subscription;
-  // private emailMap = new Map();
-  // private voiceMap = new Map();
-  // private tradeMap = new Map();
 
   @Input() freq;
   @Input() id;
   @ViewChild('chartRef', {static: false}) canvasRef: ElementRef;
-  @ViewChild('containerRef', {static: false}) containerRef: ElementRef;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.onMouseDblClick()
+  }
+
   canvas: HTMLCanvasElement;
   private gc: CanvasRenderingContext2D;
   private widthCandle = 6;
@@ -56,6 +58,11 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   private isDrag = false;
   private activeContract: Contract;
 
+  @HostListener('window:resize', ['$event'])
+  onR(event) {
+   this.init()
+  }
+
   private globalSetting: GlobalSettings = {idcontract: -1, freq: -1, email: false, voice: false, trade: false};
 
   ngAfterViewInit() {
@@ -66,10 +73,10 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.canvasRef !== undefined) {
       this.canvas = this.canvasRef.nativeElement;
       this.gc = this.canvas.getContext('2d');
-      this.canvasRef.nativeElement.style.width = '100%';
-      this.canvasRef.nativeElement.style.height = '100%';
-      // this.canvasRef.nativeElement.height = this.divRef.nativeElement.offsetHeight;
-      // this.canvasRef.nativeElement.width = this.divRef.nativeElement.offsetWidth;
+      // this.canvasRef.nativeElement.style.width = '100%';
+      // this.canvasRef.nativeElement.style.height = '100%';
+   //   console.log(this.canvasRef)
+   //   console.log(this.canvas.clientWidth + ' ' + this.canvas.clientHeight)
       this.draw();
     }
   }
@@ -89,31 +96,31 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
 
-    this.dataService.getGlobalSettings(this.activeContract.idcontract).subscribe(settings => {
-      Object.values(settings).forEach((setting) => {
-        if (this.freq === setting.freq) {
-        this.globalSetting.idcontract = setting.idcontract;
-        this.globalSetting.freq = setting.freq;
-        this.globalSetting.email = setting.email;
-        this.globalSetting.voice = setting.voice;
-        this.globalSetting.trade = setting.trade;
-      }
-      });
-    });
+    // this.dataService.getGlobalSettings(this.activeContract.idcontract).subscribe(settings => {
+    //   Object.values(settings).forEach((setting) => {
+    //     if (this.freq === setting.freq) {
+    //     this.globalSetting.idcontract = setting.idcontract;
+    //     this.globalSetting.freq = setting.freq;
+    //     this.globalSetting.email = setting.email;
+    //     this.globalSetting.voice = setting.voice;
+    //     this.globalSetting.trade = setting.trade;
+    //   }
+    //   });
+    // });
   }
 
-  onClickEmailChange(change) {
-    // console.log(change);
-    this.globalSetting.email = change;
-    this.dataService.setGlobalSettings(this.globalSetting).subscribe();
-  }
-  onClickVoiceChange(change) {
-    this.globalSetting.voice = change;
-    this.dataService.setGlobalSettings(this.globalSetting).subscribe();  }
-
-  onClickTradeChange(change) {
-    this.globalSetting.trade = change;
-    this.dataService.setGlobalSettings(this.globalSetting).subscribe();  }
+  // onClickEmailChange(change) {
+  //   // console.log(change);
+  //   this.globalSetting.email = change;
+  //   this.dataService.setGlobalSettings(this.globalSetting).subscribe();
+  // }
+  // onClickVoiceChange(change) {
+  //   this.globalSetting.voice = change;
+  //   this.dataService.setGlobalSettings(this.globalSetting).subscribe();  }
+  //
+  // onClickTradeChange(change) {
+  //   this.globalSetting.trade = change;
+  //   this.dataService.setGlobalSettings(this.globalSetting).subscribe();  }
 
   subscribeLive() {
     if (this.liveHisto$ !== undefined) {
@@ -130,8 +137,6 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
         } else {
           this.candles[0] = candle;
         }
-        // if(this.freq==1)
-        // console.log(this.candles[0].progress)
         this.draw();
         if (this.candles.length > 100) {
           this.candles.pop();
@@ -183,7 +188,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
         this.gc.fillStyle = '#ebe8e1';
         this.gc.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.gc.fillStyle = 'black';
-        this.gc.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.gc.fillRect(0, 0, this.canvas.clientWidth, this.canvas.clientHeight);
         this.min = this.getTrailingMin(this.currentZoomValue);
         this.max = this.getTrailingMax(this.currentZoomValue);
 
@@ -259,20 +264,11 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
             this.gc.fillStyle = this.colorUp;
             this.gc.fillRect(time, close + open - midPrice, this.widthCandle, open - (close + open - midPrice));
           } else {
-            // this.gc.fillStyle = this.colorDown;
-            // this.gc.fillRect(time, open, this.widthCandle, close - open);
             this.gc.fillStyle = this.colorDown;
             this.gc.fillRect(time, open, this.widthCandle, close - midPrice);
             this.gc.fillStyle = this.colorMat;
             this.gc.fillRect(time, open + close - midPrice, this.widthCandle, close - (open + close - midPrice));
           }
-
-          // this.gc.fillStyle = 'white';
-          // this.gc.fillRect(250, 200, 10, -200);
-          //
-          // console.log('time ' + time)
-          // console.log('open ' + candle.open + ' ' + 'close'  + candle.close)
-
           x += this.width;
         }
       }
@@ -293,9 +289,8 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getX(v) {
     const pct = (this.currentZoomValue * this.width) / (this.canvas.clientWidth);
-    // console.log(pct+ ' ' + v + ' ' + v/pct + ' ' + this.canvas.clientWidth)
-    // console.log(this.canvas.clientWidth - v / pct)
-    return this.canvas.clientWidth - v / pct +20 ;
+   // console.log(v + ' ' + (this.canvas.clientWidth - v / pct +20))
+    return this.canvas.clientWidth - v / pct -20;
   }
 
   getTrailingMin(numDays) {
@@ -347,25 +342,20 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
       this.dragEnd = this.dragCumul + ev.clientX - this.dragStart;
       this.draw();
     }
-    // console.log(ev)
-   // console.log(this.canvas.getBoundingClientRect().left + ' ' + ev.pageX + ' ' + (ev.pageX - this.canvas.getBoundingClientRect().left) + ' ' + ev.layerX)
-    var mouseX = ev.pageX - this.canvas.getBoundingClientRect().left
+   let mouseX = ev.pageX - this.canvas.getBoundingClientRect().left
     mouseX /=  this.canvas.getBoundingClientRect().width;
     mouseX *= this.canvas.width;
     mouseX = Math.round(mouseX)
-    // console.log(mouseX)
-    // console.log(this.containerRef)
-    if (this.data.get(mouseX)) {
+  //  console.log(mouseX)
 
+    if (this.data.get(mouseX))
       this.dataService.activeCandle.next(this.data.get(mouseX));
-      // this.displayCandle$.next(this.data.get(ev.layerX));
-    }
   }
 
   onMouseDown(ev: MouseEvent) {
     this.isDrag = true;
     this.dragStart = ev.clientX;
-    console.log('down')
+   // console.log('down')
   }
 
   onMouseUp() {
@@ -373,7 +363,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
       this.dragCumul = this.dragEnd;
       this.isDrag = false;
     }
-    console.log('down')
+   // console.log('down')
 
   }
 
@@ -383,19 +373,21 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
     this.draw();
   }
 
-  resize(event) {
-    this.appService.notifyChartResize({id: this.id, width: -1, height: -1});
-    if (this.currentZoomValue < 50) {
-      this.currentZoomValue = 100;
-    } else {
-      this.currentZoomValue = 40;
-    }
-    event.stopPropagation();
-  }
+  // resize(event) {
+  //   this.appService.notifyChartResize({id: this.id, width: -1, height: -1});
+  //   if (this.currentZoomValue < 50) {
+  //     this.currentZoomValue = 100;
+  //   } else {
+  //     this.currentZoomValue = 40;
+  //   }
+  //   event.stopPropagation();
+  //   console.log('resizing chart')
+  //   this.onMouseDblClick()
+  // }
 
-  onChange(value: number) {
-    this.currentZoomValue = value;
-    this.draw();
-  }
+  // onChange(value: number) {
+  //   this.currentZoomValue = value;
+  //   this.draw();
+  // }
 
 }

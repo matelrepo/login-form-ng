@@ -37,7 +37,8 @@ export class ContractsListComponent implements OnInit, OnDestroy, AfterViewInit 
 
   }
 
-  selectionChanged(item, filter: string) {
+  selectionChanged(item) {
+    const filter = item === 'DAILY' ? this.inputValue : 'a'
     if ( filter.length > 0) {
       this.selectedValue = item;
       if (this.contractSub !== undefined) { this.contractSub.unsubscribe(); }
@@ -50,10 +51,9 @@ export class ContractsListComponent implements OnInit, OnDestroy, AfterViewInit 
   ngAfterViewInit() {
      const input: any = document.getElementById('search');
      const search$ = fromEvent<any>(input, 'keyup')
-      .pipe(tap(() => this.selectionChanged(this.selectedValue, input.value)));
+      .pipe(tap(() => this.selectionChanged(this.selectedValue)));
      search$.subscribe(ev => {
       this.inputValue = input.value;
-      // console.log(this.inputValue);
     });
   }
 
@@ -65,9 +65,6 @@ export class ContractsListComponent implements OnInit, OnDestroy, AfterViewInit 
       .subscribe((message) => {
         Object.keys(JSON.parse(message.body)).forEach(key => {
           this.generatorsState.set(JSON.parse(message.body)[key].idcontract, JSON.parse(message.body)[key]);
-          // if (JSON.parse(message.body)[key].idcontract >= 10000) {
-          //   console.log(JSON.parse(message.body)[key]);
-          // }
         });
       });
 

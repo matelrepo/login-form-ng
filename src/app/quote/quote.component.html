@@ -1,43 +1,43 @@
-<div class="title" *ngIf="this.contract != undefined">
-  <div><h1>({{contract.idcontract}}) {{contract.symbol}} {{contract.expiration | date:'MMMyy'}}
-    @{{contract.exchange}}</h1></div>
-  <div><h1>{{date | date:'dd-MM-yy HH:mm:ss'}}</h1></div>
-  <div>
-    <button (click)="hideButton()">Hide</button>
+<div class="container">
+  <div class="top-banner" *ngIf="this.contract != undefined">
+    <div>({{contract.idcontract}}){{contract.symbol}} {{contract.expiration | date:'MMMyy'}}@{{contract.exchange}}</div>
+    <div>{{date | date:'dd-MM-yy HH:mm:ss'}}</div>
+    <div>
+      <button (click)="hideButton()">Hide</button>
+    </div>
+    <div class="active-candle" *ngIf="activeCandle != null"
+         [ngStyle]="{'visibility':this.displayActiveCandle ? 'visible' : 'hidden'}">
+      <span>ID: {{activeCandle.idtick | number:'1.0-0'}}</span><span>{{activeCandle.timestampCandle | date:'dd-MM-yy HH:mm':'UTC -7'}}</span><span>O: {{activeCandle.open}}</span><span>H: {{activeCandle.high}}</span><span>L: {{activeCandle.low}}</span><span>C: {{activeCandle.close}}</span><span>A: {{activeCandle.closeAverage}}</span>
+    </div>
   </div>
-  <div *ngIf="activeCandle != null">
-    <span>ID: {{activeCandle.idtick | number:'1.0-0'}}</span><span>{{activeCandle.timestampCandle | date:'dd-MM-yy HH:mm':'UTC -7'}}</span><span>O: {{activeCandle.open}}</span><span>H: {{activeCandle.high}}</span><span>L: {{activeCandle.low}}</span><span>C: {{activeCandle.close}}</span><span>A: {{activeCandle.closeAverage}}</span>
+  <div class="down-banner" *ngIf="this.generatorState !==undefined">
+    <table>
+      <tr>
+        <td><span class="time">({{generatorState.timestamp | date:'dd-MM HH:mm'}})</span>{{generatorState.lastPrice}}
+        </td>
+        <td></td>
+        <td><span class="title">High</span><span class="data">{{generatorState.high}}</span></td>
+        <td><span class="title">Weekly</span><span
+          class="data">{{generatorState.lastPrice / generatorState.weeklyMark - 1 | percent:'1.2-2'}}</span></td>
+      </tr>
+      <tr>
+        <td
+          [ngClass]="{'price-up':this.generatorState.changePerc>0, 'price-down': this.generatorState.changePerc<0}">{{generatorState.changePerc | percent:'1.2-2'}}</td>
+        <td><span class="data">{{generatorState.ask}}</span><span class="data">x</span><span
+          class="data">{{generatorState.askQuantity}}</span></td>
+        <td><span class="title">Low</span><span class="data">{{generatorState.low}}</span></td>
+        <td><span class="title">Monthly</span><span
+          class="data">{{generatorState.lastPrice / generatorState.monthlyMark - 1 | percent:'1.2-2'}}</span></td>
+      </tr>
+      <tr>
+        <td
+          [ngClass]="{'price-up':this.generatorState.changeValue>0, 'price-down': this.generatorState.changeValue<0}">{{generatorState.changeValue}}</td>
+        <td><span class="data">{{generatorState.bid}}</span><span class="data">x</span><span
+          class="data">{{generatorState.bidQuantity}}</span></td>
+        <td><span class="title">Volume</span><span class="data">{{generatorState.dailyVolume | number}}</span></td>
+        <td><span class="title">YTD</span><span
+          class="data">{{generatorState.lastPrice / generatorState.yearlyMark - 1 | percent:'1.2-2'}}</span></td>
+      </tr>
+    </table>
   </div>
-</div>
-
-<div class="container" *ngIf="this.generatorState != undefined && !this.hideMe">
-  <div class="item">
-    <div><span class="time">({{generatorState.timestamp | date:'dd-MM HH:mm'}})</span>{{generatorState.lastPrice}}</div>
-    <div
-      [ngClass]="{'price-up':this.generatorState.changeValue>0, 'price-down': this.generatorState.changeValue<0}">{{generatorState.changeValue}}</div>
-    <div
-      [ngClass]="{'price-up':this.generatorState.changePerc>0, 'price-down': this.generatorState.changePerc<0}">{{generatorState.changePerc | percent:'1.2-2'}}</div>
-  </div>
-
-  <div class="item">
-    <div><span class="data">{{generatorState.ask}}</span><span class="data">x</span><span class="data">{{generatorState.askQuantity}}</span></div>
-    <div><span class="data">{{generatorState.bid}}</span><span class="data">x</span><span class="data">{{generatorState.bidQuantity}}</span></div>
-  </div>
-
-  <div class="item">
-    <div><span class="title">High</span><span class="data">{{generatorState.high}}</span></div>
-    <div><span class="title">Low</span><span class="data">{{generatorState.low}}</span></div>
-    <div><span class="title">Volume</span><span class="data">{{generatorState.dailyVolume | number}}</span></div>
-  </div>
-
-
-  <div class="item">
-    <div><span class="title">Weekly</span><span
-      class="data">{{generatorState.lastPrice / generatorState.weeklyMark - 1 | percent:'1.2-2'}}</span></div>
-    <div><span class="title">Monthly</span><span
-      class="data">{{generatorState.lastPrice / generatorState.monthlyMark - 1 | percent:'1.2-2'}}</span></div>
-    <div><span class="title">YTD</span><span
-      class="data">{{generatorState.lastPrice / generatorState.yearlyMark - 1 | percent:'1.2-2'}}</span></div>
-  </div>
-
 </div>

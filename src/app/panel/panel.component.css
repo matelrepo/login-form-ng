@@ -1,86 +1,37 @@
-.container{
-  width:100%;
-}
 
 section{
   width:100%;
   display: flex;
-  /*margin-top:10px;*/
 }
-
-@media only screen and (max-width: 1200px) {
-  section {
-    width: 1900px;
-  }
-}
-
 
 .contract-list {
-  width:25%;
+  min-width:21%;
   margin: 10px;
 }
 
-.chart-panel{
+.container{
   width:100%;
-  /*margin: 10px;*/
+  margin-top:10px;
 }
 
-.chart{
-  order: 1;
-  height:240px;
-  /*border-left: 1px solid gray;*/
-  /*border-top: 1px solid gray;*/
-  margin:2px;
-  /*background-color: red;*/
-}
-
-
-.sticky {
+.chart-panel{
   width: 99%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   position: sticky;
-  /*top: 100px;*/
 }
 
-/*.chart-selected{*/
-/*  margin: 2px;*/
-/*  order: 0;*/
-/*  grid-column: span 4;*/
-/*  grid-row: span 3;*/
-/*  height:600px;*/
-/*  background-color: #e7e7e7;*/
-/*  border: 1px solid #878787;*/
-/*}*/
+.top{
+  width:100%;
+  display: grid;
+  grid-template-columns: 60% auto;
+}
 
 
-
-/*.sticky2 {*/
-/*  z-index: 1;*/
-/*  background: #fff;*/
-/*  box-shadow: 0 3px 12px 0 rgba(0,0,0,.08);*/
-/*  position: fixed;*/
-/*  top: 0;*/
-/*  width: 100%;*/
-/*  !*animation: fadein 1s;*!*/
-/*}*/
-
-/*.list-gap{*/
-/*  position: sticky;*/
-/*  top: 0;*/
-/*  height:100px;*/
-/*  background-color: white;*/
-/*  opacity: 0.97;*/
-/*}*/
-
-/*@keyframes fadein {*/
-/*  from {*/
-/*    opacity:0.5;*/
-/*  }*/
-/*  to {*/
-/*    opacity:1;*/
-/*  }*/
-/*}*/
+.chart{
+  order: 1;
+  margin:2px;
+}
 
 
 
