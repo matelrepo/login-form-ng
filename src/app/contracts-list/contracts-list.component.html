@@ -6,24 +6,6 @@
   <button (click)="selectionChanged('FOREX')">FOREX</button>
   <button (click)="selectionChanged('DAILY')">DAILY</button>
 
-<!--  <mat-button-toggle-group class="button" #group="matButtonToggleGroup">-->
-<!--      <mat-button-toggle (change)="selectionChanged($event.value,'a')" value="MAIN">-->
-<!--        MAIN-->
-<!--      </mat-button-toggle>-->
-<!--      <mat-button-toggle (change)="selectionChanged($event.value,'a')" value="COMMO">-->
-<!--        COMMO-->
-<!--      </mat-button-toggle>-->
-<!--      <mat-button-toggle (change)="selectionChanged($event.value,'a')" value="ETF">-->
-<!--        ETF-->
-<!--      </mat-button-toggle>-->
-<!--      <mat-button-toggle (change)="selectionChanged($event.value,'a')" value="FOREX">-->
-<!--        FOREX-->
-<!--      </mat-button-toggle>-->
-<!--      <mat-button-toggle (change)="selectionChanged($event.value,this.inputValue)" value="DAILY">-->
-<!--        DAILY-->
-<!--      </mat-button-toggle>-->
-<!--    </mat-button-toggle-group>-->
-
   <p class="search" [ngStyle]="{'visibility':selectedValue === 'DAILY' ? 'visible' : 'hidden' }">
     <span>Search</span>
     <span>
@@ -31,8 +13,9 @@
     </span>
   </p>
 
-  <div class="grid-container" *ngFor="let contract of contracts; index as i">
-    <div class="comp" (mouseover)="addClass($event)" (click)="onClick(contract, i)">
+  <div class="grid-container" *ngFor="let contract of contracts; index as i"
+       (mouseover)="addClass($event)" (click)="onClick(contract, i)">
+    <div class="row-items">
       <div class="grid-item status"
            *ngIf="this.generatorsState.get(contract.idcontract) != undefined"
            [ngClass]="{'disconnect': this.generatorsState.get(contract.idcontract).marketDataStatus===0,
@@ -53,7 +36,7 @@
             @{{contract.exchange}}</span></div>
       </ng-template>
 
-      <div  class="price" *ngIf="this.generatorsState.get(contract.idcontract) != undefined"
+      <div *ngIf="this.generatorsState.get(contract.idcontract) != undefined"
            [ngClass]="{'price-up':this.generatorsState.get(contract.idcontract).changePerc>0, 'price-down': this.generatorsState.get(contract.idcontract).changePerc<0}">
         {{this.generatorsState.get(contract.idcontract).lastPrice}}
       </div>

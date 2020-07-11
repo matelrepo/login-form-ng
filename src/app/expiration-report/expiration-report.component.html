@@ -1,21 +1,24 @@
+<app-header></app-header>
 <div class="container">
-  <div><h1>Expiration report</h1></div>
-  <div *ngFor="let contract of contracts; index as i">
-    <div class="main-contract">
-      <div class="grid-item">{{contract.idcontract}}</div>
-      <div class="grid-item">{{contract.symbol}}</div>
-      <div class="grid-item">{{contract.title}}</div>
-      <div class="grid-item">{{contract.expiration}}</div>
-      <div class="grid-item">{{contract.firstNotice}}</div>
-    </div>
-      <div *ngFor="let subContract of this.contractsDetail.get(contract.idcontract)">
-        <div class="sub-contract" *ngIf="contractsDetail!=null">
-        <div class="grid-item">{{subContract.idcontract}}</div>
-        <div class="grid-item">{{subContract.symbol}}</div>
-        <div class="grid-item">{{subContract.title}}</div>
-        <div class="grid-item">{{subContract.expiration}}</div>
-        <div class="grid-item">{{subContract.firstNotice}}</div>
-      </div>
-    </div>
+  <div><h2>Expiration report</h2></div>
+  <div class="main-contract" *ngFor="let contract of contracts; index as i">
+    <div class="grid-item">{{contract.idcontract}}</div>
+    <div class="grid-item">{{contract.symbol}}</div>
+    <div class="grid-item"><input placeholder="{{contract.title}}"></div>
+    <div class="grid-item"><input placeholder="{{contract.expiration}}"></div>
+    <div class="grid-item"><input placeholder="{{contract.firstNotice}}"></div>
+    <div class="grid-item"><input placeholder=0></div>
+    <div class="grid-item"><input placeholder=0></div>
+    <div class="grid-item"><input placeholder=0></div>
+
+    <!--    <div *ngIf="contractsDetail!=null">-->
+<!--      <div class="sub-contract" *ngFor="let subContract of this.contractsDetail.get(contract.idcontract)">-->
+<!--        <div class="grid-item">{{subContract.idcontract}}</div>-->
+<!--        <div class="grid-item">{{subContract.symbol}}</div>-->
+<!--        <div class="grid-item">{{subContract.title}}</div>-->
+<!--        <div class="grid-item">{{subContract.expiration}}</div>-->
+<!--        <div class="grid-item">{{subContract.firstNotice}}</div>-->
+<!--      </div>-->
+<!--    </div>-->
   </div>
 </div>

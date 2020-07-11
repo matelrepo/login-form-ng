@@ -1,7 +1,6 @@
 
 .container {
   width: 100%;
-  /*background-color: black;*/
 }
 
 .grid-container {
@@ -9,11 +8,16 @@
 }
 
 .grid-container:hover {
-  background-color: pink;
+  border: 1px solid gray;
+  background-color: #a3a19d;
 }
 
-.comp:hover {
-  border: 1px solid gray;
+.row-items {
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  height:20px;
+  grid-template-columns: 10px auto 70px 70px;
 }
 
 .min-w {
@@ -32,32 +36,6 @@
   margin-top: 4px;
 }
 
-/*.mat-button-toggle {*/
-/*  background-color: dimgray;*/
-/*  color: white;*/
-/*  font-size: 14px;*/
-/*}*/
-
-/*.mat-button-toggle-checked {*/
-/*  background-color: orange;*/
-/*  color: black;*/
-/*}*/
-
-.comp {
-  margin: 0 auto;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 10px auto auto auto;
-}
-
-.grid-container div div {
-
-}
-
-.grid-container div div:first-child {
-  /*font-size: 16px;*/
-}
-
 p span:first-child {
   margin-right: 10px;
 }
@@ -66,22 +44,26 @@ span {
   font-size: 0.7em;
 }
 
-.price {
-  text-align: center;
-}
-
-
 .price-up {
+  padding-top:2px;
   background-color: green;
   color: white;
   border-left: none !important;
+  text-align: center;
+
 }
 
 .price-down {
+  padding-top:2px;
   background-color: #BD2828;
   color: white;
   border-left: none !important;
+  text-align: center;
+
 }
+
+
+
 
 .connect {
   color: green;
@@ -123,8 +105,6 @@ button{
 
 .search span:first-child {
   padding-top: 5px;
-  /*margin-left: auto;*/
-  /*margin-right: auto;*/
 }
 
 .search span input {
@@ -149,9 +129,6 @@ button{
     display: none;
   }
 
-  .price{
-    font-size: 0.7em;
-  }
 }
 
 
