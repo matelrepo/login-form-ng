@@ -1,43 +1,114 @@
-<div class="container">
-  <div class="top-banner" *ngIf="this.contract != undefined">
-    <div>({{contract.idcontract}}){{contract.symbol}} {{contract.expiration | date:'MMMyy'}}@{{contract.exchange}}</div>
-    <div>{{date | date:'dd-MM-yy HH:mm:ss'}}</div>
-    <div>
-      <button (click)="hideButton()">Hide</button>
-    </div>
-    <div class="active-candle" *ngIf="activeCandle != null"
-         [ngStyle]="{'visibility':this.displayActiveCandle ? 'visible' : 'hidden'}">
-      <span>ID: {{activeCandle.idtick | number:'1.0-0'}}</span><span>{{activeCandle.timestampCandle | date:'dd-MM-yy HH:mm':'UTC -7'}}</span><span>O: {{activeCandle.open}}</span><span>H: {{activeCandle.high}}</span><span>L: {{activeCandle.low}}</span><span>C: {{activeCandle.close}}</span><span>A: {{activeCandle.closeAverage}}</span>
+<div class="grid" *ngIf="this.gstate!=undefined">
+  <div class="title  animate">
+    ({{c.idcontract}})&nbsp;{{c.symbol}} {{c.expiration | date:'MMMyy'}}
+    <span class="size-s">{{c.exchange}}</span>
+  </div>
+  <div class="date-time size-l animate">
+    {{date | date:'dd-MMM-yy'}}&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="size-l">{{date | date:'HH:mm:ss'}}</span>
+  </div>
+  <div class="hide-me animate">
+    <a (click)="hideButton()">Hide</a>
+  </div>
+  <div class="active-candle-id border-top animate">
+    <div *ngIf="this.candle!=undefined"
+         [ngStyle]="{'visibility':showCandle ? 'visible' : 'hidden'}">ID: {{candle.idtick | number:'1.0-0'}}</div>
+
+  </div>
+  <div class="active-candle border-top animate" *ngIf="this.eventMessage===null; else eMessage">
+    <div *ngIf="this.candle!=undefined"
+         [ngStyle]="{'visibility':showCandle ? 'visible' : 'hidden'}">
+      {{candle.timestampCandle | date:'dd-MM-yy HH:mm':'UTC -7'}}&nbsp;&nbsp;&nbsp;&nbsp;
+      O:&nbsp;&nbsp;{{candle.open}}&nbsp;
+      H:&nbsp;&nbsp;{{candle.high}}&nbsp;
+      L:&nbsp;&nbsp;{{candle.low}}&nbsp;
+      C:&nbsp;&nbsp;{{candle.close}}&nbsp;
+      A:&nbsp;&nbsp;{{candle.averageClose}}
     </div>
   </div>
-  <div class="down-banner" *ngIf="this.generatorState !==undefined">
-    <table>
-      <tr>
-        <td><span class="time">({{generatorState.timestamp | date:'dd-MM HH:mm'}})</span>{{generatorState.lastPrice}}
-        </td>
-        <td></td>
-        <td><span class="title">High</span><span class="data">{{generatorState.high}}</span></td>
-        <td><span class="title">Weekly</span><span
-          class="data">{{generatorState.lastPrice / generatorState.weeklyMark - 1 | percent:'1.2-2'}}</span></td>
-      </tr>
-      <tr>
-        <td
-          [ngClass]="{'price-up':this.generatorState.changePerc>0, 'price-down': this.generatorState.changePerc<0}">{{generatorState.changePerc | percent:'1.2-2'}}</td>
-        <td><span class="data">{{generatorState.ask}}</span><span class="data">x</span><span
-          class="data">{{generatorState.askQuantity}}</span></td>
-        <td><span class="title">Low</span><span class="data">{{generatorState.low}}</span></td>
-        <td><span class="title">Monthly</span><span
-          class="data">{{generatorState.lastPrice / generatorState.monthlyMark - 1 | percent:'1.2-2'}}</span></td>
-      </tr>
-      <tr>
-        <td
-          [ngClass]="{'price-up':this.generatorState.changeValue>0, 'price-down': this.generatorState.changeValue<0}">{{generatorState.changeValue}}</td>
-        <td><span class="data">{{generatorState.bid}}</span><span class="data">x</span><span
-          class="data">{{generatorState.bidQuantity}}</span></td>
-        <td><span class="title">Volume</span><span class="data">{{generatorState.dailyVolume | number}}</span></td>
-        <td><span class="title">YTD</span><span
-          class="data">{{generatorState.lastPrice / generatorState.yearlyMark - 1 | percent:'1.2-2'}}</span></td>
-      </tr>
-    </table>
+  <ng-template #eMessage ><div class="event-message border-top">
+    <div class="animate-blink-up">{{this.eventMessage}}</div>
+    </div></ng-template>
+  <div class="timestamp animate">
+    ({{gstate.timestamp | date:'dd-MM HH:mm:ss'}})
   </div>
+  <div class="last-price size-xl animate"
+       [ngClass]="{'price-up':gstate.changePerc>0, 'price-down': gstate.changePerc<0}">
+    {{gstate.lastPrice}}
+  </div>
+  <div class="high border-top animate">
+    High
+  </div>
+  <div class="high-value border-top border-right animate">
+    {{gstate.high}}
+  </div>
+  <div class="weekly border-top animate">
+    Weekly
+  </div>
+  <div class="weekly-value border-top animate">
+    {{gstate.lastPrice / gstate.weeklyMark - 1 | percent:'1.2-2'}}
+  </div>
+  <div class="price-change animate" [ngClass]="{'price-up':gstate.changePerc>0, 'price-down': gstate.changePerc<0}">
+    {{gstate.changeValue}}&nbsp;&nbsp;&nbsp;&nbsp;({{gstate.changePerc | percent:'1.2-2'}})
+  </div>
+  <div class="low animate">
+    Low
+  </div>
+  <div class="low-value border-right animate">
+    {{gstate.low}}
+  </div>
+  <div class="monthly animate">
+    Monthly
+  </div>
+  <div class="monthly-value animate">
+    {{gstate.lastPrice / gstate.monthlyMark - 1 | percent:'1.2-2'}}
+  </div>
+  <div class="ticker size-xl animate">
+    <div class="ask">
+      {{gstate.ask}}&nbsp;&nbsp;x&nbsp;&nbsp;{{gstate.askQuantity}}
+    </div>
+    <div class="bid">
+      {{gstate.bid}}&nbsp;&nbsp;x&nbsp;&nbsp;{{gstate.bidQuantity}}
+    </div>
+  </div>
+  <div class="volume animate">
+    Volume
+  </div>
+  <div class="volume-value border-right animate">
+    {{gstate.dailyVolume | number}}
+  </div>
+  <div class="yearly animate">
+    YTD
+  </div>
+  <div class="yearly-value animate">
+    {{gstate.lastPrice / gstate.yearlyMark - 1 | percent:'1.2-2'}}
+  </div>
+  <!--  <div class="buy">-->
+  <!--    <button class="price-up">BUY</button>-->
+  <!--  </div>-->
+  <!--  <div class="sell">-->
+  <!--    <button class="price-down">SELL</button>-->
+  <!--  </div>-->
+  <!--  <div class="order-type">-->
+  <!--    <select>-->
+  <!--      <option value="limit" selected>LMT</option>-->
+  <!--      <option value="market">MARKET</option>-->
+  <!--      <option value="min">MIN</option>-->
+  <!--      <option value="min">MAX</option>-->
+  <!--    </select>-->
+  <!--  </div>-->
+  <!--  <div class="frequency">-->
+  <!--    <select>-->
+  <!--      <option value="1" selected>1M</option>-->
+  <!--      <option value="5">5M</option>-->
+  <!--      <option value="15">15M</option>-->
+  <!--      <option value="60">1H</option>-->
+  <!--      <option value="240">4H</option>-->
+  <!--      <option value="480">8H</option>-->
+  <!--      <option value="1380">Daily</option>-->
+  <!--      <option value="6900">Weekly</option>-->
+  <!--      <option value="100000">Monthly</option>-->
+  <!--      <option value="300000">Yearly</option>-->
+  <!--    </select>-->
+  <!--  </div>-->
 </div>

@@ -18,8 +18,8 @@ export const ANONYMOUS_USER: User = {
   providedIn: 'root'
 })
 export class AuthService {
- // dst = 'https://localhost:8443'
-  dst = 'https://matel.io:8443'
+  dst = 'http://localhost:8080'
+ // dst = 'https://matel.io:8443'
 
   user = new BehaviorSubject(ANONYMOUS_USER);
   user$: Observable<User> = this.user.asObservable();

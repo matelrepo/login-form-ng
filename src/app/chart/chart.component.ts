@@ -187,7 +187,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
         this.data = new Map();
         this.gc.fillStyle = '#ebe8e1';
         this.gc.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        this.gc.fillStyle = 'black';
+        this.gc.fillStyle = '#141414';
         this.gc.fillRect(0, 0, this.canvas.clientWidth, this.canvas.clientHeight);
         this.min = this.getTrailingMin(this.currentZoomValue);
         this.max = this.getTrailingMax(this.currentZoomValue);
@@ -254,8 +254,8 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
 
           this.gc.strokeStyle = 'blueviolet';
           this.gc.beginPath();
-          this.gc.moveTo(time, this.getYPixel(candle.closeAverage));
-          this.gc.lineTo(time + this.widthCandle, this.getYPixel(candle.closeAverage));
+          this.gc.moveTo(time, this.getYPixel(candle.averageClose));
+          this.gc.lineTo(time + this.widthCandle, this.getYPixel(candle.averageClose));
           this.gc.stroke();
 
           if (candle.open <= candle.close) {
@@ -301,8 +301,8 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
         if (candle.low < min) {
           min = candle.low;
         }
-        if (candle.closeAverage < min && candle.closeAverage > 0) {
-          min = candle.closeAverage;
+        if (candle.averageClose < min && candle.averageClose > 0) {
+          min = candle.averageClose;
         }
       }
       i++;
@@ -318,8 +318,8 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
         if (candle.high > max) {
           max = candle.high;
         }
-        if (candle.closeAverage > max && candle.closeAverage > 0) {
-          max = candle.closeAverage;
+        if (candle.averageClose > max && candle.averageClose > 0) {
+          max = candle.averageClose;
         }
       }
       i++;

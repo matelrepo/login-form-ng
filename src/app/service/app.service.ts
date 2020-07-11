@@ -9,8 +9,8 @@ export const  INIT_CHART = {id: '1', width: 300, height: 150};
   providedIn: 'root'
 })
 export class AppService {
-  //dst = 'https://localhost:8443';
-  dst = 'https://matel.io:8443'
+  dst = 'http://localhost:8080';
+  //dst = 'https://matel.io:8443'
   chart = new BehaviorSubject<Chart>(INIT_CHART);
   chart$: Observable<Chart> = this.chart.asObservable();
   displayChart = true;

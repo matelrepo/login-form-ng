@@ -5,8 +5,8 @@ import { InjectableRxStompConfig } from '@stomp/ng2-stompjs';
 export const rxStompConfig: InjectableRxStompConfig = {
   // Which server?
 
-//  brokerURL: 'wss://localhost:8443/api',
-  brokerURL: 'wss://matel.io:8443/api',
+  brokerURL: 'ws://localhost:8080/api',
+//  brokerURL: 'wss://matel.io:8443/api',
 
 
   // Headers

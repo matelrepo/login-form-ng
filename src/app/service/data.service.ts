@@ -23,8 +23,8 @@ export const DEFAULT_CONTRACT: Contract = {
   providedIn: 'root'
 })
 export class DataService implements OnDestroy {
- // dst = 'https://localhost:8443';
-  dst = 'https://matel.io:8443'
+  dst = 'http://localhost:8080';
+ // dst = 'https://matel.io:8443'
 
   activeContract = new BehaviorSubject(DEFAULT_CONTRACT);
   activeContract$: Observable<Contract> = this.activeContract.asObservable();

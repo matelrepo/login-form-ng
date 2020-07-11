@@ -13,7 +13,7 @@ export class RoleGuardService implements CanActivate {
     if (this.auth.user.getValue().isTrader && !this.auth.helper.isTokenExpired(this.auth.jwtToken)) {
       return true;
     } else {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/login/1']);
       return false;
     }
   }

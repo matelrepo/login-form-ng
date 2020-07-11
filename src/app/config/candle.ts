@@ -21,7 +21,7 @@ export class Candle {
   newCandle: boolean;
   speed: number;
   progress: number;
-  closeAverage: number;
+  averageClose: number;
   abnormalHeightLevel: number;
   bigCandle: boolean
 
