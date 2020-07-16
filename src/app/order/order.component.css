@@ -1,69 +1,59 @@
-.container{
-  display: flex;
-  /*margin-left:50px;*/
-  /*margin-top:40px;*/
-}
 
-div{
-  /*margin:10px;*/
-  border: 1px solid orange;
-  /*margin-bottom:4px;*/
+form{
+  display:grid;
+  grid-template-columns: 100px 100px;
+  grid-template-areas:
+  "send-order send-order"
+  "frequency frequency"
+  "order-type order-type"
+  "quantity price"
 }
 
 input{
-  width:50px;
+  width:60px;
   text-align: center;
 }
 
 button{
-  margin-top:4px;
-  /*border-radius: 5px;*/
-  height:25px;
+  height:20px;
 }
 
-ul {
-  list-style: none;
-  margin: 0;
-  padding-left: 0;
+.price{
+  grid-area: price;
 }
 
-li {
-  color: #fff;
-  display: block;
-  float: left;
-  position: relative;
-  text-decoration: none;
-  transition-duration: 0.5s;
+.send-order{
+  gird-area: send-order
 }
 
-li a {
-  color: #fff;
-  text-decoration: none;
+.quantity{
+  grid-area: quantity
 }
 
-li:hover {
-  background: red;
-  cursor: pointer;
+.buy{
+  align-self: end;
+  grid-area: buy;
 }
 
-ul li ul {
-  visibility: hidden;
-  opacity: 0;
-  position: absolute;
-  transition: all 0.5s ease;
-  left: 0;
-  display: none;
+.sell{
+  grid-area: sell;
 }
 
-ul li:hover > ul,
-ul li ul:hover {
-  visibility: visible;
-  opacity: 1;
-  display: block;
+.order-type{
+  grid-area: order-type;
 }
 
-ul li ul li {
-  clear: both;
-  width: 100%;
+.frequency{
+  grid-area: frequency;
 }
 
+
+.price-up {
+  background-color: green;
+  color: white;
+}
+
+.price-down {
+  background-color: #BD2828;
+  color: white;
+}

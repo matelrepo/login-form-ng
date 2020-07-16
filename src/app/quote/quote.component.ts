@@ -93,8 +93,6 @@ export class QuoteComponent implements OnInit, AfterViewChecked,  OnDestroy {
           body.classList.add(classToAdd + '-1');
         }
       }
-    }else{
-      console.log(classId)
     }
   }
 

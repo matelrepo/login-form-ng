@@ -1,27 +1,28 @@
 .grid{
   display:grid;
-  grid-template-columns: 200px 150px 150px repeat(4,100px);
-  grid-template-rows: 20px 30px repeat(3,20px);
+  grid-template-columns: 200px 150px 150px repeat(6,100px);
+  grid-template-rows: 25px 35px repeat(3,25px);
   grid-template-areas:
-  "title date-time date-time date-time hide-me hide-me hide-me "
-  "active-candle-id active-candle active-candle active-candle active-candle active-candle active-candle"
-  "timestamp ticker ticker high high-value weekly weekly-value"
-  "last-price ticker ticker low low-value monthly monthly-value"
-  "price-change ticker ticker volume volume-value yearly yearly-value";
+  "title date-time date-time date-time hide-me hide-me hide-me order"
+  "title date-time date-time date-time hide-me hide-me hide-me order"
+  "active-candle-id active-candle active-candle active-candle active-candle active-candle active-candle order"
+  "timestamp ticker ticker high high-value weekly weekly-value order"
+  "last-price ticker ticker low low-value monthly monthly-value order"
+  "price-change ticker ticker volume volume-value yearly yearly-value order";
 
 }
 
+.order{
+  grid-area: order;
+  border: 1px solid white;
+}
 
 .grid > div{
-  /*border: 2px solid black;*/
   text-align: center;
-  /*margin:1px;*/
   padding:1px;
   display: flex;
   justify-content: center;
   align-items: center;
-  /*height: 20px;*/
-  /*line-height: 20px*/
 }
 
 .border-right{
@@ -174,22 +175,6 @@ width:100%;
 .monthly-value{
   grid-area: monthly-value;
   animation-delay: 350ms;
-}
-
-.buy{
-  grid-area: buy;
-}
-
-.sell{
-  grid-area: sell;
-}
-
-.order-type{
-  grid-area: order-type;
-}
-
-.frequency{
-  grid-area: frequency;
 }
 
 

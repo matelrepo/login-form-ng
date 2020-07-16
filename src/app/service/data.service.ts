@@ -11,12 +11,13 @@ import {GeneratorState} from '../config/generatorState';
 import {ProcessorState} from '../config/processorState';
 import {GlobalSettings} from '../config/globalSettings';
 import {MyEvent} from "../config/myEvent";
+import {Order} from "../config/order";
 
 
 
 export const DEFAULT_CONTRACT: Contract = {
-  idcontract: 5,
-  symbol: 'ES'
+  idcontract: 2,
+  symbol: 'SX7E'
 };
 
 @Injectable({
@@ -61,6 +62,10 @@ export class DataService implements OnDestroy {
 
   reqContractDetails(contract: Contract) {
     return this.http.post<Contract>(this.dst + '/contract-details', contract);
+  }
+
+  sendOrder(order: Order) {
+    return this.http.post<Order>(this.dst + '/trader/order', order);
   }
 
   getContractDetails(): Observable<IMessage> {
