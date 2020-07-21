@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {User} from '../config/user';
+import {User} from '../domain/user';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {map, tap} from 'rxjs/operators';

@@ -1,0 +1,100 @@
+canvas{
+  display: block;
+  margin: 0 auto;
+}
+
+/*.chart-panel{*/
+/*  width: 100%;*/
+/*  height:100%;*/
+/*  position: relative;*/
+
+/*}*/
+
+/*.tools{*/
+/*  margin: 5px 0px 0px 5px;*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  justify-content: space-between;*/
+/*  !*background: rgba(250, 250, 250, 0.8);*!*/
+/*  width:100%;*/
+/*  height: 100%;*/
+/*  opacity: 0;*/
+/*}*/
+
+/*.tools:hover{*/
+/*  opacity: 0.9;*/
+/*}*/
+
+/*.chart{*/
+/*  position:absolute;*/
+/*}*/
+
+/*.zoom{*/
+/*  width: 100%;*/
+/*  opacity: 0.4;*/
+/*}*/
+
+/*!*.zoom:hover{*!*/
+/*!*  opacity: 0.8;*!*/
+/*!*}*!*/
+
+/*.container{*/
+/*  !*position: relative;*!*/
+/*  !*width: 100%;*!*/
+/*  !*height:100%;*!*/
+/*}*/
+
+
+/*.canva{*/
+/*  opacity: 1;*/
+/*  display: block;*/
+/*  width: 100%;*/
+/*  height: auto;*/
+/*  transition: .5s ease;*/
+/*  backface-visibility: hidden;*/
+/*}*/
+
+/*.middle{*/
+/*  width:100%;*/
+/*  height:100%;*/
+/*  transition: 2s ease;*/
+/*  opacity: 0;*/
+/*  position: absolute;*/
+/*  !*top: 50%;*!*/
+/*  !*left: 50%;*!*/
+/*  !*background-color: orange;*!*/
+/*  !*transform: translate(-50%, -50%);*!*/
+/*  !*-ms-transform: translate(-50%, -50%)*!*/
+
+/*}*/
+
+/*.container:hover .canva {*/
+/*  opacity: 0.3;*/
+/*}*/
+
+/*.container:hover .middle {*/
+/*  opacity: 0.4;*/
+/*}*/
+
+/*mat-slider{*/
+/*  width:20px;*/
+/*  color: yellow;*/
+/*}*/
+
+/*.corner{*/
+/*  background-color: rgb(200, 200, 200);*/
+/*  border-radius: 5px;*/
+/*  width:15px;*/
+/*  height:15px;*/
+/*  !*position:absolute;*!*/
+/*  !*z-index: 2;*!*/
+/*}*/
+
+/*!*.corner:hover{*!*/
+/*!*  opacity: 0.8;*!*/
+/*!*}*!*/
+
+
+/*.corner:hover{*/
+/*  cursor: pointer;*/
+/*}*/

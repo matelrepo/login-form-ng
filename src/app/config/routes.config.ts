@@ -1,10 +1,10 @@
 import {Routes} from '@angular/router';
-import {LoginComponent} from '../login/login.component';
+import {LoginComponent} from '../header/login/login.component';
 import {RoleGuardService} from '../service/role-guard.service';
 import {PanelComponent} from '../panel/panel.component';
-import {EventsListComponent} from "../events-list/events-list.component";
-import {ExpirationReportComponent} from "../expiration-report/expiration-report.component";
-import {ContractDetailsComponent} from "../contract-details/contract-details.component";
+import {EventsListComponent} from "../report/events-list/events-list.component";
+import {ExpirationReportComponent} from "../report/expiration-report/expiration-report.component";
+import {ContractDetailsComponent} from "../contracts/contract-details/contract-details.component";
 
 export const routesConfig: Routes = [
   {path: 'login', component: LoginComponent },

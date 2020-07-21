@@ -1,17 +1,17 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import {Contract} from '.././config/contract';
+import {Contract} from '../domain/contract';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {RxStompService} from '@stomp/ng2-stompjs';
 import {rxStompConfig} from '../config/rxStompConfig';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {IMessage} from '@stomp/stompjs';
 import {switchMap, tap, throttleTime} from 'rxjs/operators';
-import {Candle} from '../config/candle';
-import {GeneratorState} from '../config/generatorState';
+import {Candle} from '../domain/candle';
+import {GeneratorState} from '../domain/generatorState';
 import {ProcessorState} from '../config/processorState';
-import {GlobalSettings} from '../config/globalSettings';
+import {GlobalSettings} from '../domain/globalSettings';
 import {MyEvent} from "../config/myEvent";
-import {Order} from "../config/order";
+import {Order} from "../domain/order";
 
 
 
@@ -60,12 +60,9 @@ export class DataService implements OnDestroy {
     return this.rxStompService.watch('/get/live-event', rxStompConfig.connectHeaders);
   }
 
+
   reqContractDetails(contract: Contract) {
     return this.http.post<Contract>(this.dst + '/contract-details', contract);
-  }
-
-  sendOrder(order: Order) {
-    return this.http.post<Order>(this.dst + '/trader/order', order);
   }
 
   getContractDetails(): Observable<IMessage> {

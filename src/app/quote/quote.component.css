@@ -188,101 +188,101 @@ width:100%;
   color: white;
 }
 
-@keyframes keyframe-blink-up {
-  0%  {background-color:green;
-    color: white;
-    border: none;}
-}
+/*@keyframes keyframe-blink-up {*/
+/*  0%  {background-color:green;*/
+/*    color: white;*/
+/*    border: none;}*/
+/*}*/
 
-.animate-blink-up {
-  padding:5px 25px;
-  animation-name: keyframe-blink-up;
-  animation-duration: 1000ms;
-  animation-iteration-count: 100;
-  animation-delay: 3s;
-}
+/*.animate-blink-up {*/
+/*  padding:5px 25px;*/
+/*  animation-name: keyframe-blink-up;*/
+/*  animation-duration: 1000ms;*/
+/*  animation-iteration-count: 100;*/
+/*  animation-delay: 3s;*/
+/*}*/
 
 
-.animate-up-1 {
-  animation-name: keyframe-price-up-1;
-  animation-duration: 1s;
-  animation-iteration-count: 3;
-  animation-direction: alternate;
-  animation-timing-function: ease-in;
-}
+/*.animate-up-1 {*/
+/*  animation-name: keyframe-price-up-1;*/
+/*  animation-duration: 1s;*/
+/*  animation-iteration-count: 3;*/
+/*  animation-direction: alternate;*/
+/*  animation-timing-function: ease-in;*/
+/*}*/
 
-.animate-up-2 {
-  animation-name: keyframe-price-up-2;
-  animation-duration: 1s;
-  animation-iteration-count: 3;
-  animation-direction: alternate;
-  animation-timing-function: ease-in;
-}
+/*.animate-up-2 {*/
+/*  animation-name: keyframe-price-up-2;*/
+/*  animation-duration: 1s;*/
+/*  animation-iteration-count: 3;*/
+/*  animation-direction: alternate;*/
+/*  animation-timing-function: ease-in;*/
+/*}*/
 
-.animate-down-1 {
-  animation-name: keyframe-price-down-1;
-  animation-duration: 1s;
-  animation-iteration-count: 3;
-  animation-direction: alternate;
-  animation-timing-function: ease-in;
-}
+/*.animate-down-1 {*/
+/*  animation-name: keyframe-price-down-1;*/
+/*  animation-duration: 1s;*/
+/*  animation-iteration-count: 3;*/
+/*  animation-direction: alternate;*/
+/*  animation-timing-function: ease-in;*/
+/*}*/
 
-.animate-down-2 {
-  animation-name: keyframe-price-down-2;
-  animation-duration: 1s;
-  animation-iteration-count: 3;
-  animation-direction: alternate;
-  animation-timing-function: ease-in;
-}
+/*.animate-down-2 {*/
+/*  animation-name: keyframe-price-down-2;*/
+/*  animation-duration: 1s;*/
+/*  animation-iteration-count: 3;*/
+/*  animation-direction: alternate;*/
+/*  animation-timing-function: ease-in;*/
+/*}*/
 
-@keyframes keyframe-price-up-1 {
-  0%  {background-color:lightgreen;
-    color: white;
-    border: none;}
-  33%  {background-color:palegreen;
-    border: none;}
-  66%  {background-color:limegreen;
-    border: none;}
-  100%  {background-color:green;
-    border: none;}
-}
+/*@keyframes keyframe-price-up-1 {*/
+/*  0%  {background-color:lightgreen;*/
+/*    color: white;*/
+/*    border: none;}*/
+/*  33%  {background-color:palegreen;*/
+/*    border: none;}*/
+/*  66%  {background-color:limegreen;*/
+/*    border: none;}*/
+/*  100%  {background-color:green;*/
+/*    border: none;}*/
+/*}*/
 
-@keyframes keyframe-price-down-1 {
-  0%  {background-color:indianred;
-    color: white;
-    border: none;
-  }
-  33%  {background-color:palevioletred;
-    border: none;}
-  66%  {background-color:orangered;
-    border: none;}
-  100%  {background-color:red;
-    border: none;}
-}
+/*@keyframes keyframe-price-down-1 {*/
+/*  0%  {background-color:indianred;*/
+/*    color: white;*/
+/*    border: none;*/
+/*  }*/
+/*  33%  {background-color:palevioletred;*/
+/*    border: none;}*/
+/*  66%  {background-color:orangered;*/
+/*    border: none;}*/
+/*  100%  {background-color:red;*/
+/*    border: none;}*/
+/*}*/
 
-@keyframes keyframe-price-up-2 {
-  0%  {background-color:lightgreen;
-    color: white;
-    border: none;}
-  33%  {background-color:palegreen;
-    border: none;}
-  66%  {background-color:limegreen;
-    border: none;}
-  100%  {background-color:green;
-    border: none;}
-}
+/*@keyframes keyframe-price-up-2 {*/
+/*  0%  {background-color:lightgreen;*/
+/*    color: white;*/
+/*    border: none;}*/
+/*  33%  {background-color:palegreen;*/
+/*    border: none;}*/
+/*  66%  {background-color:limegreen;*/
+/*    border: none;}*/
+/*  100%  {background-color:green;*/
+/*    border: none;}*/
+/*}*/
 
-@keyframes keyframe-price-down-2 {
-  0%  {background-color:indianred;
-    color: white;
-    border: none;}
-  33%  {background-color:palevioletred;
-    border: none;}
-  66%  {background-color:orangered;
-    border: none;}
-  100%  {background-color:red;
-    border: none;}
-}
+/*@keyframes keyframe-price-down-2 {*/
+/*  0%  {background-color:indianred;*/
+/*    color: white;*/
+/*    border: none;}*/
+/*  33%  {background-color:palevioletred;*/
+/*    border: none;}*/
+/*  66%  {background-color:orangered;*/
+/*    border: none;}*/
+/*  100%  {background-color:red;*/
+/*    border: none;}*/
+/*}*/
 
 
 

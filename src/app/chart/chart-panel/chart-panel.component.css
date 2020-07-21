@@ -1,0 +1,17 @@
+.chart-panel{
+  width: 99%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  position: sticky;
+  margin-top:10px;
+}
+
+
+.chart{
+  order: 1;
+  margin:2px;
+}
+
+.chart-solo{
+  margin: 20px;
+}

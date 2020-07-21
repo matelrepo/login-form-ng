@@ -1,0 +1,101 @@
+.container{
+  border: 2px solid white;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+}
+
+.header-1{
+  border: 2px solid pink;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  grid-template-areas:
+    "title-daily-pnl daily-pnl"
+    "title-change change"
+    "title-unrealized unrealized"
+    "title-realized realized";
+}
+
+.title-daily-pnl{
+  grid-area: title-daily-pnl;
+}
+
+.daily-pnl{
+  grid-area: daily-pnl;
+}
+
+.title-change{
+  grid-area: title-change;
+}
+
+.change{
+  grid-area: change;
+}
+
+.title-unrealized{
+  grid-area: title-unrealized;
+}
+
+.unrealized{
+  grid-area: unrealized;
+}
+
+.title-realized{
+  grid-area: title-realized;
+}
+
+.realized{
+  grid-area: realized;
+}
+
+
+.header-2{
+  border: 2px solid orange;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  grid-template-areas:
+    "title-liquidation liquidation"
+    "title-maintenance maintenance"
+    "title-liquidity liquidity"
+}
+
+.title-liquidation{
+  grid-area: title-liquidation;
+}
+
+.liquidation{
+  grid-area: liquidation;
+}
+
+.title-maintenance{
+  grid-area: title-maintenance;
+}
+
+.maintenance{
+  grid-area: maintenance;
+}
+
+.title-liquidity{
+  grid-area: title-liquidity;
+}
+
+.liquidity{
+  grid-area: liquidity;
+}
+
+.positions{
+  border: 2px solid blue;
+  grid-column: 1 / 3;
+}
+
+table{
+  width:100%;
+}
+
+tr{
+  border: 1px solid yellow;
+}
+
+td{
+  text-align: center;
+  border: 1px solid greenyellow;
+}

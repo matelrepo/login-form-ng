@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="header-1"  *ngIf="this.portfolio!= undefined">
+    <div class="title-daily-pnl">Daily Pnl</div>
+    <div class="daily-pnl">{{this.portfolio.dailyPnl}}</div>
+    <div class="title-change">Change %</div>
+    <div class="change">{{portfolio.netLiquidation/portfolio.mark-1 | percent:'1.1-1'}}</div>
+    <div class="title-unrealized">Unreal. Pnl</div>
+    <div class="unrealized">{{this.portfolio.unrealizedPnl}}</div>
+    <div class="title-realized">Real. Pnl</div>
+    <div class="realized">{{this.portfolio.realizedPnl}}</div>
+  </div>
+  <div class="header-2" *ngIf="this.portfolio!= undefined">
+    <div class="title-liquidation">NAV</div>
+    <div class="liquidation">{{this.portfolio.netLiquidation}}</div>
+    <div class="title-maintenance">Margin</div>
+    <div class="maintenance">{{this.portfolio.maintenance}}</div>
+    <div class="title-liquidity">Cash</div>
+    <div class="liquidity">{{this.portfolio.excessLiquidity}}</div>
+  </div>
+  <div class="positions">
+    <table>
+      <thead>
+        <th>P&L</th>
+        <th>Contract</th>
+        <th>Quantity</th>
+        <th>Mark.</th>
+        <th>Avg Pr.</th>
+      </thead>
+      <tbody *ngIf="this.positions != undefined">
+      <tr *ngFor="let position of this.positions" >
+        <td>{{position.pnl}}</td>
+        <td>{{position.idcontract}}</td>
+        <td>{{position.quantity}}</td>
+        <td>{{position.markPrice}}</td>
+        <td>{{position.entryPrice}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

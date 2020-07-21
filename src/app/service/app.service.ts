@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {Chart} from '../config/chart';
+import {Chart} from '../domain/chart';
 import {HttpClient} from '@angular/common/http';
 
 export const  INIT_CHART = {id: '1', width: 300, height: 150};

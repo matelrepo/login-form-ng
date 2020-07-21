@@ -1,10 +1,10 @@
 import {AfterViewChecked, ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {DataService} from '../service/data.service';
-import {GeneratorState} from '../config/generatorState';
+import {GeneratorState} from '../domain/generatorState';
 import {Observable, Subscription} from 'rxjs';
-import {Contract} from '../config/contract';
-import {Candle} from '../config/candle';
-import {timeInterval, timeout} from "rxjs/operators";
+import {Contract} from '../domain/contract';
+import {Candle} from '../domain/candle';
+import {debounceTime, timeInterval, timeout} from "rxjs/operators";
 import {  ChangeDetectorRef } from '@angular/core';
 
 @Component({
@@ -104,9 +104,9 @@ export class QuoteComponent implements OnInit, AfterViewChecked,  OnDestroy {
     this.dataService.activeCandle$.subscribe(candle => {
       this.showCandle=true
       this.candle = candle;
-      setTimeout(() => {
-        this.showCandle = false
-      }, 10000);
+      // setTimeout(() => {
+      //   this.showCandle = false
+      // }, 10000);
     });
 
     this.dataService.activeContract$.subscribe(contract => {

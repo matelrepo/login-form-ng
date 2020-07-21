@@ -1,0 +1,26 @@
+<div class="container">
+  <table>
+    <thead>
+    <th>ID</th>
+    <th>Contract</th>
+    <th>Freq</th>
+    <th>Type</th>
+    <th>Quantity</th>
+    <th>Price</th>
+    <th>Price Filled</th>
+    <th>Status</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let order of this.orders" >
+      <td>{{order.id}}</td>
+      <td>{{order.idcontract}}</td>
+      <td>{{order.frequency}}</td>
+      <td>{{order.orderType}}</td>
+      <td>{{order.quantity}}</td>
+      <td>{{order.price}}</td>
+      <td>{{order.priceFilled}}</td>
+      <td>{{order.status}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

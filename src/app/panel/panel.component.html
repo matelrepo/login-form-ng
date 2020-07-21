@@ -2,56 +2,16 @@
   <app-header></app-header>
 </nav>
 
-<section *ngIf="this.appService.displayChart">
+<section>
   <div class="contract-list">
     <app-contracts-list></app-contracts-list>
   </div>
   <div class="container">
     <div class="top">
-<!--      <div class="mat">-->
         <app-quote></app-quote>
-<!--      </div>-->
-<!--      <div>-->
-<!--        <app-order></app-order>-->
-<!--      </div>-->
     </div>
-    <div class="chart-panel">
-      <div class="chart" id="1">
-        <app-chart [freq]="0" [id]="1"></app-chart>
-      </div>
-      <div class="chart" id="2">
-        <app-chart [freq]="1" [id]="2"></app-chart>
-      </div>
-      <div class="chart" id="3">
-        <app-chart [freq]="5" [id]="3"></app-chart>
-      </div>
-      <div class="chart" id="4">
-        <app-chart [freq]="15" [id]="4"></app-chart>
-      </div>
-      <div class="chart" id="5">
-        <app-chart [freq]="60" [id]="5"></app-chart>
-      </div>
-      <div class="chart" id="6">
-        <app-chart [freq]="240" [id]="6"></app-chart>
-      </div>
-      <div class="chart" id="7">
-        <app-chart [freq]="480" [id]="7"></app-chart>
-      </div>
-      <div class="chart" id="8">
-        <app-chart [freq]="1380" [id]="8"></app-chart>
-      </div>
-      <div class="chart" id="9">
-        <app-chart [freq]="6900" [id]="9"></app-chart>
-      </div>
-      <div class="chart" id="10">
-        <app-chart [freq]="35000" [id]="10"></app-chart>
-      </div>
-      <div class="chart" id="11">
-        <app-chart [freq]="100000" [id]="11"></app-chart>
-      </div>
-      <div class="chart" id="12">
-        <app-chart [freq]="300000" [id]="12"></app-chart>
-      </div>
+    <div>
+   <app-chart-panel></app-chart-panel>
     </div>
   </div>
 </section>

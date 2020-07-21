@@ -14,25 +14,27 @@ import { AppComponent } from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { RxStompService } from '@stomp/ng2-stompjs';
 import {JwtInterceptor} from './service/jwtInterceptor';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './header/login/login.component';
 import {routesConfig} from './config/routes.config';
 import { PanelComponent } from './panel/panel.component';
 import {RoleGuardService} from './service/role-guard.service';
-import { ContractsListComponent } from './contracts-list/contracts-list.component';
+import { ContractsListComponent } from './contracts/contracts-list/contracts-list.component';
 import { HeaderComponent } from './header/header.component';
-import { ChartComponent } from './chart/chart.component';
+import { ChartComponent } from './chart/chart/chart.component';
 import {ChartControlDirective} from './chart/chart-control.directive';
-import { ContractDetailsComponent } from './contract-details/contract-details.component';
+import { ContractDetailsComponent } from './contracts/contract-details/contract-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { QuoteComponent } from './quote/quote.component';
 import { LogProcessorDataComponent } from './archives/log-processor-data/log-processor-data.component';
-import { PortfolioComponent } from './archives/portfolio/portfolio.component';
+import { PortfolioComponent } from './trading/portfolio/portfolio.component';
 import { MacroComponent } from './archives/macro/macro.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ExpirationReportComponent } from './expiration-report/expiration-report.component';
-import { DailyStocksReportComponent } from './daily-stocks-report/daily-stocks-report.component';
-import { EventsListComponent } from './events-list/events-list.component';
-import { OrderComponent } from './order/order.component';
+import { ExpirationReportComponent } from './report/expiration-report/expiration-report.component';
+import { DailyStocksReportComponent } from './report/daily-stocks-report/daily-stocks-report.component';
+import { EventsListComponent } from './report/events-list/events-list.component';
+import { OrderComponent } from './trading/order/order.component';
+import { OrderListComponent } from './trading/order-list/order-list.component';
+import { ChartPanelComponent } from './chart/chart-panel/chart-panel.component';
 
 
 
@@ -54,7 +56,9 @@ import { OrderComponent } from './order/order.component';
     ExpirationReportComponent,
     DailyStocksReportComponent,
     EventsListComponent,
-    OrderComponent
+    OrderComponent,
+    OrderListComponent,
+    ChartPanelComponent
   ],
   imports: [
     BrowserModule,
