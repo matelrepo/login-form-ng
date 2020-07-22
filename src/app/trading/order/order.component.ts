@@ -20,7 +20,6 @@ export class OrderComponent implements OnInit {
 
     this.data.activeContract$.subscribe(contract => {
       this.activeContract = contract;
-      console.log(contract)
     });
 
     this.myForm = this.fb.group({

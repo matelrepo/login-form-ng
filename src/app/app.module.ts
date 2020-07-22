@@ -25,7 +25,6 @@ import {ChartControlDirective} from './chart/chart-control.directive';
 import { ContractDetailsComponent } from './contracts/contract-details/contract-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { QuoteComponent } from './quote/quote.component';
-import { LogProcessorDataComponent } from './archives/log-processor-data/log-processor-data.component';
 import { PortfolioComponent } from './trading/portfolio/portfolio.component';
 import { MacroComponent } from './archives/macro/macro.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -50,7 +49,6 @@ import { ChartPanelComponent } from './chart/chart-panel/chart-panel.component';
     ChartControlDirective,
     ContractDetailsComponent,
     QuoteComponent,
-    LogProcessorDataComponent,
     PortfolioComponent,
     MacroComponent,
     ExpirationReportComponent,

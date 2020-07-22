@@ -1,13 +1,7 @@
 export class Candle {
 
-  constructor(idcontract: number, freq: number) {
-    this.idcontract = idcontract;
-    this.freq = freq;
-  }
-
   id: number;
   idtick: number;
-  timestampTick: Date;
   timestampCandle: Date;
   open: number;
   high: number;
@@ -16,18 +10,11 @@ export class Candle {
   idcontract: number;
   freq: number;
   color: number;
-  trigger_up: number;
-  trigger_down: number;
-  newCandle: boolean;
-  speed: number;
-  progress: number;
   averageClose: number;
-  abnormalHeightLevel: number;
   bigCandle: boolean
   resistance: number;
   support: number;
   highestHigh: number;
   lowestLow: number;
-
-
+  canvax: number
 }

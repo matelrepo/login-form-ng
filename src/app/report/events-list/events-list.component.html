@@ -4,20 +4,18 @@
   <tr>
     <th>Date</th>
     <th>Id</th>
-    <th>Freq</th>
+    <th (click)="clickOnFreqTitle()">Freq</th>
     <th>Event</th>
     <th>Value</th>
     <th>Target</th>
-    <th>Type</th>
   </tr>
   <tr *ngFor="let e of events">
-    <td>{{e.timestamp | date:'short'}}</td>
+    <td>{{e.timestampTick | date:'short'}}</td>
     <td>{{e.idcontract}}</td>
-    <td>{{e.freq}}</td>
+    <td (click)="clickOnFreq(e.freq)">{{e.freq}}</td>
     <td>{{e.eventType}}</td>
     <td>{{e.value}}</td>
     <td>{{e.target}}</td>
-    <td>{{e.evtype}}</td>
   </tr>
 </table>
 </div>

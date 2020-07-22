@@ -5,13 +5,11 @@ import {RxStompService} from '@stomp/ng2-stompjs';
 import {rxStompConfig} from '../config/rxStompConfig';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {IMessage} from '@stomp/stompjs';
-import {switchMap, tap, throttleTime} from 'rxjs/operators';
+import {throttleTime} from 'rxjs/operators';
 import {Candle} from '../domain/candle';
 import {GeneratorState} from '../domain/generatorState';
-import {ProcessorState} from '../config/processorState';
 import {GlobalSettings} from '../domain/globalSettings';
-import {MyEvent} from "../config/myEvent";
-import {Order} from "../domain/order";
+import {ProcessorState} from "../config/processorState";
 
 
 
@@ -23,7 +21,7 @@ export const DEFAULT_CONTRACT: Contract = {
 @Injectable({
   providedIn: 'root'
 })
-export class DataService implements OnDestroy {
+export class DataService {
   dst = 'http://localhost:8080';
  // dst = 'https://matel.io:8443'
 
@@ -36,8 +34,9 @@ export class DataService implements OnDestroy {
   constructor(private http: HttpClient, private rxStompService: RxStompService) {
   }
 
-  ngOnDestroy(): void {
+  disconnectWebsocket(): void {
     this.rxStompService.deactivate();
+    console.log('deactivated')
   }
 
   getContracts(category: string, filter: string) {
@@ -53,7 +52,7 @@ export class DataService implements OnDestroy {
   }
 
   getHistoEvents(idcontract: number) {
-    return this.http.get<MyEvent[]>(this.dst + '/histo-events/' + idcontract);
+    return this.http.get<ProcessorState[]>(this.dst + '/histo-events/' + idcontract);
   }
 
   getLiveEvent(): Observable<IMessage> {
@@ -65,13 +64,13 @@ export class DataService implements OnDestroy {
     return this.http.post<Contract>(this.dst + '/contract-details', contract);
   }
 
+  reqDataBreak(idcontract: number, check: boolean) {
+    return this.http.post(this.dst + '/data-break/'+idcontract, check);
+  }
+
   getContractDetails(): Observable<IMessage> {
     return this.rxStompService.watch('/get/contract-details', rxStompConfig.connectHeaders);
   }
-
-  // getTickerCrawl() {
-  //   return this.http.get<Macro[]>(this.dst + '/ticker-crawl');
-  // }
 
   getGlobalSettings(idcontract: number) {
     return this.http.get<Map<number, GlobalSettings>>(this.dst + '/global-settings/' + idcontract);
@@ -85,10 +84,6 @@ export class DataService implements OnDestroy {
     return this.http.get<Candle[]>(this.dst + '/histo-candles/' + idcontract + '/' + code + '/' + freq);
   }
 
-  getlogsPocessor(idcontract: number, freq: number) {
-    return this.http.get<ProcessorState[]>(this.dst + '/log-processor/' + idcontract + '/' + freq);
-  }
-
   getLiveTicks(idcontract: number, freq: number): Observable<IMessage> {
     return this.rxStompService.watch('/get/candle-live/' + idcontract + '/' + freq, rxStompConfig.connectHeaders)
       .pipe(throttleTime(100));
@@ -98,13 +93,13 @@ export class DataService implements OnDestroy {
     return this.rxStompService.watch('/get/quote/' + idcontract, rxStompConfig.connectHeaders);
   }
 
-  getPortfolioLive(): Observable<IMessage> {
-    return this.rxStompService.watch('/get/portfolio-update', rxStompConfig.connectHeaders);
-  }
-
-  getPorfolio() {
-    return this.http.get(this.dst + '/portfolio', {responseType: 'text'});
-  }
+  // getPortfolioLive(): Observable<IMessage> {
+  //   return this.rxStompService.watch('/get/portfolio-update', rxStompConfig.connectHeaders);
+  // }
+  //
+  // getPorfolio() {
+  //   return this.http.get(this.dst + '/portfolio', {responseType: 'text'});
+  // }
 
   getHistoQuote(idcontract: number) {
     return this.http.get<GeneratorState>(this.dst + '/quote-histo/' + idcontract);
@@ -133,9 +128,9 @@ export class DataService implements OnDestroy {
     return this.http.post<boolean>(this.dst + '/connect/' + idContract, false);
   }
 
-  getNotifications(): Observable<IMessage> {
-    return this.rxStompService.watch('/get/notifications', rxStompConfig.connectHeaders);
-  }
+  // getNotifications(): Observable<IMessage> {
+  //   return this.rxStompService.watch('/get/notifications', rxStompConfig.connectHeaders);
+  // }
 
   updateContract(contract: Contract, factor: string) {
     return this.http.post<HttpResponse<any>>(this.dst + '/save-contract/' + factor, contract, {observe: 'response'});

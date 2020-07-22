@@ -28,4 +28,5 @@ export class ChartControlDirective {
   public onMouseDblClickListener() {
     this.onMouseDblClick.emit();
   }
+
 }
