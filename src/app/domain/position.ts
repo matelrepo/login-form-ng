@@ -1,8 +1,8 @@
-import {Contract} from './contract';
 
-export class Position{
-   idcontract: number
-   quantity: number
+export class Position {
+  idcontract: number
+  freq: number
+  quantity: number
   entryPrice: number
   markPrice: number
   pnl: number

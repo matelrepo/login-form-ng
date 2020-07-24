@@ -39,7 +39,7 @@ export class OrderComponent implements OnInit {
   onSubmit(){
     this.order.quantity = this.myForm.value.quantity;
     this.order.idcontract = this.activeContract.idcontract
-    this.order.frequency = this.myForm.value.frequency
+    this.order.freq = this.myForm.value.frequency
     this.order.orderType = this.myForm.value.orderType
     this.order.price = this.myForm.value.price;
     this.tradingService.sendOrder(this.order).subscribe()

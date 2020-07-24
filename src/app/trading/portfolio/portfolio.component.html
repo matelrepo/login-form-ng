@@ -22,6 +22,7 @@
       <thead>
         <th>P&L</th>
         <th>Contract</th>
+        <th>Freq</th>
         <th>Quantity</th>
         <th>Mark.</th>
         <th>Avg Pr.</th>
@@ -30,6 +31,7 @@
       <tr *ngFor="let position of this.positions" >
         <td>{{position.pnl}}</td>
         <td>{{position.idcontract}}</td>
+        <td>{{position.freq}}</td>
         <td>{{position.quantity}}</td>
         <td>{{position.markPrice}}</td>
         <td>{{position.entryPrice}}</td>

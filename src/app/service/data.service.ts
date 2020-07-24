@@ -8,7 +8,7 @@ import {IMessage} from '@stomp/stompjs';
 import {throttleTime} from 'rxjs/operators';
 import {Candle} from '../domain/candle';
 import {GeneratorState} from '../domain/generatorState';
-import {GlobalSettings} from '../domain/globalSettings';
+import {AppSettings} from '../domain/appSettings';
 import {ProcessorState} from "../config/processorState";
 
 
@@ -73,11 +73,11 @@ export class DataService {
   }
 
   getGlobalSettings(idcontract: number) {
-    return this.http.get<Map<number, GlobalSettings>>(this.dst + '/global-settings/' + idcontract);
+    return this.http.get<Map<number, AppSettings>>(this.dst + '/global-settings/' + idcontract);
   }
 
-  setGlobalSettings(setting: GlobalSettings) {
-    return this.http.post<GlobalSettings>(this.dst + '/update-global-settings', setting);
+  setGlobalSettings(setting: AppSettings) {
+    return this.http.post<AppSettings>(this.dst + '/update-global-settings', setting);
   }
 
   getHistoCandles(idcontract: number, code: string, freq: number) {

@@ -3,7 +3,7 @@ export class Order{
   idcontract: number =2
   quantity: number
   orderType: string
-  frequency: number
+  freq: number
   price: number
   priceFilled: number
   status: string = "ApiPending"
