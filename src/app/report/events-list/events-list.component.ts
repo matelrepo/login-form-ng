@@ -3,6 +3,7 @@ import {DataService} from "../../service/data.service";
 import {ProcessorState} from "../../config/processorState";
 import {Subscription} from "rxjs";
 import {Contract} from "../../domain/contract";
+import {AppService} from "../../service/app.service";
 
 @Component({
   selector: 'app-events-list',
@@ -15,24 +16,29 @@ export class EventsListComponent implements OnInit, OnDestroy {
   private activeContractSubscription = new Subscription()
   private liveEventsSubscription = new Subscription()
   private activeContract: Contract
-  constructor(private dataService: DataService) { }
+  constructor(private data: DataService,
+              private app: AppService) { }
 
 
 
   ngOnInit() {
-    this.activeContractSubscription= this.dataService.activeContract$
+    this.activeContractSubscription= this.data.activeContract$
       .subscribe(contract => {
         this.activeContract = contract;
-        this.dataService.getHistoEvents(contract.idcontract).subscribe(events=>{
+        this.data.getHistoEvents(contract.idcontract).subscribe(events=>{
           this.events = events
           this.events.forEach(e=>this.eventsOriginal.push(e))
         })
       });
 
-    this.liveEventsSubscription = this.dataService.getLiveEvent().subscribe(mes =>{
+    this.liveEventsSubscription = this.data.getLiveEvent().subscribe(mes =>{
       const event: ProcessorState = JSON.parse(mes.body);
       this.events.unshift(event)
+      if (this.events.length > this.app.numCappedEvents)
+        this.events.pop();
       this.eventsOriginal.unshift(event)
+      if (this.eventsOriginal.length > this.app.numCappedEvents)
+        this.eventsOriginal.pop();
     })
   }
 

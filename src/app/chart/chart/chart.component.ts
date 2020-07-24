@@ -33,7 +33,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   private isDrag = false
 
   @Input() freq
-  @Input() id
+  @Input() idcontract
   @ViewChild('chartRef', {static: false}) canvasRef: ElementRef
   canvas: HTMLCanvasElement
   private gc: CanvasRenderingContext2D
@@ -67,13 +67,13 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.dataService.activeContract$
-      .subscribe(contract => {
-        this.activeContract = contract;
-        this.candles = [];
-        this.draw();
-        this.subscribeHisto();
-      });
+    this.activeContractSubscription = this.dataService.activeContract$
+        .subscribe(contract => {
+          this.activeContract = contract;
+          this.candles = [];
+          this.draw();
+          this.subscribeHisto();
+        });
   }
 
   subscribeLive() {
@@ -86,7 +86,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
         } else {
           this.candles[0] = candle; //update existing candle
         }
-        if (this.candles.length > this.app.numHistoricalCandles)
+        if (this.candles.length > this.app.numCappedHistoricalCandles)
           this.candles.pop();
         this.draw();
       }

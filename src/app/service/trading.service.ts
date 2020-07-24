@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {IMessage} from "@stomp/stompjs";
 import {rxStompConfig} from "../config/rxStompConfig";
 import {Order} from "../domain/order";
+import {PortfolioState} from "../domain/portfolioState";
 
 @Injectable({
   providedIn: 'root'
@@ -16,25 +17,20 @@ export class TradingService {
   constructor(private http: HttpClient, private rxStompService: RxStompService) { }
 
 
-  getLivePortfolio(): Observable<IMessage> {
-    return this.rxStompService.watch('/get/portfolio-live', rxStompConfig.connectHeaders);
+  getLivePortfolio(idcontract: number): Observable<IMessage> {
+    return this.rxStompService.watch('/get/portfolio-live/'+idcontract, rxStompConfig.connectHeaders);
   }
 
-  getLiveOrders(): Observable<IMessage> {
-    return this.rxStompService.watch('/get/orders-live', rxStompConfig.connectHeaders);
+  getLiveOrders(idcontract: number): Observable<IMessage> {
+    return this.rxStompService.watch('/get/orders-live/'+idcontract, rxStompConfig.connectHeaders);
   }
 
-
-  // getPortfolioLive(): Observable<IMessage> {
-  //   return this.rxStompService.watch('/get/portfolio-update', rxStompConfig.connectHeaders);
-  // }
-
-  getPorfolio() {
-    return this.http.get(this.dst + '/portfolio' );
+  getHistoPortfolio(idcontract: number) {
+    return this.http.get<PortfolioState>(this.dst + '/portfolio-histo/'+idcontract );
   }
 
-  getOrders() {
-    return this.http.get(this.dst + '/orders' );
+  getHistoOrders(idcontract: number) {
+    return this.http.get<Order[]>(this.dst + '/orders-histo/'+idcontract );
   }
 
   sendOrder(order: Order) {
