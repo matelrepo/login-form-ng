@@ -16,7 +16,6 @@ export class TradingService {
 
   constructor(private http: HttpClient, private rxStompService: RxStompService) { }
 
-
   getLivePortfolio(idcontract: number): Observable<IMessage> {
     return this.rxStompService.watch('/get/portfolio-live/'+idcontract, rxStompConfig.connectHeaders);
   }

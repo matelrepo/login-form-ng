@@ -1,4 +1,5 @@
 <div class="container">
+  <button (click)="onClickPortfolioChange()">Naviguate</button>
   <div class="header-1"  *ngIf="this.portfolio!= undefined">
     <div class="title-daily-pnl">Daily Pnl</div>
     <div class="daily-pnl">{{this.portfolio.dailyPnl}}</div>

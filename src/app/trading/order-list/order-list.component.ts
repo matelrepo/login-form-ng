@@ -4,6 +4,7 @@ import {DataService} from "../../service/data.service";
 import {TradingService} from "../../service/trading.service";
 import {Subscription} from "rxjs";
 import {Contract} from "../../domain/contract";
+import {AppService} from "../../service/app.service";
 
 @Component({
   selector: 'app-order-list',
@@ -12,19 +13,33 @@ import {Contract} from "../../domain/contract";
 })
 export class OrderListComponent implements OnInit, OnDestroy {
   orders: Order[] = []
+  displayPortfolioGlobal = true;
   private liveOrdersSubscription = new Subscription()
   private activeContractSubscription = new Subscription()
   private activeContract: Contract
 
   constructor(private tradingService: TradingService,
-              private data:DataService) { }
+              private data:DataService,
+              private app: AppService) { }
+
+  subscribeHisto(){
+    if(this.displayPortfolioGlobal){
+      this.subscribeHistoOrders(1)
+    }else {
+      this.subscribeHistoOrders(this.activeContract.idcontract)
+    }
+  }
 
   ngOnInit() {
+    this.app.portfolioChange_.subscribe(()=> {
+      this.displayPortfolioGlobal = !this.displayPortfolioGlobal
+      this.subscribeHisto()
+    })
 
     this.activeContractSubscription = this.data.activeContract$
       .subscribe(contract => {
         this.activeContract = contract;
-        this.subscribeHistoOrders(contract.idcontract)
+        this.subscribeHisto()
       });
   }
 

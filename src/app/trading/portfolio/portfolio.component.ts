@@ -5,6 +5,7 @@ import {TradingService} from "../../service/trading.service";
 import {DataService} from "../../service/data.service";
 import {Subscription} from "rxjs";
 import {Contract} from "../../domain/contract";
+import {AppService} from "../../service/app.service";
 
 @Component({
   selector: 'app-portfolio',
@@ -14,19 +15,39 @@ import {Contract} from "../../domain/contract";
 export class PortfolioComponent implements OnInit, OnDestroy {
   portfolio: PortfolioState;
   positions: Position[];
+  displayPortfolioGlobal = true;
   private activeContractSubscription = new Subscription()
   private livePortfolioSubscription = new Subscription()
   private activeContract: Contract
 
   constructor(private tradingService: TradingService,
-              private data: DataService) {
+              private data: DataService,
+              private app: AppService) {
+  }
+
+  subscribeHisto(){
+    this.portfolio = new PortfolioState()
+    this.positions = []
+    if(this.displayPortfolioGlobal){
+      console.log('wtf')
+      this.subscribeHistoPortfolio(1)
+    }else{
+      console.log(this.activeContract.idcontract)
+      this.subscribeHistoPortfolio(this.activeContract.idcontract)
+    }
   }
 
   ngOnInit() {
+    this.app.portfolioChange_.subscribe(()=>{
+      this.displayPortfolioGlobal = !this.displayPortfolioGlobal
+      this.subscribeHisto()
+    })
+
     this.activeContractSubscription = this.data.activeContract$
       .subscribe(contract => {
+        console.log(contract.symbol)
         this.activeContract = contract;
-        this.subscribeHistoPortfolio(contract.idcontract)
+        this.subscribeHisto()
       });
   }
 
@@ -38,8 +59,11 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       },
       err => {
       },
-      () => this.subscribeLivePortfolio(idcontract))
+      () => {
+        this.subscribeLivePortfolio(idcontract)
+      })
   }
+
 
   subscribeLivePortfolio(idcontract: number) {
     this.livePortfolioSubscription.unsubscribe();
@@ -50,7 +74,12 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     )
   }
 
+  onClickPortfolioChange(){
+      this.app.portfolioChange_.next()
+  }
+
   ngOnDestroy() {
+    this.livePortfolioSubscription.unsubscribe()
     this.activeContractSubscription.unsubscribe()
   }
 
