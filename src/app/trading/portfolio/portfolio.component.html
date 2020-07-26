@@ -1,5 +1,6 @@
+<button (click)="onClickPortfolioChange()">Naviguate</button>
+
 <div class="container">
-  <button (click)="onClickPortfolioChange()">Naviguate</button>
   <div class="header-1"  *ngIf="this.portfolio!= undefined">
     <div class="title-daily-pnl">Daily Pnl</div>
     <div class="daily-pnl">{{this.portfolio.dailyPnl}}</div>
@@ -27,6 +28,7 @@
         <th>Quantity</th>
         <th>Mark.</th>
         <th>Avg Pr.</th>
+        <th>Mkt Pr.</th>
       </thead>
       <tbody *ngIf="this.positions != undefined">
       <tr *ngFor="let position of this.positions" >
@@ -36,6 +38,7 @@
         <td>{{position.quantity}}</td>
         <td>{{position.markPrice}}</td>
         <td>{{position.entryPrice}}</td>
+        <td>{{position.lastPrice}}</td>
       </tr>
       </tbody>
     </table>

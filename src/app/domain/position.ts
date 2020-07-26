@@ -6,4 +6,5 @@ export class Position {
   entryPrice: number
   markPrice: number
   pnl: number
+  lastPrice: number
 }

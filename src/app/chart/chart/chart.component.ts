@@ -45,8 +45,10 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (event.code === 'KeyP') {
       this.break = !this.break;
-      if (this.candles.length > 0)
-        this.dataService.reqDataBreak(this.candles[0].idcontract, this.break).subscribe();
+      if (this.candles.length > 0){
+        this.dataService.reqDataBreak( this.break).subscribe();
+        console.log('break')
+      }
     }
   }
 

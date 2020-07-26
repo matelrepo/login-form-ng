@@ -64,8 +64,8 @@ export class DataService {
     return this.http.post<Contract>(this.dst + '/contract-details', contract);
   }
 
-  reqDataBreak(idcontract: number, check: boolean) {
-    return this.http.post(this.dst + '/data-break/'+idcontract, check);
+  reqDataBreak( check: boolean) {
+    return this.http.post(this.dst + '/data-break', check);
   }
 
   getContractDetails(): Observable<IMessage> {

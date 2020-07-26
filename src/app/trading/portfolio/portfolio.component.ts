@@ -69,6 +69,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.livePortfolioSubscription.unsubscribe();
     this.livePortfolioSubscription = this.tradingService.getLivePortfolio(idcontract).subscribe(mes => {
         this.portfolio = JSON.parse(mes.body)
+      console.log(this.portfolio.idcontract)
         this.positions = this.portfolio.positions
       }
     )
