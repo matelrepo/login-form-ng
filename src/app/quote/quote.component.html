@@ -26,15 +26,17 @@
       A:&nbsp;&nbsp;{{candle.averageClose}}
     </div>
   </div>
-  <ng-template #eMessage ><div class="event-message border-top">
-    <div class="animate-blink-up">{{this.eventMessage}}</div>
-    </div></ng-template>
+  <ng-template #eMessage>
+    <div class="event-message border-top">
+      <div class="animate-blink-up">{{this.eventMessage}}</div>
+    </div>
+  </ng-template>
   <div class="timestamp animate">
     ({{gstate.timestamp | date:'dd-MM HH:mm:ss'}})
   </div>
-  <div class="last-price size-xl animate"
-       [ngClass]="{'price-up':gstate.changePerc>0, 'price-down': gstate.changePerc<0}">
-    {{gstate.lastPrice}}
+  <div class="last-price" [ngClass]="{'price-up':gstate.changePerc>0, 'price-down': gstate.changePerc<0}">
+    <div class="size-xl animate">{{gstate.lastPrice}}</div>
+    <div class="animate">{{gstate.changeValue}}&nbsp;&nbsp;&nbsp;&nbsp;({{gstate.changePerc | percent:'1.2-2'}})</div>
   </div>
   <div class="high border-top animate">
     High
@@ -47,9 +49,6 @@
   </div>
   <div class="weekly-value border-top animate">
     {{gstate.lastPrice / gstate.weeklyMark - 1 | percent:'1.2-2'}}
-  </div>
-  <div class="price-change animate" [ngClass]="{'price-up':gstate.changePerc>0, 'price-down': gstate.changePerc<0}">
-    {{gstate.changeValue}}&nbsp;&nbsp;&nbsp;&nbsp;({{gstate.changePerc | percent:'1.2-2'}})
   </div>
   <div class="low animate">
     Low
@@ -83,8 +82,8 @@
   <div class="yearly-value animate">
     {{gstate.lastPrice / gstate.yearlyMark - 1 | percent:'1.2-2'}}
   </div>
-<!--  <div class="order">-->
-<!--    <app-order></app-order>-->
-<!--  </div>-->
+  <!--  <div class="order">-->
+  <!--    <app-order></app-order>-->
+  <!--  </div>-->
 </div>
 

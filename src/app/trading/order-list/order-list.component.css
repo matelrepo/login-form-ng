@@ -1,4 +1,6 @@
 .container {
+  width:500px;
+  padding:10px;
   margin-top:20px;
   display: grid;
   grid-template-columns: repeat(6,40px) repeat(4,60px);
@@ -24,7 +26,6 @@
 .data-date{
   font-size: 0.8em;
   grid-column: 9/end;
-  text-align: right !important;
   padding-right:15px;
 }
 

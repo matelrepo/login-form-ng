@@ -8,7 +8,7 @@
   "active-candle-id active-candle active-candle active-candle active-candle active-candle active-candle order"
   "timestamp ticker ticker high high-value weekly weekly-value order"
   "last-price ticker ticker low low-value monthly monthly-value order"
-  "price-change ticker ticker volume volume-value yearly yearly-value order";
+  "last-price ticker ticker volume volume-value yearly yearly-value order";
 
 }
 
@@ -86,6 +86,8 @@
 }
 
 .last-price{
+  display: flex;
+  flex-direction: column;
   grid-area: last-price;
   animation-delay: 289ms;
 }
@@ -109,12 +111,6 @@
   grid-area: weekly-value;
   animation-delay: 447ms;
 }
-
-.price-change{
-  grid-area: price-change;
-  animation-delay: 242ms;
-}
-
 
 .ticker{
   grid-area: ticker;
@@ -179,11 +175,13 @@ width:100%;
 
 
 .price-up {
+  border-radius: 10px;
   background-color: green;
   color: white;
 }
 
 .price-down {
+  border-radius: 10px;
   background-color: #BD2828;
   color: white;
 }

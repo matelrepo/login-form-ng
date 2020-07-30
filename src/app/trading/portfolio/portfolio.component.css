@@ -1,55 +1,40 @@
 .container{
-  border: 2px solid white;
+  width:500px;
+  padding:10px;
+  margin-top:20px;
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: repeat(3,1fr);
+  grid-template-areas:
+    "grid-1 grid-3 grid-2";
+
 }
 
-.header-1{
-  border: 2px solid pink;
+.container div, .container-order div{
+  text-align: center;
+}
+
+.grid-1{
+  align-items: center;
+  grid-area: grid-1;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  grid-template-rows: auto 50px;
+  grid-template-areas:
+    "title-daily-pnl title-daily-pnl"
+    "daily-pnl daily-pnl";
+}
+
+.grid-3{
+  grid-area: grid-3;
   display: grid;
   grid-template-columns: repeat(2,1fr);
   grid-template-areas:
-    "title-daily-pnl daily-pnl"
-    "title-change change"
     "title-unrealized unrealized"
     "title-realized realized";
 }
 
-.title-daily-pnl{
-  grid-area: title-daily-pnl;
-}
-
-.daily-pnl{
-  grid-area: daily-pnl;
-}
-
-.title-change{
-  grid-area: title-change;
-}
-
-.change{
-  grid-area: change;
-}
-
-.title-unrealized{
-  grid-area: title-unrealized;
-}
-
-.unrealized{
-  grid-area: unrealized;
-}
-
-.title-realized{
-  grid-area: title-realized;
-}
-
-.realized{
-  grid-area: realized;
-}
-
-
-.header-2{
-  border: 2px solid orange;
+.grid-2{
+  grid-area: grid-2;
   display: grid;
   grid-template-columns: repeat(2,1fr);
   grid-template-areas:
@@ -58,7 +43,53 @@
     "title-liquidity liquidity"
 }
 
+.title-daily-pnl{
+  line-height: 25px;
+  font-size: 0.9em;
+  grid-area: title-daily-pnl;
+}
+
+.daily-pnl{
+  line-height: 50px;
+  grid-area: daily-pnl;
+  display: flex;
+}
+
+.daily-pnl-value{
+  font-size: 1.5em;
+  text-align: right !important;
+}
+
+.daily-pnl-change{
+  font-size: 1.2em;
+}
+
+.daily-pnl div{
+  width:100%;
+  height:100%;
+}
+
+.title-unrealized{
+  grid-area: title-unrealized;
+  padding:2px;
+}
+
+.unrealized{
+  grid-area: unrealized;
+}
+
+.title-realized{
+  padding:2px;
+  grid-area: title-realized;
+}
+
+.realized{
+  grid-area: realized;
+}
+
+
 .title-liquidation{
+  padding:2px;
   grid-area: title-liquidation;
 }
 
@@ -67,6 +98,7 @@
 }
 
 .title-maintenance{
+  padding:2px;
   grid-area: title-maintenance;
 }
 
@@ -75,6 +107,7 @@
 }
 
 .title-liquidity{
+  padding:2px;
   grid-area: title-liquidity;
 }
 
@@ -83,19 +116,24 @@
 }
 
 .positions{
-  border: 2px solid blue;
+  margin-top:5px;
   grid-column: 1 / 3;
 }
 
 table{
-  width:100%;
+  width:450px;
 }
 
-tr{
-  border: 1px solid yellow;
+.price-up {
+  border-radius: 10px;
+  background-color: green;
+  color: white;
+
 }
 
-td{
-  text-align: center;
-  border: 1px solid greenyellow;
+.price-down {
+  border-radius: 10px;
+  background-color: #BD2828;
+  color: white;
 }
+

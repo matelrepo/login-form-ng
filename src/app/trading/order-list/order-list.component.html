@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container container-border">
   <div class="grid-header">ID</div>
   <div class="grid-header">Con.</div>
   <div class="grid-header">Freq</div>
@@ -9,7 +9,7 @@
   <div class="grid-header">Lmt. Price</div>
   <div class="grid-header">Price Filled</div>
   <div class="grid-header">Status</div>
-  <div class="container-order" *ngFor="let order of this.orders | paginate: { itemsPerPage: 10, currentPage: page }">
+  <div class="container-order" *ngFor="let order of this.orders | paginate: { itemsPerPage: 4, currentPage: page }">
     <div class="data-date">{{order.timestamp | date:'dd/MM/yy HH:mm:ss'}}</div>
     <div class="data">{{order.id}}</div>
     <div class="data">{{order.idcontract}}</div>

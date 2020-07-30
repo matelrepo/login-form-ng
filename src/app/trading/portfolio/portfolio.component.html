@@ -1,17 +1,21 @@
 <button (click)="onClickPortfolioChange()">Naviguate</button>
-
-<div class="container">
-  <div class="header-1"  *ngIf="this.portfolio!= undefined">
+<div class="container container-border">
+  <div class="grid-1" *ngIf="this.portfolio!= undefined">
     <div class="title-daily-pnl">Daily Pnl</div>
-    <div class="daily-pnl">{{this.portfolio.dailyPnl}}</div>
-    <div class="title-change">Change %</div>
-    <div class="change">{{portfolio.netLiquidation/portfolio.mark-1 | percent:'1.1-1'}}</div>
+    <div class="daily-pnl"
+         [ngClass]="{'price-up':this.portfolio.dailyPnl>0, 'price-down':this.portfolio.dailyPnl<0}">
+      <div class="daily-pnl-value">{{this.portfolio.dailyPnl}}</div>
+      <div class="daily-pnl-change">{{portfolio.netLiquidation / portfolio.mark - 1 | percent:'1.1-1'}}
+      </div>
+    </div>
+  </div>
+  <div class="grid-3">
     <div class="title-unrealized">Unreal. Pnl</div>
     <div class="unrealized">{{this.portfolio.unrealizedPnl}}</div>
     <div class="title-realized">Real. Pnl</div>
     <div class="realized">{{this.portfolio.realizedPnl}}</div>
   </div>
-  <div class="header-2" *ngIf="this.portfolio!= undefined">
+  <div class="grid-2" *ngIf="this.portfolio!= undefined">
     <div class="title-liquidation">NAV</div>
     <div class="liquidation">{{this.portfolio.netLiquidation}}</div>
     <div class="title-maintenance">Margin</div>
@@ -22,17 +26,17 @@
   <div class="positions">
     <table>
       <thead>
-        <th>P&L</th>
-        <th>Contract</th>
-        <th>Freq</th>
-        <th>Quantity</th>
-        <th>Mark.</th>
-        <th>Avg Pr.</th>
-        <th>Mkt Pr.</th>
+      <th>P&L</th>
+      <th>Contract</th>
+      <th>Freq</th>
+      <th>Quantity</th>
+      <th>Mark.</th>
+      <th>Avg Pr.</th>
+      <th>Mkt Pr.</th>
       </thead>
       <tbody *ngIf="this.positions != undefined">
-      <tr *ngFor="let position of this.positions" >
-        <td>{{position.pnl}}</td>
+      <tr *ngFor="let position of this.positions">
+        <td  [ngClass]="{'price-up':position.pnl>0, 'price-down':position.pnl<0}">{{position.pnl}}</td>
         <td>{{position.idcontract}}</td>
         <td>{{position.freq}}</td>
         <td>{{position.quantity}}</td>

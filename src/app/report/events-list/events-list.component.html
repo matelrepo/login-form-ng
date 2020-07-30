@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container container-border">
   <div class="grid-header">ID</div>
   <div class="grid-header" (click)="displayAllEvents()">Freq</div>
   <div class="grid-header">Event</div>
@@ -6,7 +6,7 @@
   <div class="grid-header">Sup.</div>
   <div class="grid-header">Value</div>
   <div class="grid-header">Target</div>
-  <div class="container-event" *ngFor="let e of events | paginate: { itemsPerPage: 10, currentPage: page }; let i = index"
+  <div class="container-event" *ngFor="let e of events | paginate: { itemsPerPage: 4, currentPage: page }; let i = index"
        [style.background-color]="this.checkFreqAsChangeInTable(i)">
     <div class="data-id" (click)="filterEventsByContract()">{{e.idcontract}}</div>
     <div class="data-freq" (click)="filterEventsByContractAndFreq(e.freq)">{{e.freq}}</div>

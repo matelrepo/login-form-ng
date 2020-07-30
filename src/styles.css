@@ -28,3 +28,7 @@ a:hover{
 .my-pagination /deep/ .ngx-pagination a {
   color: lightgrey;
 }
+
+.container-border{
+  border: 2px solid grey;
+}
