@@ -9,6 +9,7 @@ export class Order{
   lmtPrice: number
   priceFilled: number
   status: string = "ApiPending"
+  timestamp: Date
 
   constructor(){}
 }

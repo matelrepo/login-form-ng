@@ -16,15 +16,6 @@
   grid-template-columns: 30px 30px 200px 35px 35px 70px 70px;
 }
 
-.my-pagination /deep/ .ngx-pagination a {
-  color: lightgrey;
-}
-
-.title{
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
 .data-event {
   display: flex;
   flex-direction: column;

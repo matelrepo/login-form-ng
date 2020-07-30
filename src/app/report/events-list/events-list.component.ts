@@ -90,17 +90,17 @@ export class EventsListComponent implements OnInit, OnDestroy {
   checkFreqAsChangeInTable(i: number){
     switch(this.events[i].freq){
       case 0:
-        return '#878787'
+        return '#7f7e7e'
       case 1:
-        return '#707070'
+        return '#686868'
       case 5:
-        return '#595959'
+        return '#616161'
       case 15:
-        return '#474747'
+        return '#535353'
       case 60:
-        return '#363636'
+        return '#424242'
       case 240:
-        return '#242424'
+        return '#2f2f2f'
       case 480:
         return '#99966d'
       default:

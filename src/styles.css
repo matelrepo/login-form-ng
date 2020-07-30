@@ -18,3 +18,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 a:hover{
   cursor: pointer;
 }
+
+.grid-header{
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.my-pagination /deep/ .ngx-pagination a {
+  color: lightgrey;
+}

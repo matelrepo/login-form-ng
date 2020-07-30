@@ -1,30 +1,27 @@
-.container{
-  margin-top: 20px;
-  width:100%;
+.container {
+  margin-top:20px;
+  display: grid;
+  grid-template-columns: repeat(6,40px) repeat(4,60px);
+
 }
 
-tr:hover{
-  background-color: orange;
+.container-order:nth-child(odd){
+  background-color: #6b6b6b;
+}
+
+.container-order{
+  padding:3px;
+  grid-column: 1/end;
+  display: grid;
+  grid-template-columns: repeat(6,40px) repeat(4,60px);
+}
+
+.data-date{
+  font-size: 0.8em;
+  grid-column: 1/end;
+  text-align: right;
+  padding-right:25px;
 }
 
 
-td {
-  text-align: center;
-}
 
-table tr:nth-child(even){
-  background-color: dimgrey;
-  color: lightgrey;
-}
-
-table {
-  border-spacing: 0;
-}
-
-table tr td, table thead th {
- padding:2px 10px;
-}
-
-.my-pagination /deep/ .ngx-pagination a {
-  color: lightgrey;
-}

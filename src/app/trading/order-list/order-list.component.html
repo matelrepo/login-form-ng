@@ -1,36 +1,31 @@
 <div class="container">
-  <table>
-    <thead>
-    <th>ID</th>
-    <th>Con.</th>
-    <th>Freq</th>
-    <th>Type</th>
-    <th>Qty</th>
-    <th>Qty Filled</th>
-    <th>Price</th>
-    <th>Lmt. Price</th>
-    <th>Price Filled</th>
-    <th>Status</th>
-    </thead>
-    <tbody>
-    <tr *ngFor="let order of this.orders | paginate: { itemsPerPage: 10, currentPage: page }" >
-      <td>{{order.id}}</td>
-      <td>{{order.idcontract}}</td>
-      <td>{{order.freq}}</td>
-      <td>{{order.orderType}}</td>
-      <td>{{order.quantity}}</td>
-      <td>{{order.quantityFilled}}/{{(order.quantity | absolute)}}</td>
-      <td>{{order.auxPrice}}</td>
-      <td>{{order.lmtPrice}}</td>
-      <td>{{order.priceFilled}}</td>
-      <td>{{order.status}}</td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="grid-header">ID</div>
+  <div class="grid-header">Con.</div>
+  <div class="grid-header">Freq</div>
+  <div class="grid-header">Type</div>
+  <div class="grid-header">Qty</div>
+  <div class="grid-header">Qty Filled</div>
+  <div class="grid-header">Aux. Price</div>
+  <div class="grid-header">Lmt. Price</div>
+  <div class="grid-header">Price Filled</div>
+  <div class="grid-header">Status</div>
+  <div class="container-order" *ngFor="let order of this.orders | paginate: { itemsPerPage: 10, currentPage: page }">
+    <div class="data-date">{{order.timestamp | date:'dd/MM/yy HH:mm:ss'}}</div>
+    <div class="data-id">{{order.id}}</div>
+    <div class="data-idcontract">{{order.idcontract}}</div>
+    <div class="data-freq">{{order.freq}}</div>
+    <div class="data-order-type">{{order.orderType}}</div>
+    <div class="data-quantity">{{order.quantity}}</div>
+    <div class="data-remaining">{{order.quantityFilled}}/{{(order.quantity | absolute)}}</div>
+    <div class="data-aux-price">{{order.auxPrice}}</div>
+    <div class="data-lmt-price">{{order.lmtPrice}}</div>
+    <div class="data-price-filled">{{order.priceFilled}}</div>
+    <div class="data-status">{{order.status}}</div>
+  </div>
 </div>
 <div>
   <pagination-controls class="my-pagination"
                        (pageChange)="page = $event"
-                       maxSize = "4"
+                       maxSize="4"
   ></pagination-controls>
 </div>
