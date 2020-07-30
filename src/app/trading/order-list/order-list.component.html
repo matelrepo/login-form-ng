@@ -11,14 +11,14 @@
   <div class="grid-header">Status</div>
   <div class="container-order" *ngFor="let order of this.orders | paginate: { itemsPerPage: 10, currentPage: page }">
     <div class="data-date">{{order.timestamp | date:'dd/MM/yy HH:mm:ss'}}</div>
-    <div class="data-id">{{order.id}}</div>
-    <div class="data-idcontract">{{order.idcontract}}</div>
-    <div class="data-freq">{{order.freq}}</div>
-    <div class="data-order-type">{{order.orderType}}</div>
-    <div class="data-quantity">{{order.quantity}}</div>
-    <div class="data-remaining">{{order.quantityFilled}}/{{(order.quantity | absolute)}}</div>
-    <div class="data-aux-price">{{order.auxPrice}}</div>
-    <div class="data-lmt-price">{{order.lmtPrice}}</div>
+    <div class="data">{{order.id}}</div>
+    <div class="data">{{order.idcontract}}</div>
+    <div class="data">{{order.freq}}</div>
+    <div class="data">{{order.orderType}}</div>
+    <div class="data">{{order.quantity}}</div>
+    <div class="data">{{order.quantityFilled}}/{{(order.quantity | absolute)}}</div>
+    <div class="data">{{order.auxPrice}}</div>
+    <div class="data">{{order.lmtPrice}}</div>
     <div class="data-price-filled">{{order.priceFilled}}</div>
     <div class="data-status">{{order.status}}</div>
   </div>

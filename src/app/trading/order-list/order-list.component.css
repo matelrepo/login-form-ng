@@ -5,11 +5,16 @@
 
 }
 
+.container div, .container-order div{
+  text-align: center;
+}
+
 .container-order:nth-child(odd){
   background-color: #6b6b6b;
 }
 
 .container-order{
+  align-items: center;
   padding:3px;
   grid-column: 1/end;
   display: grid;
@@ -18,9 +23,14 @@
 
 .data-date{
   font-size: 0.8em;
-  grid-column: 1/end;
-  text-align: right;
-  padding-right:25px;
+  grid-column: 9/end;
+  text-align: right !important;
+  padding-right:15px;
+}
+
+
+.data{
+  grid-row: 1/3;
 }
 
 
