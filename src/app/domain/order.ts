@@ -2,12 +2,13 @@ export class Order{
   id?: number
   idcontract: number =2
   quantity: number
+  quantityFilled: number
   orderType: string
   freq: number
-  price: number
+  auxPrice: number
+  lmtPrice: number
   priceFilled: number
   status: string = "ApiPending"
-  username: string = "matel"
 
   constructor(){}
 }

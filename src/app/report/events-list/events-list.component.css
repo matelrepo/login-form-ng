@@ -1,12 +1,40 @@
 .container {
-  /*margin: 10px;*/
+  margin-top:20px;
+  display: grid;
+  grid-template-columns: 30px 30px 200px 35px 35px 70px 70px;
 }
 
-td {
-  /*padding-left:10px;*/
-  /*padding-right:10px;*/
+.container div, .container-event div{
   text-align: center;
-  /*background-color: lightgray;*/
-  /*margin:10px;*/
+}
+
+.container-event{
+  align-items: center;
+  padding:5px 0px;
+  grid-column: 1/end;
+  display: grid;
+  grid-template-columns: 30px 30px 200px 35px 35px 70px 70px;
+}
+
+.my-pagination /deep/ .ngx-pagination a {
+  color: lightgrey;
+}
+
+.title{
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.data-event {
+  display: flex;
+  flex-direction: column;
+}
+
+.data-event div:first-child{
+  font-size: 0.8em;
+}
+
+.data-event div:last-child{
+  font-size: 1.1em;
 }
 

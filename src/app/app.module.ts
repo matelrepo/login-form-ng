@@ -34,7 +34,8 @@ import { EventsListComponent } from './report/events-list/events-list.component'
 import { OrderComponent } from './trading/order/order.component';
 import { OrderListComponent } from './trading/order-list/order-list.component';
 import { ChartPanelComponent } from './chart/chart-panel/chart-panel.component';
-
+import {NgxPaginationModule} from 'ngx-pagination';
+import { AbsolutePipe } from './utils/absolute.pipe';
 
 
 
@@ -56,7 +57,8 @@ import { ChartPanelComponent } from './chart/chart-panel/chart-panel.component';
     EventsListComponent,
     OrderComponent,
     OrderListComponent,
-    ChartPanelComponent
+    ChartPanelComponent,
+    AbsolutePipe
   ],
   imports: [
     BrowserModule,
@@ -70,7 +72,8 @@ import { ChartPanelComponent } from './chart/chart-panel/chart-panel.component';
     MatButtonModule,
     MatBadgeModule,
     MatButtonToggleModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxPaginationModule
   ],
   providers: [RoleGuardService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     RxStompService

@@ -2,25 +2,35 @@
   <table>
     <thead>
     <th>ID</th>
-    <th>Contract</th>
+    <th>Con.</th>
     <th>Freq</th>
     <th>Type</th>
-    <th>Quantity</th>
+    <th>Qty</th>
+    <th>Qty Filled</th>
     <th>Price</th>
+    <th>Lmt. Price</th>
     <th>Price Filled</th>
     <th>Status</th>
     </thead>
     <tbody>
-    <tr *ngFor="let order of this.orders" >
+    <tr *ngFor="let order of this.orders | paginate: { itemsPerPage: 10, currentPage: page }" >
       <td>{{order.id}}</td>
       <td>{{order.idcontract}}</td>
       <td>{{order.freq}}</td>
       <td>{{order.orderType}}</td>
       <td>{{order.quantity}}</td>
-      <td>{{order.price}}</td>
+      <td>{{order.quantityFilled}}/{{(order.quantity | absolute)}}</td>
+      <td>{{order.auxPrice}}</td>
+      <td>{{order.lmtPrice}}</td>
       <td>{{order.priceFilled}}</td>
       <td>{{order.status}}</td>
     </tr>
     </tbody>
   </table>
+</div>
+<div>
+  <pagination-controls class="my-pagination"
+                       (pageChange)="page = $event"
+                       maxSize = "4"
+  ></pagination-controls>
 </div>

@@ -1,21 +1,29 @@
-
 <div class="container">
-  <table>
-  <tr>
-    <th>Date</th>
-    <th>Id</th>
-    <th (click)="clickOnFreqTitle()">Freq</th>
-    <th>Event</th>
-    <th>Value</th>
-    <th>Target</th>
-  </tr>
-  <tr *ngFor="let e of events">
-    <td>{{e.timestampTick | date:'short'}}</td>
-    <td>{{e.idcontract}}</td>
-    <td (click)="clickOnFreq(e.freq)">{{e.freq}}</td>
-    <td>{{e.eventType}}</td>
-    <td>{{e.value}}</td>
-    <td>{{e.target}}</td>
-  </tr>
-</table>
+  <div class="title">ID</div>
+  <div class="title" (click)="displayAllEvents()">Freq</div>
+  <div class="title">Event</div>
+  <div class="title">Res.</div>
+  <div class="title">Sup.</div>
+  <div class="title">Value</div>
+  <div class="title">Target</div>
+  <div class="container-event" *ngFor="let e of events | paginate: { itemsPerPage: 10, currentPage: page }; let i = index"
+       [style.background-color]="this.checkFreqAsChangeInTable(i)">
+<!--    <div class="data-date"></div>-->
+    <div class="data-id" (click)="filterEventsByContract()">{{e.idcontract}}</div>
+    <div class="data-freq" (click)="filterEventsByContractAndFreq(e.freq)">{{e.freq}}</div>
+    <div class="data-event">
+      <div>{{e.timestampTick | date:'dd/MM/yy HH:mm:ss'}}</div>
+      <div>{{e.eventType}}</div>
+    </div>
+    <div class="data-resistance"><input type="checkbox" [checked]="e.resistance"></div>
+    <div class="data-support"><input type="checkbox" [checked]="e.support"></div>
+    <div class="data-value">{{e.value}}</div>
+    <div class="data-target">{{e.target}}</div>
+</div>
+  </div>
+<div>
+  <pagination-controls class="my-pagination"
+  (pageChange)="page = $event"
+  maxSize = "4"
+></pagination-controls>
 </div>

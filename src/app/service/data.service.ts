@@ -9,13 +9,13 @@ import {throttleTime} from 'rxjs/operators';
 import {Candle} from '../domain/candle';
 import {GeneratorState} from '../domain/generatorState';
 import {AppSettings} from '../domain/appSettings';
-import {ProcessorState} from "../config/processorState";
+import {ProcessorState} from "../domain/processorState";
 
 
 
 export const DEFAULT_CONTRACT: Contract = {
-  idcontract: 2,
-  symbol: 'SX7E'
+  idcontract: 5,
+  symbol: 'ES'
 };
 
 @Injectable({
@@ -55,9 +55,18 @@ export class DataService {
     return this.http.get<ProcessorState[]>(this.dst + '/histo-events/' + idcontract);
   }
 
-  getLiveEvent(): Observable<IMessage> {
-    return this.rxStompService.watch('/get/live-event', rxStompConfig.connectHeaders);
+  getLiveEventsByContract(idcontract: number): Observable<IMessage> {
+    return this.rxStompService.watch('/get/live-events/' +idcontract, rxStompConfig.connectHeaders);
   }
+
+  getLiveEventsByContractByFreq(idcontract: number, freq: number): Observable<IMessage> {
+    return this.rxStompService.watch('/get/live-events/' +idcontract +'/' + freq, rxStompConfig.connectHeaders);
+  }
+
+  getLiveEvents(): Observable<IMessage> {
+    return this.rxStompService.watch('/get/live-events', rxStompConfig.connectHeaders);
+  }
+
 
 
   reqContractDetails(contract: Contract) {

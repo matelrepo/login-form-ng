@@ -29,10 +29,8 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.portfolio = new PortfolioState()
     this.positions = []
     if(this.displayPortfolioGlobal){
-      console.log('wtf')
       this.subscribeHistoPortfolio(1)
     }else{
-      console.log(this.activeContract.idcontract)
       this.subscribeHistoPortfolio(this.activeContract.idcontract)
     }
   }
@@ -45,7 +43,6 @@ export class PortfolioComponent implements OnInit, OnDestroy {
 
     this.activeContractSubscription = this.data.activeContract$
       .subscribe(contract => {
-        console.log(contract.symbol)
         this.activeContract = contract;
         this.subscribeHisto()
       });
@@ -69,7 +66,6 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.livePortfolioSubscription.unsubscribe();
     this.livePortfolioSubscription = this.tradingService.getLivePortfolio(idcontract).subscribe(mes => {
         this.portfolio = JSON.parse(mes.body)
-      console.log(this.portfolio.idcontract)
         this.positions = this.portfolio.positions
       }
     )

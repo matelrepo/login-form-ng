@@ -8,10 +8,8 @@ body{
   box-sizing: border-box;
   font-family: "Arial";
   font-size: 14px;
-  /*background-color: #cfccc2;*/
   background-color: #2b2b2b;
   color: lightgray;
-  /*color:lightgray;*/
 }
 
 html, body { height: 100%; }

@@ -8,7 +8,8 @@ export interface ProcessorState {
   target: number
   isTradable: boolean
   checkpoint: boolean
-  extremum: boolean
   timestampTick: Date
+  resistance: boolean
+  support: boolean
 
 }

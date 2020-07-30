@@ -12,6 +12,7 @@ import {AppService} from "../../service/app.service";
   styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent implements OnInit, OnDestroy {
+  page: number = 1;
   orders: Order[] = []
   displayPortfolioGlobal = true;
   private liveOrdersSubscription = new Subscription()
