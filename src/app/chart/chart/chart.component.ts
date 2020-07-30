@@ -56,7 +56,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   private min
   private max
   private candles: Candle[] = []
-  private currentZoomValue = 200
+  private currentZoomValue = 1200
   private data = new Map()
   private colorCandle = '#767676'
   private colorBigCandle = 'khaki'
@@ -190,14 +190,14 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.candles.length > 0) {
           this.gc.strokeStyle = 'green';
           this.gc.beginPath();
-          this.gc.moveTo(0, this.getYPixel(this.candles[0].resistance));
-          this.gc.lineTo(1000, this.getYPixel(this.candles[0].resistance));
+          this.gc.moveTo(0, this.getYPixel(this.candles[0].resistanceLevel));
+          this.gc.lineTo(1000, this.getYPixel(this.candles[0].resistanceLevel));
           this.gc.stroke();
 
           this.gc.strokeStyle = 'red';
           this.gc.beginPath();
-          this.gc.moveTo(0, this.getYPixel(this.candles[0].support));
-          this.gc.lineTo(1000, this.getYPixel(this.candles[0].support));
+          this.gc.moveTo(0, this.getYPixel(this.candles[0].supportLevel));
+          this.gc.lineTo(1000, this.getYPixel(this.candles[0].supportLevel));
           this.gc.stroke();
 
           this.gc.strokeStyle = 'blue';

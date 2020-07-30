@@ -12,8 +12,8 @@ export class Candle {
   color: number;
   averageClose: number;
   bigCandle: boolean
-  resistance: number;
-  support: number;
+  resistanceLevel: number;
+  supportLevel: number;
   highestHigh: number;
   lowestLow: number;
   canvax: number
