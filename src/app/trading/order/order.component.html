@@ -1,33 +1,128 @@
-<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-  <div class="send-order">
-    <button class="send-order"  type="submit">SEND</button>
+<div class="container container-border" *ngIf="this.gstate!=undefined">
+  <div class="active-candle">
+    <div *ngIf="this.candle!=undefined" [ngStyle]="{'visibility':showCandle ? 'visible' : 'hidden'}">
+      ID: {{candle.idtick | number:'1.0-0'}}
+    </div>
+    <div *ngIf="this.candle!=undefined" [ngStyle]="{'visibility':showCandle ? 'visible' : 'hidden'}">
+      {{candle.timestampCandle | date:'dd-MM-yy HH:mm':'UTC -7'}}&nbsp;&nbsp;&nbsp;&nbsp;
+      O:&nbsp;&nbsp;{{candle.open}}&nbsp;
+      H:&nbsp;&nbsp;{{candle.high}}&nbsp;
+      L:&nbsp;&nbsp;{{candle.low}}&nbsp;
+      C:&nbsp;&nbsp;{{candle.close}}&nbsp;
+      A:&nbsp;&nbsp;{{candle.averageClose}}
+    </div>
   </div>
-  <div class="quantity">
-    <input type="number" placeholder="1" formControlName="quantity">
+  <div class="grid-quote">
+    <div class="title-price">
+      <div class="title">
+        <div class="row-1">({{c.idcontract}})&nbsp;{{c.symbol}} {{c.expiration | date:'MMMyy'}}
+          <span class="size-s">{{c.exchange}}</span>
+        </div>
+        <div class="row-2">
+          ({{gstate.timestamp | date:'dd-MM HH:mm:ss'}})
+        </div>
+      </div>
+      <div class="last-price" [ngClass]="{'price-up':gstate.changePerc>0, 'price-down': gstate.changePerc<0}">
+        <div class="size-xl">{{gstate.lastPrice}}</div>
+        <div size-m>{{gstate.changeValue}}&nbsp;&nbsp;&nbsp;&nbsp;({{gstate.changePerc | percent:'1.2-2'}})</div>
+      </div>
+    </div>
+    <div class="ticker">
+      <div class="ask">
+        {{gstate.ask}}&nbsp;&nbsp;x&nbsp;&nbsp;{{gstate.askQuantity}}
+      </div>
+      <div class="bid">
+        {{gstate.bid}}&nbsp;&nbsp;x&nbsp;&nbsp;{{gstate.bidQuantity}}
+      </div>
+    </div>
+    <div class="change-value">
+      <div class="weekly">
+        Weekly
+      </div>
+      <div class="weekly-value">
+        {{gstate.lastPrice / gstate.weeklyMark - 1 | percent:'1.2-2'}}
+      </div>
+      <div class="monthly">
+        Monthly
+      </div>
+      <div class="monthly-value">
+        {{gstate.lastPrice / gstate.monthlyMark - 1 | percent:'1.2-2'}}
+      </div>
+      <div class="yearly">
+        YTD
+      </div>
+      <div class="yearly-value">
+        {{gstate.lastPrice / gstate.yearlyMark - 1 | percent:'1.2-2'}}
+      </div>
+    </div>
   </div>
-  <div class="price">
-    <input type="number" placeholder="0" formControlName="price">
+  <div class="data-value">
+    <div class="high">
+      High
+    </div>
+    <div class="high-value">
+      {{gstate.high}}
+    </div>
+    <div class="low">
+      Low
+    </div>
+    <div class="low-value">
+      {{gstate.low}}
+    </div>
+    <div class="volume">
+      Volume
+    </div>
+    <div class="volume-value">
+      {{gstate.dailyVolume | number}}
+    </div>
   </div>
-  <div class="order-type">
-    <select formControlName="orderType">
-      <option value="LMT" selected>MKT</option>
-      <option value="MKT">MKT</option>
-      <option value="MIN">MIN</option>
-      <option value="MAX">MAX</option>
-    </select>
+  <div class="order">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
+      <div class="order-quantity">
+      <label>Quantity
+        <input type="number" placeholder="1" formControlName="quantity">
+      </label>
+      </div>
+      <div class="order-price">
+      <label>Price
+        <input type="number" placeholder="1" formControlName="price"
+               (click)="deactivatePriceBinding($event)"
+               [step]='this.c.tickSize'
+               [value]="this.lastPrice">
+      </label>
+      </div>
+      <div class="order-type">
+      <label>Order Type
+        <select formControlName="orderType">
+          <option value="LMT" selected>MKT</option>
+          <option value="MKT">MKT</option>
+          <option value="MIN">MIN</option>
+          <option value="MAX">MAX</option>
+        </select>
+      </label>
+      </div>
+      <div class="order-freq">
+      <label>Freq
+        <select formControlName="frequency">
+          <option value="1" selected>1M</option>
+          <option value="5">5M</option>
+          <option value="15">15M</option>
+          <option value="60">1H</option>
+          <option value="240">4H</option>
+          <option value="480">8H</option>
+          <option value="1380">Daily</option>
+          <option value="6900">Weekly</option>
+          <option value="100000">Monthly</option>
+          <option value="300000">Yearly</option>
+        </select>
+      </label>
+      </div>
+
+      <div class="submit-button">
+        <div></div>
+        <button type="submit">Trade</button>
+      </div>
+    </form>
   </div>
-  <div class="frequency" >
-    <select formControlName="frequency">
-      <option value="1" selected>1M</option>
-      <option value="5">5M</option>
-      <option value="15">15M</option>
-      <option value="60">1H</option>
-      <option value="240">4H</option>
-      <option value="480">8H</option>
-      <option value="1380">Daily</option>
-      <option value="6900">Weekly</option>
-      <option value="100000">Monthly</option>
-      <option value="300000">Yearly</option>
-    </select>
-  </div>
-</form>
+</div>
+

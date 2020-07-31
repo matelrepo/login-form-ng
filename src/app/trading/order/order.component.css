@@ -1,59 +1,187 @@
-
-form{
-  display:grid;
-  grid-template-columns: 100px 100px;
-  grid-template-areas:
-  "send-order send-order"
-  "frequency frequency"
-  "order-type order-type"
-  "quantity price"
+.container{
+  width:500px;
+  padding:5px 10px;
+  margin-top:20px;
+  display: flex;
+  flex-direction: column;
 }
 
+.grid-quote{
+  display: grid;
+  grid-template-columns: 150px 200px 150px;
+ }
+
+label{
+  padding-bottom: 5px;
+}
+
+.order-quantity input{
+  width:50px;
+}
+
+form{
+  /*border:2px solid orange;*/
+  display: flex;
+  align-items: center;
+}
+
+form div{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin:5px;
+}
+
+form div label{
+  font-size: 0.9em;
+  text-align: center;
+  margin-bottom: 2px;
+}
+
+select{
+  text-align-last:center;
+}
+
+.submit-button{
+  padding-left:20px;
+}
+
+button:hover{
+  background-color: pink;
+}
+
+
 input{
-  width:60px;
+  width:100px;
   text-align: center;
 }
 
-button{
-  height:20px;
+.data-value{
+  display: flex;
+  /*width: 500px;*/
+  justify-content: space-around;
 }
 
-.price{
-  grid-area: price;
+.data-value > div{
+  margin:3px;
 }
 
-.send-order{
-  gird-area: send-order
+.change-value{
+  text-align: right;
+  display: grid;
+  grid-template-columns: repeat(2,auto);
+  grid-template-areas:
+  "weekly weekly-value"
+  "monthly monthly-value"
+  "yearly yearly-value";
 }
 
-.quantity{
-  grid-area: quantity
+.active-candle{
+  display: flex;
+  font-size: 0.8em;
 }
 
-.buy{
-  align-self: end;
-  grid-area: buy;
+.title{
+  font-size: 0.8em;
+  display: flex;
 }
 
-.sell{
-  grid-area: sell;
+.title div {
+  margin: 0px 5px;
 }
 
-.order-type{
-  grid-area: order-type;
+.high{
+  grid-area: high;
 }
 
-.frequency{
-  grid-area: frequency;
+.high-value{
+  grid-area: high-value;
+}
+
+.weekly{
+  grid-area: weekly;
+}
+
+.weekly-value{
+  grid-area: weekly-value;
+}
+
+.title{
+  margin:2px;
+}
+
+.size-m{
+  font-size: 0.9em;
+}
+
+.size-xl{
+  font-size: 1.3em;
+  padding-bottom:5px;
+}
+
+.last-price{
+  padding:5px;
+  text-align: center;
+}
+
+.ticker{
+  padding-top:10px;
+  font-size: 1.3em;
+  text-align: center;
+}
+
+/*.ask{*/
+/*  width:100%;*/
+/*  height:100%*/
+/*}*/
+
+/*.bid{*/
+/*  width:100%;*/
+/*  height:100%*/
+/*}*/
+
+.low{
+  grid-area: low;
+}
+
+.low-value{
+  grid-area: low-value;
+}
+
+.volume{
+  grid-area: volume;
+}
+
+.volume-value{
+  grid-area: volume-value;
+}
+
+.yearly{
+  grid-area: yearly;
+}
+
+.yearly-value{
+  grid-area: yearly-value;
+}
+
+.monthly{
+  grid-area: monthly;
+}
+
+.monthly-value{
+  grid-area: monthly-value;
 }
 
 
 .price-up {
+  border-radius: 10px;
   background-color: green;
   color: white;
 }
 
 .price-down {
+  border-radius: 10px;
   background-color: #BD2828;
   color: white;
 }
+

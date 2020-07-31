@@ -1,9 +1,9 @@
 <div class="container">
   <div class="menu">
-    <div>
+    <div class="menu-item">
       <a [routerLink]="['/panel']"> Welcome {{username | titlecase}}</a>
     </div>
-    <div class="user-1, dropdown">Maintenance
+    <div class="menu-item dropdown">Maintenance
       <div class="dropdown-content">
         <a [routerLink]="['/save-contract']">Save Contract</a>
         <a (click)="onConnectAll()">Connect all contracts </a>
@@ -13,13 +13,31 @@
         <a *ngIf="!getAppService().sendEmail" (click)="activateEmails()">Activate emails </a>
       </div>
     </div>
-    <div class="user-1, dropdown">Report
+    <div class="menu-item dropdown">Report
       <div class="dropdown-content">
         <a [routerLink]="['/events-list']">Events list</a>
         <a [routerLink]="['/expiration-report']">Expiration report</a>
         <a [routerLink]="['/daily-stocks-report']">Daily stocks report </a>
       </div>
     </div>
-    <div class="user-2"><a (click)="logout()">Log out</a></div>
+    <div class="menu-item">
+      <a (click)="onClickPortfolioChange()">Portfolio</a>
+    </div>
+    <div class="date-container menu-item">
+      <div class="date">{{date | date:'EEEE d MMMM y'}}</div>
+      <div class="time">
+        <div>{{date | date:'HH:mm:ss'}}</div>
+        <div><img src="./../../assets/flag_eu.png"></div>
+      </div>
+      <div class="time">
+        <div>{{date | date:'HH:mm:ss' :'-04:00'}}</div>
+        <div><img src="./../../assets/flag_usa.png"></div>
+      </div>
+      <div class="time">
+        <div>{{date | date:'HH:mm:ss' :'+07:00'}}</div>
+        <div><img src="./../../assets/flag_thai.jfif"></div>
+      </div>
+      <div class="log-out"><a (click)="logout()">Log out</a></div>
+    </div>
   </div>
 </div>

@@ -71,10 +71,6 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     )
   }
 
-  onClickPortfolioChange(){
-      this.app.portfolioChange_.next()
-  }
-
   ngOnDestroy() {
     this.livePortfolioSubscription.unsubscribe()
     this.activeContractSubscription.unsubscribe()

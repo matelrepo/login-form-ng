@@ -4,8 +4,7 @@
     <span class="size-s">{{c.exchange}}</span>
   </div>
   <div class="date-time size-l animate">
-    {{date | date:'dd-MMM-yy'}}&nbsp;&nbsp;&nbsp;&nbsp;
-    <span class="size-l">{{date | date:'HH:mm:ss'}}</span>
+
   </div>
   <div class="hide-me animate">
     <a (click)="hideButton()">Hide</a>
@@ -26,11 +25,11 @@
       A:&nbsp;&nbsp;{{candle.averageClose}}
     </div>
   </div>
-  <ng-template #eMessage>
-    <div class="event-message border-top">
-      <div class="animate-blink-up">{{this.eventMessage}}</div>
-    </div>
-  </ng-template>
+<!--  <ng-template #eMessage>-->
+<!--    <div class="event-message border-top">-->
+<!--      <div class="animate-blink-up">{{this.eventMessage}}</div>-->
+<!--    </div>-->
+<!--  </ng-template>-->
   <div class="timestamp animate">
     ({{gstate.timestamp | date:'dd-MM HH:mm:ss'}})
   </div>

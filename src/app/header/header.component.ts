@@ -11,12 +11,16 @@ import {subscribeOn} from 'rxjs/operators';
 })
 export class HeaderComponent implements OnInit {
   username: string;
+  date: Date;
 
   constructor(private dataService: DataService, private auth: AuthService, private appService: AppService) {
   }
 
   ngOnInit() {
     this.auth.user$.subscribe(user => this.username = user.username);
+    setInterval(() => {
+      this.date = new Date();
+    }, 1000);
   }
 
   logout() {
@@ -55,6 +59,10 @@ export class HeaderComponent implements OnInit {
 
   sendEmailTest() {
     this.appService.sendEmailTest().subscribe();
+  }
+
+  onClickPortfolioChange(){
+    this.appService.portfolioChange_.next()
   }
 
   // getExpirationReport(){

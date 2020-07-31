@@ -10,6 +10,7 @@ export class Order{
   priceFilled: number
   status: string = "ApiPending"
   timestamp: Date
+  manual: boolean = false
 
   constructor(){}
 }

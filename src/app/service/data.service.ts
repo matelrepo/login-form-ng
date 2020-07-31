@@ -15,7 +15,8 @@ import {ProcessorState} from "../domain/processorState";
 
 export const DEFAULT_CONTRACT: Contract = {
   idcontract: 5,
-  symbol: 'ES'
+  symbol: 'ES',
+  tickSize: 0.25
 };
 
 @Injectable({

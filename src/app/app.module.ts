@@ -3,7 +3,7 @@ import { MatSliderModule, MatButtonModule, MatBadgeModule, MatButtonToggleModule
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {TooltipModule} from 'ng2-tooltip-directive';
 import {AngularStickyThingsModule} from '@w11k/angular-sticky-things';
@@ -62,6 +62,7 @@ import { AbsolutePipe } from './utils/absolute.pipe';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(routesConfig),
