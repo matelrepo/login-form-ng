@@ -24,7 +24,7 @@ import { ChartComponent } from './chart/chart/chart.component';
 import {ChartControlDirective} from './chart/chart-control.directive';
 import { ContractDetailsComponent } from './contracts/contract-details/contract-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { QuoteComponent } from './quote/quote.component';
+import { QuoteComponent } from './archives/quote/quote.component';
 import { PortfolioComponent } from './trading/portfolio/portfolio.component';
 import { MacroComponent } from './archives/macro/macro.component';
 import { AppRoutingModule } from './app-routing.module';

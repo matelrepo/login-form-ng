@@ -1,9 +1,9 @@
 import {AfterViewChecked, ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {DataService} from '../service/data.service';
-import {GeneratorState} from '../domain/generatorState';
+import {DataService} from '../../service/data.service';
+import {GeneratorState} from '../../domain/generatorState';
 import {Observable, Subscription} from 'rxjs';
-import {Contract} from '../domain/contract';
-import {Candle} from '../domain/candle';
+import {Contract} from '../../domain/contract';
+import {Candle} from '../../domain/candle';
 import {debounceTime, timeInterval, timeout} from "rxjs/operators";
 import {  ChangeDetectorRef } from '@angular/core';
 

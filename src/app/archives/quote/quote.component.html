@@ -1,0 +1,88 @@
+<!--<div class="grid" *ngIf="this.gstate!=undefined">-->
+<!--  <div class="title  animate">-->
+<!--    ({{c.idcontract}})&nbsp;{{c.symbol}} {{c.expiration | date:'MMMyy'}}-->
+<!--    <span class="size-s">{{c.exchange}}</span>-->
+<!--  </div>-->
+<!--  <div class="date-time size-l animate">-->
+
+<!--  </div>-->
+<!--  <div class="hide-me animate">-->
+<!--    <a (click)="hideButton()">Hide</a>-->
+<!--  </div>-->
+<!--  <div class="active-candle-id border-top animate">-->
+<!--    <div *ngIf="this.candle!=undefined"-->
+<!--         [ngStyle]="{'visibility':showCandle ? 'visible' : 'hidden'}">ID: {{candle.idtick | number:'1.0-0'}}</div>-->
+
+<!--  </div>-->
+<!--  <div class="active-candle border-top animate" *ngIf="this.eventMessage===null; else eMessage">-->
+<!--    <div *ngIf="this.candle!=undefined"-->
+<!--         [ngStyle]="{'visibility':showCandle ? 'visible' : 'hidden'}">-->
+<!--      {{candle.timestampCandle | date:'dd-MM-yy HH:mm':'UTC -7'}}&nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--      O:&nbsp;&nbsp;{{candle.open}}&nbsp;-->
+<!--      H:&nbsp;&nbsp;{{candle.high}}&nbsp;-->
+<!--      L:&nbsp;&nbsp;{{candle.low}}&nbsp;-->
+<!--      C:&nbsp;&nbsp;{{candle.close}}&nbsp;-->
+<!--      A:&nbsp;&nbsp;{{candle.averageClose}}-->
+<!--    </div>-->
+<!--  </div>-->
+<!--&lt;!&ndash;  <ng-template #eMessage>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="event-message border-top">&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="animate-blink-up">{{this.eventMessage}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </ng-template>&ndash;&gt;-->
+<!--  <div class="timestamp animate">-->
+<!--    ({{gstate.timestamp | date:'dd-MM HH:mm:ss'}})-->
+<!--  </div>-->
+<!--  <div class="last-price" [ngClass]="{'price-up':gstate.changePerc>0, 'price-down': gstate.changePerc<0}">-->
+<!--    <div class="size-xl animate">{{gstate.lastPrice}}</div>-->
+<!--    <div class="animate">{{gstate.changeValue}}&nbsp;&nbsp;&nbsp;&nbsp;({{gstate.changePerc | percent:'1.2-2'}})</div>-->
+<!--  </div>-->
+<!--  <div class="high border-top animate">-->
+<!--    High-->
+<!--  </div>-->
+<!--  <div class="high-value border-top border-right animate">-->
+<!--    {{gstate.high}}-->
+<!--  </div>-->
+<!--  <div class="weekly border-top animate">-->
+<!--    Weekly-->
+<!--  </div>-->
+<!--  <div class="weekly-value border-top animate">-->
+<!--    {{gstate.lastPrice / gstate.weeklyMark - 1 | percent:'1.2-2'}}-->
+<!--  </div>-->
+<!--  <div class="low animate">-->
+<!--    Low-->
+<!--  </div>-->
+<!--  <div class="low-value border-right animate">-->
+<!--    {{gstate.low}}-->
+<!--  </div>-->
+<!--  <div class="monthly animate">-->
+<!--    Monthly-->
+<!--  </div>-->
+<!--  <div class="monthly-value animate">-->
+<!--    {{gstate.lastPrice / gstate.monthlyMark - 1 | percent:'1.2-2'}}-->
+<!--  </div>-->
+<!--  <div class="ticker size-xl animate">-->
+<!--    <div class="ask">-->
+<!--      {{gstate.ask}}&nbsp;&nbsp;x&nbsp;&nbsp;{{gstate.askQuantity}}-->
+<!--    </div>-->
+<!--    <div class="bid">-->
+<!--      {{gstate.bid}}&nbsp;&nbsp;x&nbsp;&nbsp;{{gstate.bidQuantity}}-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="volume animate">-->
+<!--    Volume-->
+<!--  </div>-->
+<!--  <div class="volume-value border-right animate">-->
+<!--    {{gstate.dailyVolume | number}}-->
+<!--  </div>-->
+<!--  <div class="yearly animate">-->
+<!--    YTD-->
+<!--  </div>-->
+<!--  <div class="yearly-value animate">-->
+<!--    {{gstate.lastPrice / gstate.yearlyMark - 1 | percent:'1.2-2'}}-->
+<!--  </div>-->
+<!--  &lt;!&ndash;  <div class="order">&ndash;&gt;-->
+<!--  &lt;!&ndash;    <app-order></app-order>&ndash;&gt;-->
+<!--  &lt;!&ndash;  </div>&ndash;&gt;-->
+<!--</div>-->
+

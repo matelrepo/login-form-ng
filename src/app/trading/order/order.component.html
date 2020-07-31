@@ -13,12 +13,13 @@
     </div>
   </div>
   <div class="grid-quote">
-    <div class="title-price">
+    <div>
       <div class="title">
-        <div class="row-1">({{c.idcontract}})&nbsp;{{c.symbol}} {{c.expiration | date:'MMMyy'}}
-          <span class="size-s">{{c.exchange}}</span>
+        <div>({{c.idcontract}})&nbsp;{{c.symbol}}
+<!--          {{c.expiration | date:'MMMyy'}}-->
+<!--          <span>{{c.exchange}}</span>-->
         </div>
-        <div class="row-2">
+        <div>
           ({{gstate.timestamp | date:'dd-MM HH:mm:ss'}})
         </div>
       </div>
