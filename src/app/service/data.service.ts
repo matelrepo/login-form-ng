@@ -5,7 +5,7 @@ import {RxStompService} from '@stomp/ng2-stompjs';
 import {rxStompConfig} from '../config/rxStompConfig';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {IMessage} from '@stomp/stompjs';
-import {throttleTime} from 'rxjs/operators';
+import {tap, throttleTime} from 'rxjs/operators';
 import {Candle} from '../domain/candle';
 import {GeneratorState} from '../domain/generatorState';
 import {AppSettings} from '../domain/appSettings';
@@ -44,7 +44,7 @@ export class DataService {
     if (category === 'DAILY') {
       return this.http.get<Contract[]>(this.dst + '/contracts/dailycon/' + category + '/' + filter);
     } else {
-      return this.http.get<Contract[]>(this.dst + '/contracts/live/' + category + '/' + filter);
+      return this.http.get<Contract[]>(this.dst + '/contracts/live/' + category + '/' + filter)
     }
   }
 

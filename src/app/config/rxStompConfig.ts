@@ -6,7 +6,7 @@ export const rxStompConfig: InjectableRxStompConfig = {
   // Which server?
 
   brokerURL: 'ws://localhost:8080/api',
-//  brokerURL: 'wss://matel.io:8443/api',
+ // brokerURL: 'wss://matel.io:8443/api',
 
 
   // Headers

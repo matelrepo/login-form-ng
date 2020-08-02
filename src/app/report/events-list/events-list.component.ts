@@ -28,6 +28,7 @@ export class EventsListComponent implements OnInit, OnDestroy {
         this.activeContract = contract;
         this.data.getHistoEvents(contract.idcontract).subscribe(events=>{
           this.events = events
+          if(events!=null)
           this.events.forEach(e=>this.eventsOriginal.push(e))
           this.subscribeLiveEvents()
         })

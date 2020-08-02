@@ -27,8 +27,6 @@ export class AuthService {
   jwtToken = 'jwtToken.a.a';
   isLoggedIn$: Observable<boolean> = this.user$.pipe(map(user => !!user.id));
 
-  // isLoggedOut$: Observable<boolean> = this.isLoggedIn$.pipe(map(isLoggedIn => !isLoggedIn));
-
 
   constructor(private http: HttpClient,
               private rxStompService: RxStompService,
@@ -40,11 +38,6 @@ export class AuthService {
       this.configWebSocket('Bearer ' + this.jwtToken);
     }
   }
-
-  // register(username: string, password: string) {
-  //   const user: User = {id: 0, username: username, password: password, authorities: ''}
-  //   return this.http.post('http://localhost:8080/register', user)
-  // }
 
   login(username: string, password: string) {
     return this.http.post<HttpResponse<any>>(this.dst + '/login', {username, password}, {observe: 'response'})
@@ -70,19 +63,6 @@ export class AuthService {
       username: tokenPayLoad.sub.charAt(0).toUpperCase() + tokenPayLoad.sub.slice(1),
       isTrader: this.isRoleAuthorized(tokenPayLoad.authorities, "TRADER")};
   }
-
-  // public isLoggedIn(): boolean {
-  //   console.log(this.jwtToken);
-  //   if (this.jwtToken === undefined) {
-  //     return false;
-  //   }
-  //
-  //   if (this.jwtToken === null || this.helper.isTokenExpired(this.jwtToken)) {
-  //     return false;
-  //   }
-  //   // Check whether the token is expired and return true or false
-  //   return true;
-  // }
 
   logout() {
     this.user.next(ANONYMOUS_USER);

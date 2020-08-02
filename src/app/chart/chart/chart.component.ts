@@ -56,7 +56,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   private min
   private max
   private candles: Candle[] = []
-  private currentZoomValue = 1200
+  private currentZoomValue = 100
   private data = new Map()
   private colorCandle = '#767676'
   private colorBigCandle = 'khaki'

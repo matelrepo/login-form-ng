@@ -13,6 +13,6 @@ export const routesConfig: Routes = [
   {path: 'expiration-report', component: ExpirationReportComponent, canActivate: [RoleGuardService], data: { expectedRole: 'trader' } },
   {path: 'events-list', component: EventsListComponent, canActivate: [RoleGuardService], data: { expectedRole: 'trader' } },
   {path: 'save-contract', component: ContractDetailsComponent, canActivate: [RoleGuardService], data: { expectedRole: 'trader' } },
-  {path: '', component: PanelComponent, pathMatch: 'full'},
-  {path: '**', component: PanelComponent, pathMatch: 'full'}
+  {path: '', component: PanelComponent, pathMatch: 'full', canActivate: [RoleGuardService], data: { expectedRole: 'trader' }},
+  {path: '**', component: PanelComponent, pathMatch: 'full', canActivate: [RoleGuardService], data: { expectedRole: 'trader' }}
 ];

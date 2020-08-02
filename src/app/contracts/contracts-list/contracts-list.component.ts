@@ -28,11 +28,15 @@ export class ContractsListComponent implements OnInit, OnDestroy, AfterViewInit 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (event.key === 'ArrowRight') {
+      if (this.contracts[this.currentIndex + 1] != null) {
       this.currentIndex = this.currentIndex + 1;
       this.data.activeContract.next(this.contracts[this.currentIndex]);
+    }
     } else if (event.key === 'ArrowLeft') {
+      if (this.contracts[this.currentIndex - 1] != null) {
       this.currentIndex = this.currentIndex - 1;
       this.data.activeContract.next(this.contracts[this.currentIndex]);
+    }
     }
 
   }
