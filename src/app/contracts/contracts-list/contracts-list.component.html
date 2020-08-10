@@ -41,12 +41,15 @@
       </ng-template>
 
       <div *ngIf="this.generatorsState.get(contract.idcontract) != undefined"
-           [ngClass]="{'price-up':this.generatorsState.get(contract.idcontract).changePerc>0, 'price-down': this.generatorsState.get(contract.idcontract).changePerc<0}">
+           [ngClass]="{'price-up':this.generatorsState.get(contract.idcontract).changePerc>0,
+            'price-down': this.generatorsState.get(contract.idcontract).changePerc<0,
+            'price': this.generatorsState.get(contract.idcontract).changePerc==0}">
         {{this.generatorsState.get(contract.idcontract).lastPrice}}
       </div>
       <div *ngIf="this.generatorsState.get(contract.idcontract) != undefined"
-           class="price"
-           [ngClass]="{'price-up':this.generatorsState.get(contract.idcontract).changePerc>0, 'price-down': this.generatorsState.get(contract.idcontract).changePerc<0}">
+           [ngClass]="{'price-up':this.generatorsState.get(contract.idcontract).changePerc>0,
+            'price-down': this.generatorsState.get(contract.idcontract).changePerc<0,
+            'price': this.generatorsState.get(contract.idcontract).changePerc==0}">
         {{this.generatorsState.get(contract.idcontract).changePerc | percent:'1.2-2'}}
       </div>
 
