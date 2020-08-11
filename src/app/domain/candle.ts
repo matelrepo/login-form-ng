@@ -1,5 +1,4 @@
 export class Candle {
-
   id: number;
   idtick: number;
   timestampCandle: Date;
@@ -16,5 +15,6 @@ export class Candle {
   supportLevel: number;
   highestHigh: number;
   lowestLow: number;
-  canvax: number
+  canvasX: number;
+  progress: number;
 }

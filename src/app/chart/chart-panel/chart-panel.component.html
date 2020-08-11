@@ -1,44 +1,56 @@
 <div class="chart-solo">
-<app-chart [freq]="1380" [idcontract]="5"></app-chart>
-</div>
-<!--<div class="chart-solo">-->
-<!--  <app-chart [freq]="1" [idcontract]="1"></app-chart>-->
-<!--</div>-->
-<!--<div class="chart-panel">-->
-<!--  <div class="chart" id="1">-->
-<!--    <app-chart [freq]="0" [id]="1"></app-chart>-->
-<!--  </div>-->
-<!--  <div class="chart" id="2">-->
-<!--    <app-chart [freq]="1" [id]="2"></app-chart>-->
-<!--  </div>-->
-<!--  <div class="chart" id="3">-->
-<!--    <app-chart [freq]="5" [id]="3"></app-chart>-->
-<!--  </div>-->
-<!--  <div class="chart" id="4">-->
-<!--    <app-chart [freq]="15" [id]="4"></app-chart>-->
-<!--  </div>-->
-<!--  <div class="chart" id="5">-->
-<!--    <app-chart [freq]="60" [id]="5"></app-chart>-->
-<!--  </div>-->
-<!--  <div class="chart" id="6">-->
-<!--    <app-chart [freq]="240" [id]="6"></app-chart>-->
-<!--  </div>-->
-<!--  <div class="chart" id="7">-->
-<!--    <app-chart [freq]="480" [id]="7"></app-chart>-->
-<!--  </div>-->
-<!--  <div class="chart" id="8">-->
-<!--    <app-chart [freq]="1380" [id]="8"></app-chart>-->
-<!--  </div>-->
-<!--  <div class="chart" id="9">-->
-<!--    <app-chart [freq]="6900" [id]="9"></app-chart>-->
-<!--  </div>-->
-<!--  <div class="chart" id="10">-->
-<!--    <app-chart [freq]="35000" [id]="10"></app-chart>-->
-<!--  </div>-->
-<!--  <div class="chart" id="11">-->
-<!--    <app-chart [freq]="100000" [id]="11"></app-chart>-->
-<!--  </div>-->
-<!--  <div class="chart" id="12">-->
-<!--    <app-chart [freq]="300000" [id]="12"></app-chart>-->
-<!--  </div>-->
-<!--</div>-->
+  <div>
+    <div class="chart-title">
+      <div><input id="contract" placeholder="{{this.activeContract.symbol}}" [value]="this.activeContract.symbol"></div>
+      <div><input id="freq" placeholder="{{this.freq}}"></div>
+      <div *ngIf="this.candle != undefined">{{this.candle.close}}</div>
+      <div *ngIf="this.candle != undefined">({{this.candle.progress}}%)</div>
+    </div>
+    <div *ngIf="this.candle != undefined">
+      <mat-progress-bar mode="determinate" [value]="this.candle.progress"></mat-progress-bar>
+    </div>
+    <div class="chart-item">
+      <app-chart [freq]="freq" [idcontract]="idcontract"></app-chart>
+    </div>
+  </div>
+  <!--<div class="chart-solo">-->
+  <!--  <app-chart [freq]="1" [idcontract]="1"></app-chart>-->
+  <!--</div>-->
+  <!--<div class="chart-panel">-->
+  <!--  <div class="chart" id="1">-->
+  <!--    <app-chart [freq]="0" [id]="1"></app-chart>-->
+  <!--  </div>-->
+  <!--  <div class="chart" id="2">-->
+  <!--    <app-chart [freq]="1" [id]="2"></app-chart>-->
+  <!--  </div>-->
+  <!--  <div class="chart" id="3">-->
+  <!--    <app-chart [freq]="5" [id]="3"></app-chart>-->
+  <!--  </div>-->
+  <!--  <div class="chart" id="4">-->
+  <!--    <app-chart [freq]="15" [id]="4"></app-chart>-->
+  <!--  </div>-->
+  <!--  <div class="chart" id="5">-->
+  <!--    <app-chart [freq]="60" [id]="5"></app-chart>-->
+  <!--  </div>-->
+  <!--  <div class="chart" id="6">-->
+  <!--    <app-chart [freq]="240" [id]="6"></app-chart>-->
+  <!--  </div>-->
+  <!--  <div class="chart" id="7">-->
+  <!--    <app-chart [freq]="480" [id]="7"></app-chart>-->
+  <!--  </div>-->
+  <!--  <div class="chart" id="8">-->
+  <!--    <app-chart [freq]="1380" [id]="8"></app-chart>-->
+  <!--  </div>-->
+  <!--  <div class="chart" id="9">-->
+  <!--    <app-chart [freq]="6900" [id]="9"></app-chart>-->
+  <!--  </div>-->
+  <!--  <div class="chart" id="10">-->
+  <!--    <app-chart [freq]="35000" [id]="10"></app-chart>-->
+  <!--  </div>-->
+  <!--  <div class="chart" id="11">-->
+  <!--    <app-chart [freq]="100000" [id]="11"></app-chart>-->
+  <!--  </div>-->
+  <!--  <div class="chart" id="12">-->
+  <!--    <app-chart [freq]="300000" [id]="12"></app-chart>-->
+  <!--  </div>-->
+  <!--</div>-->

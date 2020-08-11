@@ -1,4 +1,3 @@
-import { MatSliderModule, MatButtonModule, MatBadgeModule, MatButtonToggleModule } from '@angular/material';
 
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -36,6 +35,7 @@ import { OrderListComponent } from './trading/order-list/order-list.component';
 import { ChartPanelComponent } from './chart/chart-panel/chart-panel.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { AbsolutePipe } from './utils/absolute.pipe';
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 
 
@@ -69,10 +69,7 @@ import { AbsolutePipe } from './utils/absolute.pipe';
     TooltipModule,
     AngularStickyThingsModule,
     BrowserAnimationsModule,
-    MatSliderModule,
-    MatButtonModule,
-    MatBadgeModule,
-    MatButtonToggleModule,
+    MatProgressBarModule,
     AppRoutingModule,
     NgxPaginationModule
   ],

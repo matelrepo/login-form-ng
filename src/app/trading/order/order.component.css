@@ -80,6 +80,9 @@ input{
   display: flex;
   font-size: 0.8em;
 }
+.active-candle div {
+  margin: 0 5px;
+}
 
 .title{
   font-size: 0.8em;

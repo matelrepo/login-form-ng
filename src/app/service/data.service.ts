@@ -29,6 +29,9 @@ export class DataService {
   activeContract = new BehaviorSubject(DEFAULT_CONTRACT);
   activeContract$: Observable<Contract> = this.activeContract.asObservable();
 
+  activeFreq = new BehaviorSubject(1380);
+  activeFreq$: Observable<Number> = this.activeFreq.asObservable();
+
   activeCandle = new BehaviorSubject(null);
   activeCandle$: Observable<Candle> = this.activeCandle.asObservable();
 
@@ -40,11 +43,15 @@ export class DataService {
     console.log('deactivated')
   }
 
-  getContracts(category: string, filter: string) {
+  getContract(symbol: string, type: string){
+    return this.http.get<Contract>(this.dst + '/contract/' + symbol + '/' + type);
+  }
+
+  getContracts(category: string, filterSearchDaily: string) {
     if (category === 'DAILY') {
-      return this.http.get<Contract[]>(this.dst + '/contracts/dailycon/' + category + '/' + filter);
+      return this.http.get<Contract[]>(this.dst + '/contracts/dailycon/' + category + '/' + filterSearchDaily);
     } else {
-      return this.http.get<Contract[]>(this.dst + '/contracts/live/' + category + '/' + filter)
+      return this.http.get<Contract[]>(this.dst + '/contracts/live/' + category + '/' + filterSearchDaily)
     }
   }
 

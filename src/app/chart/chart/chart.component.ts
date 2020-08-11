@@ -24,6 +24,8 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private activeContractSubscription: Subscription = new Subscription()
+  private activeFreqSubscription: Subscription = new Subscription()
+
   private activeContract: Contract
   private liveDataSubscription: Subscription = new Subscription()
 
@@ -76,12 +78,19 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
           this.draw();
           this.subscribeHisto();
         });
+    this.activeFreqSubscription = this.dataService.activeFreq$
+      .subscribe((f =>{
+        this.freq = f
+        console.log('chart ' + f)
+        this.subscribeHisto()
+      }))
   }
 
   subscribeLive() {
     this.liveDataSubscription.unsubscribe();
     this.liveDataSubscription = this.dataService.getLiveTicks(this.activeContract.idcontract, this.freq).subscribe(mes => {
       const candle: Candle = JSON.parse(mes.body);
+      console.log(this.freq + ' ' + candle.freq)
       if (this.freq === candle.freq && this.candles.length > 0) {
         if (candle.id !== this.candles[0].id) {
           this.candles.unshift(candle); //new candle
@@ -97,6 +106,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
 
   subscribeHisto() {
     this.liveDataSubscription.unsubscribe();
+    console.log(this.freq)
     this.dataService.getHistoCandles(this.activeContract.idcontract, this.activeContract.symbol, this.freq)
       .subscribe(candles => {
         this.candles = candles;
@@ -146,7 +156,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
             this.colorBigCandle = 'khaki'
 
           const time = this.getX(x)
-          candle.canvax = time
+          candle.canvasX = time
           if (time < 0) {
             break;
           }
