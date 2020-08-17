@@ -7,7 +7,7 @@
   /*padding:10px;*/
   margin-top:20px;
   display: grid;
-  grid-template-columns: 30px 40px 30px 200px 35px 35px 70px 70px;
+  grid-template-columns: 30px 40px 30px 200px 35px 35px 35px 70px 70px;
 }
 
 .container-header div, .container-data div{
@@ -16,13 +16,13 @@
 
 
 .container-data{
-  width:500px;
+  /*width:500px;*/
   /*border: 2px solid orange;*/
   /*align-items: center;*/
   /*!*padding:5px 0px;*!*/
   /*grid-column: 1/end;*/
   display: grid;
-  grid-template-columns: 30px 40px 30px 200px 35px 35px 70px 70px;
+  grid-template-columns: 30px 40px 30px 200px 35px 35px 35px 70px 70px;
 }
 
 .data-event {

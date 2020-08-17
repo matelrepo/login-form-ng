@@ -29,6 +29,7 @@
       <div class="grid-header">Sym.</div>
       <div class="grid-header" (click)="displayAllEvents()">Freq</div>
       <div class="grid-header">Event</div>
+      <div class="grid-header">Trade</div>
       <div class="grid-header">Res.</div>
       <div class="grid-header">Sup.</div>
       <div class="grid-header">Value</div>
@@ -43,6 +44,7 @@
             <div>{{e.timestampTick | date:'dd/MM/yy HH:mm:ss'}}</div>
             <div>{{e.eventType}}</div>
           </div>
+          <div class="grid-data data-tradable"><input type="checkbox" [checked]="e.isTradable"></div>
           <div class="grid-data data-resistance"><input type="checkbox" [checked]="e.resistance"></div>
           <div class="grid-data data-support"><input type="checkbox" [checked]="e.support"></div>
           <div class="grid-data data-value">{{e.value}}</div>
