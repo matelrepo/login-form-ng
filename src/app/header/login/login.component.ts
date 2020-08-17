@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.auth.login(this.myForm.value.username, this.myForm.value.password).subscribe(
       result => {
-        console.log(result);
         this.errorMessage = undefined;
       },
       errors => {
@@ -35,7 +34,6 @@ export class LoginComponent implements OnInit {
         this.initForm();
       }
     );
-    console.log(this.myForm.value.username + ' ' + this.myForm.value.password);
   }
 
 }

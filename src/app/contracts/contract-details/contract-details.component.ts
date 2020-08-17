@@ -25,7 +25,6 @@ export class ContractDetailsComponent implements OnInit, OnDestroy {
       this.initForm();
       this.quoteSub = this.dataService.getHistoQuote(this.activeContract.idcontract).subscribe( state => {
         this.lastPrice =  state.lastPrice;
-        console.log(this.myForm.value.oldPrice);
 
       });
     });

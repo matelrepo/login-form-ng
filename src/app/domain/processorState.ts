@@ -1,6 +1,7 @@
 export interface ProcessorState {
   id: number
   idcontract: number
+  symbol: string
   freq: number
   idtick: number
   eventType: string

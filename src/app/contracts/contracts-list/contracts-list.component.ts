@@ -77,7 +77,6 @@ export class ContractsListComponent implements OnInit, OnDestroy, AfterViewInit 
 
 
   marketData(idcontract: number) {
-    console.log(this.generatorsState.get(idcontract).marketDataStatus);
     if (this.generatorsState.get(idcontract).marketDataStatus >= 1) {
         this.generatorsState.get(idcontract).marketDataStatus = 0;
         this.data.disconnect(idcontract).subscribe(() => {

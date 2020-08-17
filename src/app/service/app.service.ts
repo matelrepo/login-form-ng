@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Subject} from "rxjs";
+import {Observable, Subject} from "rxjs";
+import {IMessage} from "@stomp/stompjs";
+import {rxStompConfig} from "../config/rxStompConfig";
+import {RxStompService} from "@stomp/ng2-stompjs";
+import {Messenger} from "../domain/messenger";
 
 
 @Injectable({
@@ -8,7 +12,7 @@ import {Subject} from "rxjs";
 })
 export class AppService {
   dst = 'http://localhost:8080';
-  //dst = 'https://matel.io:8443'
+ // dst = 'https://matel.io:8443'
 
   portfolioChange_ = new Subject()
   sendEmail = true;
@@ -16,14 +20,21 @@ export class AppService {
   numCappedEvents = 20;
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private rxStompService: RxStompService) { }
 
   portfolioChange(){
     this.portfolioChange_.next()
   }
 
+  getHistoricalLogs(){
+    return this.http.get<Messenger[]>(this.dst + '/historical-logs');
+  }
+
+    getLogs(): Observable<IMessage> {
+      return this.rxStompService.watch('/get/logs', rxStompConfig.connectHeaders);
+    }
+
   sendEmailTest() {
-    console.log('send email test');
     return this.http.post<boolean>(this.dst + '/send-email', false);
   }
 

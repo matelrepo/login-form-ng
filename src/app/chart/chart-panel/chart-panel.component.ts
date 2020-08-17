@@ -16,7 +16,7 @@ export class ChartPanelComponent implements OnInit {
   idcontract: number
   candle: Candle
   private activeContractSubscription: Subscription = new Subscription()
-  private activeContract: Contract
+   activeContract: Contract
   private liveDataSubscription: Subscription = new Subscription()
 
   constructor(private data: DataService) {
@@ -42,7 +42,6 @@ export class ChartPanelComponent implements OnInit {
         symbol = (<HTMLInputElement>v.target).value
       }
         this.data.getContract(symbol, type).subscribe(c=>{
-            console.log(c)
           if(c!=null)
               this.data.activeContract.next(c);
         })

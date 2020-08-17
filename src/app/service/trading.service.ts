@@ -11,7 +11,7 @@ import {PortfolioState} from "../domain/portfolioState";
   providedIn: 'root'
 })
 export class TradingService {
-  dst = 'http://localhost:8080';
+ dst = 'http://localhost:8080';
   // dst = 'https://matel.io:8443'
 
   constructor(private http: HttpClient, private rxStompService: RxStompService) { }

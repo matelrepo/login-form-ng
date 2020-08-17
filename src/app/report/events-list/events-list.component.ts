@@ -4,6 +4,7 @@ import {ProcessorState} from "../../domain/processorState";
 import {Subscription} from "rxjs";
 import {Contract} from "../../domain/contract";
 import {AppService} from "../../service/app.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-events-list',
@@ -11,18 +12,26 @@ import {AppService} from "../../service/app.service";
   styleUrls: ['./events-list.component.css']
 })
 export class EventsListComponent implements OnInit, OnDestroy {
-  page: number = 1;
   events: ProcessorState[] =[]
+  showHeader = false;
+  config = {
+    id: 'custom',
+    itemsPerPage: 10,
+    currentPage: 1,
+    totalItems: this.events.length
+  };
   eventsOriginal: ProcessorState[] = []
   private activeContractSubscription = new Subscription()
   private liveEventsSubscription = new Subscription()
   private activeContract: Contract
+
+
   constructor(private data: DataService,
-              private app: AppService) { }
-
-
+              private app: AppService, private router: Router) { }
 
   ngOnInit() {
+    if(this.router.url==='/events-list')
+      this.showHeader = true
     this.activeContractSubscription= this.data.activeContract$
       .subscribe(contract => {
         this.activeContract = contract;
@@ -63,10 +72,10 @@ export class EventsListComponent implements OnInit, OnDestroy {
     })
   }
 
-  filterEventsByContract(){
-    this.events = this.eventsOriginal.filter(e=>e.idcontract === this.activeContract.idcontract)
+  filterEventsByContract(idcontract: number){
+    this.events = this.eventsOriginal.filter(e=>e.idcontract === idcontract)
     this.liveEventsSubscription.unsubscribe()
-    this.liveEventsSubscription = this.data.getLiveEventsByContract(this.activeContract.idcontract).subscribe(mes =>{
+    this.liveEventsSubscription = this.data.getLiveEventsByContract(idcontract).subscribe(mes =>{
       const event: ProcessorState = JSON.parse(mes.body);
       // if(event.isResistance || event.isSupport) {
       this.events.unshift(event)
@@ -105,7 +114,7 @@ export class EventsListComponent implements OnInit, OnDestroy {
       case 480:
         return '#99966d'
       default:
-        return '#ccc23b'
+        return '#989134'
         break;
     }
   }

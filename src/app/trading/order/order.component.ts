@@ -37,7 +37,7 @@ export class OrderComponent implements OnInit, OnDestroy {
       this.candle = candle;
       setTimeout(() => {
         this.showCandle = false
-      }, 10000);
+      }, 60000);
     });
 
     this.data.activeContract$.subscribe(contract => {

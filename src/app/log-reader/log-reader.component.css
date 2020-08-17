@@ -1,48 +1,34 @@
-
 .container{
-  margin:30px;
-}
-.container-header {
-  width:500px;
-  /*padding:10px;*/
-  margin-top:20px;
-  display: grid;
-  grid-template-columns: 30px 40px 30px 200px 35px 35px 70px 70px;
+  width:100%;
+  margin:20px;
 }
 
-.container-header div, .container-data div{
-  text-align: center;
+.table{
 }
 
-
-.container-data{
-  width:500px;
-  /*border: 2px solid orange;*/
-  /*align-items: center;*/
-  /*!*padding:5px 0px;*!*/
-  /*grid-column: 1/end;*/
-  display: grid;
-  grid-template-columns: 30px 40px 30px 200px 35px 35px 70px 70px;
-}
-
-.data-event {
+.row{
   display: flex;
-  flex-direction: column;
 }
 
-.data-value, .data-target, .data-idcontract, .data-freq, .data-name{
-  padding-top:8px;
-  /*border: 2px solid orange;*/
+.row div{
+  margin: 5px;
 }
 
-.data-event div:first-child{
-  font-size: 0.8em;
+.class-name{
+  color: #ffc107;
 }
 
-.data-event div:last-child{
-  font-size: 1.1em;
+.info{
+  color: dodgerblue;
 }
 
+.warn{
+  color: orangered;
+}
+
+.error{
+  color: darkred;
+}
 
 .custom-pagination{
   margin: 20px 30px;

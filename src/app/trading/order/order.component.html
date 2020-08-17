@@ -4,7 +4,7 @@
       ID: {{candle.idtick | number:'1.0-0'}}
     </div>
     <div *ngIf="this.candle!=undefined" [ngStyle]="{'visibility':showCandle ? 'visible' : 'hidden'}">
-      {{candle.timestampCandle | date:'dd-MM-yy HH:mm':'UTC -7'}}&nbsp;&nbsp;&nbsp;&nbsp;
+      {{candle.timestampCandle | date:'dd-MM-yy HH:mm':'UTC +2'}}&nbsp;&nbsp;&nbsp;&nbsp;
       O:&nbsp;&nbsp;{{candle.open}}&nbsp;
       H:&nbsp;&nbsp;{{candle.high}}&nbsp;
       L:&nbsp;&nbsp;{{candle.low}}&nbsp;

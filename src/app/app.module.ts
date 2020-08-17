@@ -35,7 +35,8 @@ import { OrderListComponent } from './trading/order-list/order-list.component';
 import { ChartPanelComponent } from './chart/chart-panel/chart-panel.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { AbsolutePipe } from './utils/absolute.pipe';
-import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatProgressBarModule, MatPaginatorModule} from "@angular/material";
+import { LogReaderComponent } from './log-reader/log-reader.component';
 
 
 
@@ -58,7 +59,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     OrderComponent,
     OrderListComponent,
     ChartPanelComponent,
-    AbsolutePipe
+    AbsolutePipe,
+    LogReaderComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +72,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     AngularStickyThingsModule,
     BrowserAnimationsModule,
     MatProgressBarModule,
+    MatPaginatorModule,
     AppRoutingModule,
     NgxPaginationModule
   ],
