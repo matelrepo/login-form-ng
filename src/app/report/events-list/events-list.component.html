@@ -1,6 +1,6 @@
 <app-header *ngIf="showHeader"></app-header>
 <div class="container">
-  <div class="table" *ngIf="events!=null">
+  <div class="table" *ngIf="events.length>0">
     <h1>Events report</h1>
     <pagination-template #p="paginationApi" [id]="config.id" (pageChange)="config.currentPage = $event">
       <div class="flex-container">

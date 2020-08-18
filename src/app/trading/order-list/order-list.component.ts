@@ -12,8 +12,14 @@ import {AppService} from "../../service/app.service";
   styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent implements OnInit, OnDestroy {
-  page: number = 1;
   orders: Order[] = []
+  showHeader = false;
+  config = {
+    id: 'custom',
+    itemsPerPage: 10,
+    currentPage: 1,
+    totalItems: this.orders.length
+  };
   displayPortfolioGlobal = true;
   private liveOrdersSubscription = new Subscription()
   private activeContractSubscription = new Subscription()

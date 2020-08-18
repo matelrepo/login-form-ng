@@ -89,6 +89,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
     this.liveDataSubscription.unsubscribe();
     this.liveDataSubscription = this.dataService.getLiveTicks(this.activeContract.idcontract, this.freq).subscribe(mes => {
       const candle: Candle = JSON.parse(mes.body);
+      // console.log(candle.idcontract + ' ' + candle.close)
       if (this.freq === candle.freq && this.candles.length > 0) {
         if (candle.id !== this.candles[0].id) {
           this.candles.unshift(candle); //new candle
@@ -296,6 +297,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
     mouseX = Math.round(mouseX)
 
     if (this.data.get(mouseX)) {
+      console.log(this.idcontract)
       const open = this.getYPixel(this.data.get(mouseX).open);
       const close = this.getYPixel(this.data.get(mouseX).close);
       const midPrice = this.getYPixel((this.data.get(mouseX).open + this.data.get(mouseX).close) / 2);

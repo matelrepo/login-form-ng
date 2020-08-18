@@ -28,8 +28,11 @@
       <th>P&L</th>
       <th>Contract</th>
       <th>Sym.</th>
+      <th>Ccy</th>
       <th>Freq</th>
       <th>Quantity</th>
+      <th>Mkt val (USD)</th>
+      <th>Mkt val</th>
       <th>Mark.</th>
       <th>Avg Pr.</th>
       <th>Mkt Pr.</th>
@@ -39,8 +42,11 @@
         <td  [ngClass]="{'price-up':position.pnl>0, 'price-down':position.pnl<0}">{{position.pnl}}</td>
         <td>{{position.idcontract}}</td>
         <td>{{position.symbol}}</td>
+        <td>{{position.currency}}</td>
         <td>{{position.freq}}</td>
         <td>{{position.quantity}}</td>
+        <td>{{position.marketValUSD  | number:'1.0-0'}}</td>
+        <td>{{position.marketVal  | number:'1.0-0'}}</td>
         <td>{{position.markPrice }}</td>
         <td>{{position.entryPrice}}</td>
         <td>{{position.lastPrice}}</td>
